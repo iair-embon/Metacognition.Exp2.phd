@@ -180,6 +180,7 @@ trials <- rep(col_trials, times = iSub)
 # add columns to df_exp
 df_exp$sujetos <- sujetos
 df_exp$trials <- trials
+######################################HASTA ACA TENEMOS
 
 ####### get the AQ quotient 
 
@@ -190,13 +191,13 @@ cant_componentes_por_sujetos <- 2
 cant_sujetos <- iSub
 
 # location of the sublist where the responses to the AQ of the first subject are
-ubicacion_comp_AQ <- 2
+ubicacion_comp1_pid <- 4
 
 # load the function to get the AQ quotient  
-source(root$find_file("Analysis/AuxiliaryFunctions/Nueva_funcion_AQ.R"))
+source(root$find_file("Analysis/AuxiliaryFunctions/pid-5.R"))
 
-# get the AQ quotient
-puntaje_AQ_sujetos <- puntaje_AQ(cant_sujetos,cant_componentes_por_sujetos,ubicacion_comp_AQ)
+# get the pid score
+puntaje_pid.5 <- puntaje_pid(cant_sujetos,cant_componentes_por_sujetos,ubicacion_comp1_pid)
 
 # add to df_DatosUnicos
 df_DatosUnicos$AQ <- puntaje_AQ_sujetos 
