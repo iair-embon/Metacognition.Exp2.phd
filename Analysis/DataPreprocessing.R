@@ -58,8 +58,8 @@ df_exp <- data.frame(t0 =character(),
                      confidence_t_keydown=character(), 
                      stringsAsFactors=FALSE) 
 
-for (s in 1:(length(res)-4)){# xq un -4?
-  
+
+for (s in 1:(length(res)-4)){ 
   ind_suenio <- NaN  
   ind_fecha <- NaN  
   ind_pais <- NaN  
@@ -82,8 +82,11 @@ for (s in 1:(length(res)-4)){# xq un -4?
   condicion1 <-  is.nan(ind_suenio) == FALSE
   # Condition 2 will be TRUE if there is an answer to the second part PID questions (component 4) 
   condicion2 <-  is.null(res[[s+4]]$question) ==FALSE    
+  # Condition 4 will be TRUE if there is an answer to the first part PID questions (component 3) 
+  condicion3 <-  is.null(res[[s+3]]$question) ==FALSE    
   
-  if(condicion1 & condicion2 ){ # new participant
+  if(condicion1 & condicion2 & condicion3){ # new participant
+    
     iSub <- iSub + 1;
     # I take data from component 1 (demographic)
     horasSuen <- c(horasSuen,res[[s]][ind_suenio]$sueno)
@@ -95,7 +98,11 @@ for (s in 1:(length(res)-4)){# xq un -4?
     medicacion <- c(medicacion,res[[s]][ind_medicacion]$medicacion)
     
     # Experiment data 
-    df_exp <- rbind(df_exp, res[[s+2]])
+    if (nrow(res[[s+2]]) == 130){
+      df_exp <- rbind(df_exp, res[[s+2]])
+    } else if (nrow(res[[s+1]]) == 130) {
+      df_exp <- rbind(df_exp, res[[s+1]])
+    }
     
     # pid1 data
     pid1 <- c(pid1, res[[s+3]])  
@@ -114,20 +121,83 @@ for (s in 1:(length(res)-4)){# xq un -4?
         Sinc <- c(Sinc, res[[s+6]][1]$sincericidio)
       }else{
         Sinc <- c(Sinc, NaN)}
-      if(length(res) - s >= 7 ){
+    }
+      
+    if(length(res) - s >= 7 ){
         if(is.null(res[[s+7]]$TeEscuchamos) ==FALSE){
           TeEscuchamos <- c(TeEscuchamos, res[[s+7]]$TeEscuchamos)
         }else{
           TeEscuchamos <- c(TeEscuchamos, NaN)}
-        
-      }
+    }else{
+      TeEscuchamos <- c(TeEscuchamos, NaN) 
+        }
     }
   }
-}
 
 ### save df
-filepath <- root$find_file("Data/Results_Exp2(replica)/df_total.Rda")
-save(df_total,file = filepath)
+# filepath <- root$find_file("Data/Results_Exp2(replica)/df_total.Rda")
+# save(df_total,file = filepath)
 
 
 ####### df 
+
+####### df 
+
+# df_DatosUnicos: for data of each subject.
+# df_exp: save each trial of metacognition exp (already created in previous loop)
+
+## df_DatosUnicos
+sujetos <-  1:iSub
+
+df_DatosUnicos <- data.frame(
+  sujetos = sujetos, 
+  horasSueno = horasSuen,
+  fechaNac = fechaNac,
+  pais = pais,
+  genero = genero,
+  estudio = estudio,
+  affeccionPsico = affeccionPsico,
+  medicacion = medicacion,
+  Browser = Browser,
+  sincericidio = Sinc,
+  TeEscuchamos = TeEscuchamos,
+  stringsAsFactors = FALSE
+)
+
+####### add subjects and trials to df_exp
+
+# get the number of trials per subject
+cant_trials <- length(res[[3]]$t0) 
+
+# prepare subject column
+col_sujetos <- 1:iSub
+sujetos <- rep(col_sujetos, each = cant_trials)
+
+# prepare trials column
+col_trials <- 1:cant_trials
+trials <- rep(col_trials, times = iSub)
+
+# add columns to df_exp
+df_exp$sujetos <- sujetos
+df_exp$trials <- trials
+
+####### get the AQ quotient 
+
+# number of AQ sublists for each subject 
+cant_componentes_por_sujetos <- 2
+
+# number of subject 
+cant_sujetos <- iSub
+
+# location of the sublist where the responses to the AQ of the first subject are
+ubicacion_comp_AQ <- 2
+
+# load the function to get the AQ quotient  
+source(root$find_file("Analysis/AuxiliaryFunctions/Nueva_funcion_AQ.R"))
+
+# get the AQ quotient
+puntaje_AQ_sujetos <- puntaje_AQ(cant_sujetos,cant_componentes_por_sujetos,ubicacion_comp_AQ)
+
+# add to df_DatosUnicos
+df_DatosUnicos$AQ <- puntaje_AQ_sujetos 
+
