@@ -270,8 +270,13 @@ edad <- rep(NA, nrow(df_DatosUnicos_mod)) ### QUEDAMOS ACA, SALE UN ERROR, EN UN
 for(i in 1:nrow(df_DatosUnicos_mod)){
   if(sapply(df_DatosUnicos_mod$fechaNac[i], is.convertible.to.date)){
     a <- as.Date( df_DatosUnicos_mod$fechaNac[i])
-    age <- as.integer( age_calc(a, units='years') )
-    edad[i] <- age
+    if (a < "2004-01-01"){
+      age <- as.integer( age_calc(a, units='years') )
+      edad[i] <- age
+    } else{
+      edad[i] <- NA
+    }
+
   }else{ # if it is not possible to obtain the age it is also a NA
     edad[i] <- NA
   }
@@ -439,12 +444,9 @@ df_total <- cbind(df_total, discrimination_is_correct = df_exp_mod2$discriminati
 
 ## save the df_total
 
-# RESULTS_EXP1
-# filepath <- root$find_file("Data/Results_Exp1/df_total.Rda")
-# save(df_total,file = filepath)
-
-# RESULTS_EXP2(REPLICA)
-
+# RESULTS_EXP
+filepath <- root$find_file("Data/df_total.Rda")
+save(df_total,file = filepath)
 
 
 # save the df in .txt format, it is saved in the mail folder
