@@ -7,7 +7,7 @@ anhedonia <- c("1,74", "1,50","1,25","1,13","1,00","0,75","0,63","0,50","0,38","
 ansiedad <- c("2,36","2,04","1,78","1,59","1,56","1,36","1,22","1,00","0,89","0,78","0,67","0,56","0,33")
 busqueda_atencion <- c ("2,25","2,00","1,63","1,50","1,28","1,13","0,88","0,63","0,50","0,38","0,25","0,13","0,00")
 insensibilidad <- c("2,21","1,93","1,61","1,52","1,43","1,36","1,29","1,15","1,08","1,08","1,07","1,00","1,00")
-engaño <- c("1,50","1,14","0,80","0,75","0,70","0,60","0,50","0,40","0,30","0,30","0,20","0,10","0,20")
+engaÃ±o <- c("1,50","1,14","0,80","0,75","0,70","0,60","0,50","0,40","0,30","0,30","0,20","0,10","0,10")
 depresion <- c("1,14","1,00","0,68","0,64","0,57","0,36","0,29","0,17","0,13","0,07","0,07","0,00","0,00")
 distractibilidad <- c("2,24","1,89","1,56","1,44","1,33","1,11","0,89","0,67","0,44","0,33","0,22","0,11","0,00")
 excentricidad <- c("1,92","1,62","1,23","1,08","1,00","0,77","0,62","0,40","0,30","0,15","0,15","0,00","0,00")
@@ -37,6 +37,6 @@ desapego <- c("1,39","1,15","0,93","0,80","0,71","0,57","0,43","0,34","0,22","0,
 
 
 ###CREO EL DATA FRAME LOS BAREMOS ###
-percentiles <- data.frame( percentil,anhedonia, ansiedad, busqueda_atencion,insensibilidad, engaño, depresion, distractibilidad, excentricidad, labilidad_emocional, grandiosidad, hostilidad, impulsividad, evitacion_intimidad, irresponsabilidad, manipulacion, desregulacion_perceptual, perseveracion, afectividad_restringida, perfeccionismo, toma_de_riesgos, inseguridad_separacion, sumision, recelo, creencias_y_experiencias_inusuales, aislamiento, afecto_negativo, antagonismo, desinhibicion, psicoticismo, desapego)
+percentiles <- data.frame( percentil,anhedonia, ansiedad, busqueda_atencion,insensibilidad, engaÃ±o, depresion, distractibilidad, excentricidad, labilidad_emocional, grandiosidad, hostilidad, impulsividad, evitacion_intimidad, irresponsabilidad, manipulacion, desregulacion_perceptual, perseveracion, afectividad_restringida, perfeccionismo, toma_de_riesgos, inseguridad_separacion, sumision, recelo, creencias_y_experiencias_inusuales, aislamiento, afecto_negativo, antagonismo, desinhibicion, psicoticismo, desapego)
 
 ##FIN DEL DATA FRAME DE PERCENTILES, ENCUESTA ##
