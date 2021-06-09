@@ -257,9 +257,11 @@ d$DomainDisinhibition <- (d$DomainDisinhibition - mean(d$DomainDisinhibition)) /
 d$DomainPsychoticism <- (d$DomainPsychoticism - mean(d$DomainPsychoticism)) / sd(d$DomainPsychoticism)
 
 
-a=lm(mc~ d$DomainPsychoticism, data = d)
+a=lm(mc~ d$Im + d$edad + d$RigidPerfeccionism + d$Im:d$RigidPerfeccionism, data = d)
 summary(a)
 display(a)
+
+plot(d$RigidPerfeccionism,d$mc)
 
 res <- resid(a)
 plot(fitted(a), res)
@@ -269,5 +271,13 @@ hist(res)
 
 
 ##
+
+library(GGally)
+
+ggcorr(d$DomainPsychoticism,d$DomainNegativeAffect,d$DomainDisinhibition, 
+       method = c("pairwise", "spearman"),
+       digits = 3,
+       palette = "viridis")
+
 
 

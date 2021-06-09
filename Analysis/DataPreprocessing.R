@@ -208,6 +208,7 @@ df_exp_mod$t_ensayo_discriminacion <- t_ensayo_discriminacion
 df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_discriminacion < 5001 & 
                            df_exp_mod$t_ensayo_discriminacion > 199,]
 
+
 ## Filter reaction times greater than 5000ms and less than 200ms in the confidence task
 t_ensayo_confianza <- df_exp_mod$confidence_t_keydown -df_exp_mod$confidence_t_onset
 df_exp_mod$t_ensayo_confianza <- t_ensayo_confianza 
