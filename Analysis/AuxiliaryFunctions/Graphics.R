@@ -86,7 +86,7 @@ library(arm)
 root <- rprojroot::is_rstudio_project
 basename(getwd())
 
-filepath <- (root$find_file("Data/df_total.Rda"))
+filepath <- (root$find_file("Data/df_total.filtro.0.Rda"))
 
 load(file= filepath)
 
@@ -178,7 +178,7 @@ for (i in 1:length(unique(df_total$sujetos))) {
   }
 
 
-d = data.frame(mc  = auc2,
+d.sin.normalizar = data.frame(mc  = auc2,
                Im = genero, 
                pc  = PC,
                hs = horasSueno,
@@ -218,6 +218,7 @@ d = data.frame(mc  = auc2,
                DomainDisinhibition = DomainDisinhibition,
                DomainPsychoticism = DomainPsychoticism 
                )
+d <- d.sin.normalizar
 
 d$pc <- (d$pc - mean(d$pc)) / sd(d$pc)
 #d$hs <- (d$hs - mean(d$hs)) / sd(d$hs)
@@ -256,10 +257,34 @@ d$DomainAntagonism <- (d$DomainAntagonism - mean(d$DomainAntagonism)) / sd(d$Dom
 d$DomainDisinhibition <- (d$DomainDisinhibition - mean(d$DomainDisinhibition)) /  sd(d$DomainDisinhibition)
 d$DomainPsychoticism <- (d$DomainPsychoticism - mean(d$DomainPsychoticism)) / sd(d$DomainPsychoticism)
 
+library(lme4)
 
-a=lm(mc~ d$Im + d$edad + d$RigidPerfeccionism + d$Im:d$RigidPerfeccionism, data = d)
+sujeto <- 1:nrow(d)
+d$sujeto <- sujeto
+
+a=lmer(mc~ d$Im + d$edad + d$RigidPerfeccionism + (1/d$sujeto) , data = d) # checkear tutoriales de pablo para tirar la regresion mixta 
 summary(a)
 display(a)
+
+
+for (i in colnames(d.sin.normalizar)){
+  a <- lm(mc~ d.sin.normalizar[[i]]+ d.sin.normalizar$edad,data = d.sin.normalizar)
+  print(colnames(d.sin.normalizar[i]))
+  #hist(d[[i]])
+  display(a)
+}
+
+a <- lm(mc~ d.sin.normalizar$edad ,data = d.sin.normalizar)
+summary(a)
+
+library(car)
+scatterplotMatrix(d.sin.normalizar[c("mc", "DomainNegativeAffect", 
+                      "DomainDetachment",
+                      "DomainAntagonism",
+                      "DomainDisinhibition",
+                      "DomainPsychoticism")], #selecciono las columnas necesarias
+                  smooth = TRUE, 
+                  regLine = TRUE)
 
 plot(d$RigidPerfeccionism,d$mc)
 
@@ -274,7 +299,7 @@ hist(res)
 
 library(GGally)
 
-ggcorr(d$DomainPsychoticism,d$DomainNegativeAffect,d$DomainDisinhibition, 
+ggcorr(d, 
        method = c("pairwise", "spearman"),
        digits = 3,
        palette = "viridis")
