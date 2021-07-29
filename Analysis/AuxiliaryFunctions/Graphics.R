@@ -305,4 +305,7 @@ ggcorr(d,
        palette = "viridis")
 
 
+# tutoriales de pablos
+# https://slcladal.github.io/regression.html#2_Mixed-Effects_Regression
+# https://rcompanion.org/handbook/G_03.html
 
