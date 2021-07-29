@@ -16,7 +16,7 @@ root <- rprojroot::is_rstudio_project
 basename(getwd())
 # REEMPLAZAR:
 #read each line and convert 
-content<-readLines(root$find_file("Data/jatos_results_20210406141549.txt"))
+content<-readLines(root$find_file("Data/datos_PIDOnlySurv+Metacog.txt"))
 res<-lapply(content,fromJSON)
 
 # each subject has 6 lists in order of arrival and by subjects.
@@ -315,7 +315,7 @@ df_DatosUnicos_mod <- unifica_col_affeccionPsico(df_DatosUnicos_mod,df_DatosUnic
 source(root$find_file("Analysis/AuxiliaryFunctions/unifica_col_TeEscuchamos.R"))
 
 # converts the TeEscuchamos values in Si, No , noSabe
-df_DatosUnicos_mod <- unifica_col_TeEscuchamos(df_DatosUnicos_mod,df_DatosUnicos)
+df_DatosUnicos_mod <- unifica_col_TeEscuchamos(df_DatosUnicos_mod,df_DatosUnicos) 
 
 ### Add the confidence columns to df_DatosUnicos_mod
 
@@ -454,7 +454,7 @@ df_total <- cbind(df_total, discrimination_is_correct = df_exp_mod2$discriminati
 ## save the df_total
 
 # RESULTS_EXP
-filepath <- root$find_file("Data/df_total.filtro.0.Rda")
+filepath <- root$find_file("Data/Experiment_OnlySurvey/df_total.filtro.0.Rda")
 save(df_total,file = filepath)
 
 

@@ -4,8 +4,8 @@
 library(tidyverse)
 
 ### ggplot 1
-ggplot(data = df_DatosUnicos_mod2) + 
-  geom_point(mapping = aes(x = AQ, y =auc2))
+ggplot(data = d) + 
+  geom_point(mapping = aes(x = RigidPerfeccionism, y =mc))
 
 ### ggplot 2 
 
@@ -20,8 +20,8 @@ ggplot(data = df_DatosUnicos_mod2) +
 ### ggplot 3 
 
 # con transparencias
-ggplot(data = df_DatosUnicos_mod7) + 
-  geom_point(mapping = aes(x = auc2, y = AQ, alpha = estudio))
+ggplot(data = d) + 
+  geom_point(mapping = aes(x = mc, y = DomainPsychoticism, alpha = estudio))
 
 # con formitas
 ggplot(data = df_DatosUnicos_mod7) + 
@@ -86,9 +86,21 @@ library(arm)
 root <- rprojroot::is_rstudio_project
 basename(getwd())
 
-filepath <- (root$find_file("Data/df_total.filtro.0.Rda"))
-
+## ambos df_total:
+filepath <- (root$find_file("Data/Experiment_Complete/df_total.filtro.0.Rda"))
 load(file= filepath)
+a <- df_total
+
+filepath <- (root$find_file("Data/Experiment_OnlySurvey/df_total.filtro.0.Rda"))
+load(file= filepath)
+b <- df_total
+# sumo 100 a la columna sujetos, para que no se pisen los nros y este nro sea unico
+b$sujetos <- b$sujetos + 1000 
+
+### cambio la columna sujetos por una nueva, para que no se pisen los nros y este nro sea unico
+# uno los df
+df_total <- rbind(a,b)
+
 
 # tomo las variables de interes
 auc2 <- rep(NaN, length(unique(df_total$sujetos)))
@@ -256,6 +268,10 @@ d$DomainDetachment <- (d$DomainDetachment - mean(d$DomainDetachment)) / sd(d$Dom
 d$DomainAntagonism <- (d$DomainAntagonism - mean(d$DomainAntagonism)) / sd(d$DomainAntagonism)
 d$DomainDisinhibition <- (d$DomainDisinhibition - mean(d$DomainDisinhibition)) /  sd(d$DomainDisinhibition)
 d$DomainPsychoticism <- (d$DomainPsychoticism - mean(d$DomainPsychoticism)) / sd(d$DomainPsychoticism)
+
+filepath <- root$find_file("Data/df_total_combine.filtro.0.Rda")
+save(df_total,file = filepath)
+
 
 library(lme4)
 
