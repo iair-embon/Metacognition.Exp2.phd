@@ -78,7 +78,7 @@ ggplot(data = df_DatosUnicos_mod2, mapping = aes(x = estudio, y = auc2)) +
 ggplot(data = df_DatosUnicos_mod2, mapping = aes(x = genero, y = sd_tr_confi)) + 
   geom_boxplot()
 
-
+######## PARTE DE ACA / CORRER DESDE ACA
 ### lineas para normalizar variables y hacer regresion 
 
 library(arm)
@@ -257,7 +257,7 @@ d$DomainDisinhibition <- (d$DomainDisinhibition - mean(d$DomainDisinhibition)) /
 d$DomainPsychoticism <- (d$DomainPsychoticism - mean(d$DomainPsychoticism)) / sd(d$DomainPsychoticism)
 
 
-a=lm(mc~ d$DomainPsychoticism, data = d)
+a=lm(mc~ as.factor(d$Im) + d$DomainPsychoticism + Im:d$DomainPsychoticism, data = d)
 summary(a)
 display(a)
 

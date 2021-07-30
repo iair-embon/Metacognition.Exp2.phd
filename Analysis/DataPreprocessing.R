@@ -205,14 +205,14 @@ source(root$find_file("Analysis/AuxiliaryFunctions/auroc2.R"))
 df_exp_mod <- df_exp
 t_ensayo_discriminacion <- df_exp_mod$discrimination_t_keydown - df_exp_mod$discrimination_t_onset
 df_exp_mod$t_ensayo_discriminacion <- t_ensayo_discriminacion 
-df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_discriminacion < 5001 & 
-                           df_exp_mod$t_ensayo_discriminacion > 199,]
+df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_discriminacion <= 5000 & 
+                           df_exp_mod$t_ensayo_discriminacion >= 200,]
 
 ## Filter reaction times greater than 5000ms and less than 200ms in the confidence task
 t_ensayo_confianza <- df_exp_mod$confidence_t_keydown -df_exp_mod$confidence_t_onset
 df_exp_mod$t_ensayo_confianza <- t_ensayo_confianza 
-df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_confianza < 5001 &
-                           df_exp_mod$t_ensayo_confianza > 199,]
+df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_confianza <= 5000 &
+                           df_exp_mod$t_ensayo_confianza >= 200,]
 
 ## get metacognitive sensivity
 library(dplyr)
@@ -265,7 +265,7 @@ library(eeptools)
 is.convertible.to.date <- function(x) !is.na(as.Date(as.character(x),
                                                      tz = 'UTC', format = '%Y-%m-%d'))
 
-edad <- rep(NA, nrow(df_DatosUnicos_mod)) ### QUEDAMOS ACA, SALE UN ERROR, EN UNA FECHA
+edad <- rep(NA, nrow(df_DatosUnicos_mod)) 
 
 for(i in 1:nrow(df_DatosUnicos_mod)){
   if(sapply(df_DatosUnicos_mod$fechaNac[i], is.convertible.to.date)){
