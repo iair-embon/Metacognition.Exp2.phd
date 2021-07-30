@@ -201,18 +201,37 @@ df_DatosUnicos <- cbind(df_DatosUnicos,puntaje_pid.5)
 # load the type 2 ROC analysis function
 source(root$find_file("Analysis/AuxiliaryFunctions/auroc2.R"))
 
+
 ## Filter reaction times greater than 5000ms and less than 200ms in the discrimination task
 df_exp_mod <- df_exp
 t_ensayo_discriminacion <- df_exp_mod$discrimination_t_keydown - df_exp_mod$discrimination_t_onset
 df_exp_mod$t_ensayo_discriminacion <- t_ensayo_discriminacion 
+<<<<<<< HEAD
 df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_discriminacion <= 5000 & 
                            df_exp_mod$t_ensayo_discriminacion >= 200,]
+=======
+
+hist(df_exp_mod$t_ensayo_discriminacion, breaks = 500)
+
+df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_discriminacion <= 5000 & 
+                           df_exp_mod$t_ensayo_discriminacion >= 0,]
+
+>>>>>>> 3d997814f2ec96e12f70891e886af3d4d74898b4
 
 ## Filter reaction times greater than 5000ms and less than 200ms in the confidence task
 t_ensayo_confianza <- df_exp_mod$confidence_t_keydown -df_exp_mod$confidence_t_onset
 df_exp_mod$t_ensayo_confianza <- t_ensayo_confianza 
+<<<<<<< HEAD
 df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_confianza <= 5000 &
                            df_exp_mod$t_ensayo_confianza >= 200,]
+=======
+
+hist(df_exp_mod$t_ensayo_confianza, breaks = 500)
+abline(v= 200)
+
+df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_confianza <= 5000 &
+                           df_exp_mod$t_ensayo_confianza >= 0,]
+>>>>>>> 3d997814f2ec96e12f70891e886af3d4d74898b4
 
 ## get metacognitive sensivity
 library(dplyr)
@@ -306,7 +325,7 @@ df_DatosUnicos_mod <- unifica_col_affeccionPsico(df_DatosUnicos_mod,df_DatosUnic
 source(root$find_file("Analysis/AuxiliaryFunctions/unifica_col_TeEscuchamos.R"))
 
 # converts the TeEscuchamos values in Si, No , noSabe
-df_DatosUnicos_mod <- unifica_col_TeEscuchamos(df_DatosUnicos_mod,df_DatosUnicos)
+df_DatosUnicos_mod <- unifica_col_TeEscuchamos(df_DatosUnicos_mod,df_DatosUnicos) 
 
 ### Add the confidence columns to df_DatosUnicos_mod
 
@@ -445,7 +464,7 @@ df_total <- cbind(df_total, discrimination_is_correct = df_exp_mod2$discriminati
 ## save the df_total
 
 # RESULTS_EXP
-filepath <- root$find_file("Data/df_total.Rda")
+filepath <- root$find_file("Data/Experiment_OnlySurvey/df_total.filtro.0.Rda")
 save(df_total,file = filepath)
 
 

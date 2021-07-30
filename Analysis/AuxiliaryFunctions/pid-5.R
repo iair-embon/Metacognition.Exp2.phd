@@ -138,6 +138,11 @@ puntaje_pid <- function (cant_sujetos,ubicacion_respuestas_pid1,ubicacion_respue
     ScoreDomainAntagonism     <- mean(scoreManipulativeness, scoreDeceitfulness, scoreGrandiosity)
     ScoreDomainDisinhibition  <- mean(scoreIrresponsibility, scoreImpulsivity, scoreDistractivility)
     ScoreDomainPsychoticism   <- mean(scoreUnusualBeliefsAndExperiences, scoreExcentricity, scorePerceptualDysregulation)
+    ScoreDomainNegativeAffect <- mean(c(scoreEmotionalLability,scoreAnxiousness, scoreSeparationInsecurity))
+    ScoreDomainDetachment     <- mean(c(scoreWithdrawal, scoreAnhedonia, scoreIntimacyAvoidance))
+    ScoreDomainAntagonism     <- mean(c(scoreManipulativeness, scoreDeceitfulness, scoreGrandiosity))
+    ScoreDomainDisinhibition  <- mean(c(scoreIrresponsibility, scoreImpulsivity, scoreDistractivility))
+    ScoreDomainPsychoticism   <- mean(c(scoreUnusualBeliefsAndExperiences, scoreExcentricity, scorePerceptualDysregulation))
     
     # guarda puntaje de todos los sujetos
     scoreAnhedonia.Completo[i]                       <- scoreAnhedonia
