@@ -257,6 +257,12 @@ d$DomainDisinhibition <- (d$DomainDisinhibition - mean(d$DomainDisinhibition)) /
 d$DomainPsychoticism <- (d$DomainPsychoticism - mean(d$DomainPsychoticism)) / sd(d$DomainPsychoticism)
 
 
+a=lm(DomainPsychoticism~ UnusualBeliefsAndExperiences + Excentricity + PerceptualDysregulation, data = d)
+summary(a)
+display(a)
+
+
+
 a=lm(mc~ as.factor(d$Im) + d$DomainPsychoticism + Im:d$DomainPsychoticism, data = d)
 summary(a)
 display(a)
