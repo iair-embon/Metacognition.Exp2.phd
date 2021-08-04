@@ -16,8 +16,8 @@ root <- rprojroot::is_rstudio_project
 basename(getwd())
 # REEMPLAZAR:
 #read each line and convert 
-content<-readLines(root$find_file("Data/jatos_results_20210406141549.txt"))
-content<-readLines(root$find_file("Data/datos_PIDOnlySurv+Metacog.txt"))
+#content<-readLines(root$find_file("Data/Experiment_Complete/jatos_results_20210801001553_PID_5_Ultimo.txt"))
+content<-readLines(root$find_file("Data/Experiment_OnlySurvey/datos_PIDOnlySurv+Metacog.txt"))
 res<-lapply(content,fromJSON)
 
 # each subject has 6 lists in order of arrival and by subjects.
@@ -203,36 +203,13 @@ df_DatosUnicos <- cbind(df_DatosUnicos,puntaje_pid.5)
 source(root$find_file("Analysis/AuxiliaryFunctions/auroc2.R"))
 
 
-## Filter reaction times greater than 5000ms and less than 200ms in the discrimination task
+######### Adding columns of reaction times
 df_exp_mod <- df_exp
-t_ensayo_discriminacion <- df_exp_mod$discrimination_t_keydown - df_exp_mod$discrimination_t_onset
-df_exp_mod$t_ensayo_discriminacion <- t_ensayo_discriminacion 
-<<<<<<< HEAD
-df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_discriminacion <= 5000 & 
-                           df_exp_mod$t_ensayo_discriminacion >= 200,]
-=======
 
-hist(df_exp_mod$t_ensayo_discriminacion, breaks = 500)
-
-df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_discriminacion <= 5000 & 
-                           df_exp_mod$t_ensayo_discriminacion >= 0,]
-
->>>>>>> 3d997814f2ec96e12f70891e886af3d4d74898b4
-
-## Filter reaction times greater than 5000ms and less than 200ms in the confidence task
-t_ensayo_confianza <- df_exp_mod$confidence_t_keydown -df_exp_mod$confidence_t_onset
-df_exp_mod$t_ensayo_confianza <- t_ensayo_confianza 
-<<<<<<< HEAD
-df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_confianza <= 5000 &
-                           df_exp_mod$t_ensayo_confianza >= 200,]
-=======
-
-hist(df_exp_mod$t_ensayo_confianza, breaks = 500)
-abline(v= 200)
-
-df_exp_mod <- df_exp_mod[df_exp_mod$t_ensayo_confianza <= 5000 &
-                           df_exp_mod$t_ensayo_confianza >= 0,]
->>>>>>> 3d997814f2ec96e12f70891e886af3d4d74898b4
+df_exp_mod$t_ensayo_discriminacion <- df_exp_mod$discrimination_t_keydown - 
+  df_exp_mod$discrimination_t_onset
+df_exp_mod$t_ensayo_confianza <- df_exp_mod$confidence_t_keydown -
+  df_exp_mod$confidence_t_onset
 
 ## get metacognitive sensivity
 library(dplyr)
@@ -464,8 +441,14 @@ df_total <- cbind(df_total, discrimination_is_correct = df_exp_mod2$discriminati
 
 ## save the df_total
 
+
 # RESULTS_EXP
-filepath <- root$find_file("Data/Experiment_OnlySurvey/df_total.filtro.0.Rda")
+#filepath <- root$find_file("Data/Experiment_Complete/df_total.Rda")
+#save(df_total,file = filepath)
+
+
+# RESULTS_EXP
+filepath <- root$find_file("Data/Experiment_OnlySurvey/df_total.Rda")
 save(df_total,file = filepath)
 
 
