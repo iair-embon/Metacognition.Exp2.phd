@@ -1,3 +1,5 @@
+# old graphic
+
 # jugando con graficos del libro https://r4ds.had.co.nz/data-visualisation.html 
 # y los datos del exp de metacog
 

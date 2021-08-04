@@ -16,8 +16,8 @@ root <- rprojroot::is_rstudio_project
 basename(getwd())
 # REEMPLAZAR:
 #read each line and convert 
-#content<-readLines(root$find_file("Data/Experiment_Complete/jatos_results_20210801001553_PID_5_Ultimo.txt"))
-content<-readLines(root$find_file("Data/Experiment_OnlySurvey/datos_PIDOnlySurv+Metacog.txt"))
+content<-readLines(root$find_file("Data/Experiment_Complete/jatos_results_20210801001553_PID_5_Ultimo.txt"))
+#content<-readLines(root$find_file("Data/Experiment_OnlySurvey/datos_PIDOnlySurv+Metacog.txt"))
 res<-lapply(content,fromJSON)
 
 # each subject has 6 lists in order of arrival and by subjects.
@@ -437,19 +437,21 @@ for (i in ExistingSubjects) {
 # combino las columnas de df_exp_mod2 que me interesan con el df_total
 df_total <- cbind(df_total, discrimination_is_correct = df_exp_mod2$discrimination_is_correct,
                   confidence_key = df_exp_mod2$confidence_key, trials = df_exp_mod2$trials,
-                  diferencia_puntitos = df_exp_mod2$diferencia_puntitos)
+                  diferencia_puntitos = df_exp_mod2$diferencia_puntitos,
+                  t_ensayo_discriminacion = df_exp_mod2$t_ensayo_discriminacion,
+                  t_ensayo_confianza = df_exp_mod2$t_ensayo_confianza)
 
 ## save the df_total
 
 
 # RESULTS_EXP
-#filepath <- root$find_file("Data/Experiment_Complete/df_total.Rda")
-#save(df_total,file = filepath)
+filepath <- root$find_file("Data/Experiment_Complete/df_total.Rda")
+save(df_total,file = filepath)
 
 
 # RESULTS_EXP
-filepath <- root$find_file("Data/Experiment_OnlySurvey/df_total.Rda")
-save(df_total,file = filepath)
+#filepath <- root$find_file("Data/Experiment_OnlySurvey/df_total.Rda")
+#save(df_total,file = filepath)
 
 
 # save the df in .txt format, it is saved in the mail folder
