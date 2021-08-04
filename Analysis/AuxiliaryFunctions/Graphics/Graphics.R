@@ -13,14 +13,14 @@ source(root$find_file("Analysis/AuxiliaryFunctions/Graphics/DataFrames_ForGraphi
 # experimento = ExperimentOnlySurvey, ExperimentComplete, ambos
 DF_list <- DataFrame_ForGraphics(experimento = "ambos", 
                                   filtroRT_Disc_Sup = 5000,
-                                  filtroRT_Disc_Inf = 0,
+                                  filtroRT_Disc_Inf = 100,
                                   filtroRT_Conf_Sup = 5000,
-                                  filtroRT_Conf_Inf = 0,
-                                  filtroTrial = 0)
+                                  filtroRT_Conf_Inf = 100,
+                                  filtroTrial = 20)
 
 # DF_list:
 # a df_total # todos los datos, trial a trial
-# b d.sin.normalizar# solo los datos unicos, sino el trial a trial
+# b d.sin.normalizar # solo los datos unicos, sino el trial a trial
 # c d # lo mismo que el anterior pero normalizado
 # d d.mc.filter # ahora sin los que tienen AUROC2 menor a 0.5
 # e d.sin.normalizar.solo.FyM ## solo hombres mujeres
@@ -30,7 +30,6 @@ DF_list <- DataFrame_ForGraphics(experimento = "ambos",
 
 d.sin.normalizar <- DF_list$b
 df_total <- DF_list$a
-d.sin.normalizar.solo.FyM.mc.filter <- DF_list$g
 ###############
 ### library ###
 ###############
@@ -42,6 +41,12 @@ library(ggridges)
 ################
 
 ####### histograms
+
+
+
+
+
+
 
 #### AQ by sex
 
@@ -190,10 +195,30 @@ ggplot(d,aes(x=RT_task)) +
         strip.text = element_text(size = 20),
         axis.title.x = element_text(size = 30))
 
+####### histogram age
+
+# age
+ggplot(d.sin.normalizar, aes(x=edad))+
+  geom_histogram(color="darkred", fill="red", bins = 100)+
+  ylab("count")+
+  xlab("Age (years)")+
+  theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        plot.margin = margin(1, 1,1, 1, "cm"),
+        panel.border = element_blank(),
+        panel.background = element_blank(),
+        axis.text.x = element_text(size = 25),
+        axis.text.y = element_text(size = 25),
+        axis.title.y = element_text(size = 25),
+        axis.title.x = element_text(size = 25)) 
+
 
 ####### metacognition and performance plot
 
-mc.sorted <-  d.sin.normalizar.mc.filter[order(d.sin.normalizar.mc.filter$mc),]
+
+mc.sorted <-  d.sin.normalizar[order(d.sin.normalizar$mc),]
 subjects <- 1:nrow(mc.sorted)
 mc.sorted$s <- subjects
 
@@ -218,7 +243,32 @@ ggplot(mc.sorted, aes(s)) +
 
 ####### density plots
 
-# Metacognition with F and M
+DomainPsychoticism <- d.sin.normalizar$DomainPsychoticism
+DomainDisinhibition  <- d.sin.normalizar$DomainDisinhibition
+DomainAntagonism <- d.sin.normalizar$DomainAntagonism
+DomainDetachment <- d.sin.normalizar$DomainDetachment
+DomainNegativeAffect <- d.sin.normalizar$DomainNegativeAffect
+
+DomainValues <- c(DomainPsychoticism,DomainDisinhibition,DomainAntagonism,
+                  DomainDetachment,DomainNegativeAffect)
+
+DomainPsychoticism_label <- rep("DomainPsychoticism",length(DomainPsychoticism))
+DomainDisinhibition_label <- rep("DomainDisinhibition", length(DomainDisinhibition)) 
+DomainAntagonism_label <- rep("DomainAntagonism", length(DomainAntagonism))
+DomainDetachment_label <- rep("DomainDetachment", length(DomainDetachment))
+DomainNegativeAffect_label <- rep("DomainNegativeAffect", length(DomainNegativeAffect))
+
+DomainLabels <- c(DomainPsychoticism_label,DomainDisinhibition_label,
+                  DomainAntagonism_label, DomainDetachment_label,
+                  DomainNegativeAffect_label)
+
+d1 <- data.frame(DomainValues = DomainValues,
+                 DomainLabels = DomainLabels)
+
+ggplot(d1, aes(x = DomainValues, fill = DomainLabels)) + 
+  geom_density(alpha = 0.2)
+
+
 ggplot(d.sin.normalizar.solo.FyM.mc.filter, aes(x = mc, y = aq.quartile, fill = Im, colour = Im, alpha=0.5)) +
   geom_density_ridges() +
   theme_ridges() + 
@@ -227,26 +277,7 @@ ggplot(d.sin.normalizar.solo.FyM.mc.filter, aes(x = mc, y = aq.quartile, fill = 
   theme(legend.text = element_text(colour="blue", size=10, 
                                      face="bold"))
 
-# metacognition with F
-
-ggplot(solo.f, aes(x = mc, y = aq.quartile, fill = aq.quartile)) +
-  geom_density_ridges() +
-  theme_ridges() + 
-  theme(legend.position = "none")
-
-# metacognition with M
-
-ggplot(d.sin.normalizar.solo.FyM, aes(x = mc, y = aq.quartile, fill = aq.quartile)) +
-  geom_density_ridges() +
-  theme_ridges() + 
-  theme(legend.position = "none")
-
-# aq by sex 
-
-ggplot(d.sin.normalizar.solo.FyM.mc.filter, aes(x=aq, fill=Im)) +
-  geom_density()
-
-
+# by sex
 l <- d.sin.normalizar.solo.FyM.mc.filter
 for (i in 1:nrow(l)) {
   if(l$Im[i] == 'Femenino'){l$Im[i]= 'Female'}
@@ -295,44 +326,6 @@ p+  theme_bw() +
         legend.text = element_text(size=26),
         axis.title.x = element_text(size = 31))+
   scale_fill_grey()
-
-# reaction times with density plots
-
-ggplot(df_total, aes(x=t_ensayo_discriminacion)) +
-  geom_density(color="darkred", fill="red")+
-  scale_y_continuous(expand = expansion(mult = c(0, .1)))+
-  ylab("")+
-  xlab("RT in discrimination task (ms)")+
-  theme_bw() +
-  theme(axis.line = element_line(colour = "black"),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        plot.margin = margin(1, 1,1, 1, "cm"),
-        panel.border = element_blank(),
-        panel.background = element_blank(),
-        axis.text.x = element_text(size = 30),
-        axis.title.y=element_blank(),
-        axis.text.y=element_blank(),
-        axis.ticks.y=element_blank(),
-        axis.title.x = element_text(size = 30)) 
-
-ggplot(df_total, aes(x=t_ensayo_confianza)) +
-  geom_density(color="darkred", fill="red")+
-  scale_y_continuous(expand = expansion(mult = c(0, .1)))+
-  ylab("")+
-  xlab("RT in confidence task (ms)")+
-  theme_bw() +
-  theme(axis.line = element_line(colour = "black"),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        plot.margin = margin(1, 1,1, 1, "cm"),
-        panel.border = element_blank(),
-        panel.background = element_blank(),
-        axis.text.x = element_text(size = 30),
-        axis.title.y=element_blank(),
-        axis.text.y=element_blank(),
-        axis.ticks.y=element_blank(),
-        axis.title.x = element_text(size = 30)) 
 
 
 ##### probando un grafico de tr por sujeto y cantidad de trials menores a 100ms
