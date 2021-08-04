@@ -17,6 +17,7 @@ basename(getwd())
 # REEMPLAZAR:
 #read each line and convert 
 content<-readLines(root$find_file("Data/jatos_results_20210406141549.txt"))
+content<-readLines(root$find_file("Data/datos_PIDOnlySurv+Metacog.txt"))
 res<-lapply(content,fromJSON)
 
 # each subject has 6 lists in order of arrival and by subjects.

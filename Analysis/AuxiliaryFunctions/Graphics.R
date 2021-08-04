@@ -4,8 +4,8 @@
 library(tidyverse)
 
 ### ggplot 1
-ggplot(data = df_DatosUnicos_mod2) + 
-  geom_point(mapping = aes(x = AQ, y =auc2))
+ggplot(data = d) + 
+  geom_point(mapping = aes(x = IntimacyAvoidance, y =mc))
 
 ### ggplot 2 
 
@@ -20,8 +20,8 @@ ggplot(data = df_DatosUnicos_mod2) +
 ### ggplot 3 
 
 # con transparencias
-ggplot(data = df_DatosUnicos_mod7) + 
-  geom_point(mapping = aes(x = auc2, y = AQ, alpha = estudio))
+ggplot(data = d) + 
+  geom_point(mapping = aes(x = mc, y = DomainPsychoticism, alpha = estudio))
 
 # con formitas
 ggplot(data = df_DatosUnicos_mod7) + 
@@ -70,7 +70,7 @@ ggplot(data = df_DatosUnicos_mod2) +
 
 # boxplot estudio
 
-ggplot(data = df_DatosUnicos_mod2, mapping = aes(x = estudio, y = auc2)) + 
+ggplot(data = d, mapping = aes(x = es, y = mc)) + 
   geom_boxplot()
 
 # boxplot genero
@@ -86,9 +86,28 @@ library(arm)
 root <- rprojroot::is_rstudio_project
 basename(getwd())
 
-filepath <- (root$find_file("Data/df_total.Rda"))
-
+## ambos df_total:
+filepath <- (root$find_file("Data/Experiment_Complete/df_total.filtro.0.Rda"))
 load(file= filepath)
+a <- df_total
+
+filepath <- (root$find_file("Data/Experiment_OnlySurvey/df_total.filtro.0.Rda"))
+load(file= filepath)
+b <- df_total
+# sumo 100 a la columna sujetos, para que no se pisen los nros y este nro sea unico
+b$sujetos <- b$sujetos + 1000 
+
+### cambio la columna sujetos por una nueva, para que no se pisen los nros y este nro sea unico
+# uno los df
+df_total <- rbind(a,b)
+
+
+filepath <- (root$find_file("Data/d.filtro.0.Rda"))
+load(file = filepath)
+
+filepath <- (root$find_file("Data/df_total_combine.filtro.0.Rda"))
+load(file = filepath)
+
 
 # tomo las variables de interes
 auc2 <- rep(NaN, length(unique(df_total$sujetos)))
@@ -178,7 +197,7 @@ for (i in 1:length(unique(df_total$sujetos))) {
   }
 
 
-d = data.frame(mc  = auc2,
+d.sin.normalizar = data.frame(mc  = auc2,
                Im = genero, 
                pc  = PC,
                hs = horasSueno,
@@ -218,6 +237,7 @@ d = data.frame(mc  = auc2,
                DomainDisinhibition = DomainDisinhibition,
                DomainPsychoticism = DomainPsychoticism 
                )
+d <- d.sin.normalizar
 
 d$pc <- (d$pc - mean(d$pc)) / sd(d$pc)
 #d$hs <- (d$hs - mean(d$hs)) / sd(d$hs)
@@ -256,16 +276,75 @@ d$DomainAntagonism <- (d$DomainAntagonism - mean(d$DomainAntagonism)) / sd(d$Dom
 d$DomainDisinhibition <- (d$DomainDisinhibition - mean(d$DomainDisinhibition)) /  sd(d$DomainDisinhibition)
 d$DomainPsychoticism <- (d$DomainPsychoticism - mean(d$DomainPsychoticism)) / sd(d$DomainPsychoticism)
 
+filepath <- root$find_file("Data/df_total_combine.filtro.0.Rda")
+save(df_total,file = filepath)
 
 a=lm(DomainPsychoticism~ UnusualBeliefsAndExperiences + Excentricity + PerceptualDysregulation, data = d)
 summary(a)
 display(a)
 
+a=lm(mc~ IntimacyAvoidance, data = d)
+summary(a)
+
+a=lm(mc~ d$tr_d + d$tr_c, data = d)
+summary(a)
+
+
+a <- lm(mc ~ DomainPsychoticism + DomainDisinhibition+ 
+        DomainAntagonism+ DomainDetachment+ 
+        DomainNegativeAffect + edad + Im , data = d)
+summary(a)
+
+
+d <- d[d$mc > -2,]
+
+a <- lm(d$mc ~ d$Anhedonia + d$Anxiousness + d$AttentionSeeking +
+          d$Callousness + d$Deceitfulness + d$Depressivity +
+          d$Distractivility + d$Excentricity + d$EmotionalLability+
+          d$Grandiosity + d$Hostility + d$Impulsivity +
+          d$IntimacyAvoidance + d$Irresponsibility +
+          d$Manipulativeness + d$PerceptualDysregulation +
+          d$Perseveration + d$RestrictedAffectivity + 
+          d$RigidPerfeccionism + d$RiskTaking +
+          d$SeparationInsecurity + d$Submissiveness+
+          d$Suspiciousness + d$UnusualBeliefsAndExperiences+
+          d$Withdrawal+ d$edad + d$Im)
+summary(a)
+
 
 
 a=lm(mc~ as.factor(d$Im) + d$DomainPsychoticism + Im:d$DomainPsychoticism, data = d)
+
+library(lme4)
+
+sujeto <- 1:nrow(d)
+d$sujeto <- sujeto
+
+a=lmer(mc~ d$Im + d$edad + d$RigidPerfeccionism + (1/d$sujeto) , data = d) # checkear tutoriales de pablo para tirar la regresion mixta 
 summary(a)
 display(a)
+
+
+for (i in colnames(d.sin.normalizar)){
+  a <- lm(mc~ d.sin.normalizar[[i]]+ d.sin.normalizar$edad,data = d.sin.normalizar)
+  print(colnames(d.sin.normalizar[i]))
+  #hist(d[[i]])
+  display(a)
+}
+
+a <- lm(mc~ d.sin.normalizar$edad ,data = d.sin.normalizar)
+summary(a)
+
+library(car)
+scatterplotMatrix(d.sin.normalizar[c("mc", "DomainNegativeAffect", 
+                      "DomainDetachment",
+                      "DomainAntagonism",
+                      "DomainDisinhibition",
+                      "DomainPsychoticism")], #selecciono las columnas necesarias
+                  smooth = TRUE, 
+                  regLine = TRUE)
+
+plot(d$RigidPerfeccionism,d$mc)
 
 res <- resid(a)
 plot(fitted(a), res)
@@ -276,4 +355,15 @@ hist(res)
 
 ##
 
+library(GGally)
+
+ggcorr(d, 
+       method = c("pairwise", "spearman"),
+       digits = 3,
+       palette = "viridis")
+
+
+# tutoriales de pablos
+# https://slcladal.github.io/regression.html#2_Mixed-Effects_Regression
+# https://rcompanion.org/handbook/G_03.html
 
