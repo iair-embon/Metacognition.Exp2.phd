@@ -3,36 +3,36 @@
 ##CREO LOS VECTORES ## 
 set.seed(39)
 percentil <- c("95","90","80","75","70","60","50","40","30","25","20","10","5")
-anhedonia <- c("1,74", "1,50","1,25","1,13","1,00","0,75","0,63","0,50","0,38","0,38","0,25","0,13","0,13")
-ansiedad <- c("2,36","2,04","1,78","1,59","1,56","1,36","1,22","1,00","0,89","0,78","0,67","0,56","0,33")
-busqueda_atencion <- c ("2,25","2,00","1,63","1,50","1,28","1,13","0,88","0,63","0,50","0,38","0,25","0,13","0,00")
-insensibilidad <- c("2,21","1,93","1,61","1,52","1,43","1,36","1,29","1,15","1,08","1,08","1,07","1,00","1,00")
-engaño <- c("1,50","1,14","0,80","0,75","0,70","0,60","0,50","0,40","0,30","0,30","0,20","0,10","0,10")
-depresion <- c("1,14","1,00","0,68","0,64","0,57","0,36","0,29","0,17","0,13","0,07","0,07","0,00","0,00")
-distractibilidad <- c("2,24","1,89","1,56","1,44","1,33","1,11","0,89","0,67","0,44","0,33","0,22","0,11","0,00")
-excentricidad <- c("1,92","1,62","1,23","1,08","1,00","0,77","0,62","0,40","0,30","0,15","0,15","0,00","0,00")
-labilidad_emocional <- c("2,39","2,06","1,71","1,57","1,57","1,29","1,14","0,86","0,71","0,71","0,57","0,43","0,19")
-grandiosidad <- c ("1,67","1,33","1,00","0,83","0,67","0,60","0,33","0,33","0,17","0,17","0,00","0,00","0,00")
-hostilidad <- c("2,10","1,90","1,60","1,50","1,40","1,20","1,10","1,00","0,80","0,70","0,60","0,40","0,30")
-impulsividad <- c("2,33","2,07","1,67","1,50","1,40","1,28","1,00","0,83","0,65","0,50","0,33","0,17","0,00")
-evitacion_intimidad <- c("1,50", "1,17","1,00","0,92","0,83","0,67","0,50","0,50","0,50","0,33","0,17","0,00","0,00")
-irresponsabilidad <- c("1,43","1,29","1,00","0,86","0,83","0,57","0,43","0,43","0,29","0,29","0,14","0,00","0,00")
-manipulacion <- c("1,80","1,60","1,20","1,00","1,00","0,80","0,60","0,40","0,20","0,20","0,00","0,00","0,00")
-desregulacion_perceptual <- c("1,32","1,12","0,83","0,67","0,58","0,42","0,33","0,25","0,17","0,17", "0,08","0,00","0,00")
-perseveracion <- c("2,08","1,78","1,44","1,33","1,22","1,00","0,89","0,78","0,56","0,44","0,33","0,22","0,11")
-afectividad_restringida <- c("1,96","1,71","1,43","1,29","1,29","1,14","1,00","0,71","0,57","0,57","0,43","0,29","0,14")
-perfeccionismo <- c("2,18","2,00","1,60","1,50","1,40","1,20","1,00","0,80","0,60","0,50","0,40","0,20","0,10")
-toma_de_riesgos <- c("2,15","1,93","1,64","1,50","1,43","1,29","1,21","1,14","1,00","0,93","0,80","0,64","0,45")
-inseguridad_separacion <- c("1,86","1,43","1,14","1,00","0,86","0,66","0,43","0,29","0,14","0,14","0,00","0,00","0,00")
-sumision <- c("2,00","1,75","1,50","1,25","1,25","1,00","0,75","0,50","0,50","0,50","0,25","0,25","0,00")
-recelo <- c("1,86","1,57","1,43","1,43","1,29","1,14","1,00","0,86","0,71","0,71","0,57","0,43","0,29")
-creencias_y_experiencias_inusuales <- c("1,48","1,13","0,88","0,75","0,63","0,38","0,25","0,13","0,13","0,00","0,00","0,00","0,00")
-aislamiento <- c ("1,70","1,40","1,11","1,00","0,90","0,60","0,50","0,30","0,20","0,20","0,10","0,00","0,00")
-afecto_negativo <- c("1,36","1,00","0,71","0,57","0,50","0,43","0,36","0,23","0,21","0,14","0,14","0,00","0,00")
-antagonismo <- c("1,95","1,74","1,44","1,34","1,26","1,08","0,94","0,82","0,69","0,61","0,56","0,41","0,29")
-desinhibicion <- c("1,57","1,25","0,92","0,84","0,77","0,64","0,53","0,43","0,30","0,27","0,20","0,10","0,04")
-psicoticismo <- c("1,82","1,50","1,30","1,18","1,06","0,96","0,83","0,69","0,53","0,49","0,39","0,22","0,12")
-desapego <- c("1,39","1,15","0,93","0,80","0,71","0,57","0,43","0,34","0,22","0,17","0,14","0,06","0,01")
+anhedonia <- c("1.74", "1.50","1.25","1.13","1.00","0.75","0.63","0.50","0.38","0.38","0.25","0.13","0.13")
+ansiedad <- c("2.36","2.04","1.78","1.59","1.56","1.36","1.22","1.00","0.89","0.78","0.67","0.56","0.33")
+busqueda_atencion <- c ("2.25","2.00","1.63","1.50","1.28","1.13","0.88","0.63","0.50","0.38","0.25","0.13","0.00")
+insensibilidad <- c("2.21","1.93","1.61","1.52","1.43","1.36","1.29","1.15","1.08","1.08","1.07","1.00","1.00")
+engaño <- c("1.50","1.14","0.80","0.75","0.70","0.60","0.50","0.40","0.30","0.30","0.20","0.10","0.10")
+depresion <- c("1.14","1.00","0.68","0.64","0.57","0.36","0.29","0.17","0.13","0.07","0.07","0.00","0.00")
+distractibilidad <- c("2.24","1.89","1.56","1.44","1.33","1.11","0.89","0.67","0.44","0.33","0.22","0.11","0.00")
+excentricidad <- c("1.92","1.62","1.23","1.08","1.00","0.77","0.62","0.40","0.30","0.15","0.15","0.00","0.00")
+labilidad_emocional <- c("2.39","2.06","1.71","1.57","1.57","1.29","1.14","0.86","0.71","0.71","0.57","0.43","0.19")
+grandiosidad <- c ("1.67","1.33","1.00","0.83","0.67","0.60","0.33","0.33","0.17","0.17","0.00","0.00","0.00")
+hostilidad <- c("2.10","1.90","1.60","1.50","1.40","1.20","1.10","1.00","0.80","0.70","0.60","0.40","0.30")
+impulsividad <- c("2.33","2.07","1.67","1.50","1.40","1.28","1.00","0.83","0.65","0.50","0.33","0.17","0.00")
+evitacion_intimidad <- c("1.50", "1.17","1.00","0.92","0.83","0.67","0.50","0.50","0.50","0.33","0.17","0.00","0.00")
+irresponsabilidad <- sub(',','.',c("1,43","1,29","1,00","0,86","0,83","0,57","0,43","0,43","0,29","0,29","0,14","0,00","0,00"))
+manipulacion <- sub(',','.',c("1,80","1,60","1,20","1,00","1,00","0,80","0,60","0,40","0,20","0,20","0,00","0,00","0,00"))
+desregulacion_perceptual <- sub(',','.',c("1,32","1,12","0,83","0,67","0,58","0,42","0,33","0,25","0,17","0,17", "0,08","0,00","0,00"))
+perseveracion <- sub(',','.',c("2,08","1,78","1,44","1,33","1,22","1,00","0,89","0,78","0,56","0,44","0,33","0,22","0,11"))
+afectividad_restringida <- sub(',','.',c("1,96","1,71","1,43","1,29","1,29","1,14","1,00","0,71","0,57","0,57","0,43","0,29","0,14"))
+perfeccionismo <- sub(',','.',c("2,18","2,00","1,60","1,50","1,40","1,20","1,00","0,80","0,60","0,50","0,40","0,20","0,10"))
+toma_de_riesgos <- sub(',','.',c("2,15","1,93","1,64","1,50","1,43","1,29","1,21","1,14","1,00","0,93","0,80","0,64","0,45"))
+inseguridad_separacion <- sub(',','.',c("1,86","1,43","1,14","1,00","0,86","0,66","0,43","0,29","0,14","0,14","0,00","0,00","0,00"))
+sumision <- sub(',','.',c("2,00","1,75","1,50","1,25","1,25","1,00","0,75","0,50","0,50","0,50","0,25","0,25","0,00"))
+recelo <- sub(',','.',c("1,86","1,57","1,43","1,43","1,29","1,14","1,00","0,86","0,71","0,71","0,57","0,43","0,29"))
+creencias_y_experiencias_inusuales <- sub(',','.',c("1,48","1,13","0,88","0,75","0,63","0,38","0,25","0,13","0,13","0,00","0,00","0,00","0,00"))
+aislamiento <- sub(',','.',c ("1,70","1,40","1,11","1,00","0,90","0,60","0,50","0,30","0,20","0,20","0,10","0,00","0,00"))
+afecto_negativo <- sub(',','.',c("1,36","1,00","0,71","0,57","0,50","0,43","0,36","0,23","0,21","0,14","0,14","0,00","0,00"))
+antagonismo <- sub(',','.',c("1,95","1,74","1,44","1,34","1,26","1,08","0,94","0,82","0,69","0,61","0,56","0,41","0,29"))
+desinhibicion <- sub(',','.',c("1,57","1,25","0,92","0,84","0,77","0,64","0,53","0,43","0,30","0,27","0,20","0,10","0,04"))
+psicoticismo <- sub(',','.',c("1,82","1,50","1,30","1,18","1,06","0,96","0,83","0,69","0,53","0,49","0,39","0,22","0,12"))
+desapego <- sub(',','.',c("1,39","1,15","0,93","0,80","0,71","0,57","0,43","0,34","0,22","0,17","0,14","0,06","0,01"))
 
 
 
@@ -40,3 +40,62 @@ desapego <- c("1,39","1,15","0,93","0,80","0,71","0,57","0,43","0,34","0,22","0,
 percentiles <- data.frame( percentil,anhedonia, ansiedad, busqueda_atencion,insensibilidad, engaño, depresion, distractibilidad, excentricidad, labilidad_emocional, grandiosidad, hostilidad, impulsividad, evitacion_intimidad, irresponsabilidad, manipulacion, desregulacion_perceptual, perseveracion, afectividad_restringida, perfeccionismo, toma_de_riesgos, inseguridad_separacion, sumision, recelo, creencias_y_experiencias_inusuales, aislamiento, afecto_negativo, antagonismo, desinhibicion, psicoticismo, desapego)
 
 ##FIN DEL DATA FRAME DE PERCENTILES, ENCUESTA ##
+
+
+###CREO EL DATA FRAME LOS BAREMOS ###
+percentiles <- data.frame( percentil,
+                           anhedonia,
+                           ansiedad,
+                           busqueda_atencion,
+                           insensibilidad,
+                           engaño, depresion,
+                           distractibilidad,
+                           excentricidad, 
+                           labilidad_emocional,
+                           grandiosidad,
+                           hostilidad, 
+                           impulsividad, 
+                           evitacion_intimidad,
+                           irresponsabilidad,
+                           manipulacion, 
+                           desregulacion_perceptual,
+                           perseveracion, 
+                           afectividad_restringida,
+                           perfeccionismo,
+                           toma_de_riesgos,
+                           inseguridad_separacion,
+                           sumision, recelo, 
+                           creencias_y_experiencias_inusuales,
+                           aislamiento, afecto_negativo,
+                           antagonismo, desinhibicion,
+                           psicoticismo, desapego)
+
+##FIN DEL DATA FRAME DE PERCENTILES, ENCUESTA ##
+
+
+####### density plots
+
+DomainPsychoticism <-as.numeric( percentiles$psicoticismo)
+DomainDisinhibition  <- as.numeric(percentiles$desinhibicion)
+DomainAntagonism <- as.numeric(percentiles$antagonismo)
+DomainDetachment <- as.numeric(percentiles$desapego)
+DomainNegativeAffect <- as.numeric(percentiles$afecto_negativo)
+
+DomainValues <- c(DomainPsychoticism,DomainDisinhibition,DomainAntagonism,
+                  DomainDetachment,DomainNegativeAffect)
+
+DomainPsychoticism_label <- rep("DomainPsychoticism",length(DomainPsychoticism))
+DomainDisinhibition_label <- rep("DomainDisinhibition", length(DomainDisinhibition)) 
+DomainAntagonism_label <- rep("DomainAntagonism", length(DomainAntagonism))
+DomainDetachment_label <- rep("DomainDetachment", length(DomainDetachment))
+DomainNegativeAffect_label <- rep("DomainNegativeAffect", length(DomainNegativeAffect))
+
+DomainLabels <- c(DomainPsychoticism_label,DomainDisinhibition_label,
+                  DomainAntagonism_label, DomainDetachment_label,
+                  DomainNegativeAffect_label)
+
+d1 <- data.frame(DomainValues = DomainValues,
+                 DomainLabels = DomainLabels)
+
+ggplot(d1, aes(x = DomainValues, fill = DomainLabels)) + 
+  geom_density(alpha = 0.2)
