@@ -7,31 +7,30 @@ root <- rprojroot::is_rstudio_project
 basename(getwd())
 
 # load the function to get the df list
-source(root$find_file("Analysis/AuxiliaryFunctions/Graphics/DataFrames_ForGraphics.R"))
+source(root$find_file("Analysis/Graphics/DataFrames_ForGraphics.R"))
 
 # get the df list
 # experimento = 1,2,ambos
-# filtro = 0,100,200
 DF_list <- DataFrame_ForGraphics(experimento = "ambos", 
                                  filtroRT_Disc_Sup = 5000,
-                                 filtroRT_Disc_Inf = 0,
+                                 filtroRT_Disc_Inf = 200,
                                  filtroRT_Conf_Sup = 5000,
                                  filtroRT_Conf_Inf = 0,
-                                 filtroTrial = 0)
+                                 filtroTrial = 20)
 
 # DF_list:
 # a df_total
 # b d.sin.normalizar
 # c d.sin.normalizar.mc.filter
-# d d
-# e d.mc.filter
-# f d.sin.normalizar.solo.FyM
-# g d.sin.normalizar.solo.FyM.mc.filter
-# h d.solo.FyM.mc.filter
-# i df_total.sin.normalizar.solo.FyM.mc.filter
+# d d.mc.filter
+# e d.sin.normalizar.solo.FyM
+# f d.sin.normalizar.solo.FyM.mc.filter
+# g d.solo.FyM.mc.filter
+# h df_total.sin.normalizar.solo.FyM.mc.filter
 
 d.sin.normalizar.solo.FyM.mc.filter <- DF_list$g
-
+d.mc.filter <- DF_list$d
+d.sin.normalizar <- DF_list$b
 
 ###############
 ### library ###
@@ -42,6 +41,8 @@ library(broom.mixed)
 library(TMB)
 library(sjPlot)
 library(dotwhisker)
+library(tidyverse)
+library(dplyr)
 
 #library(tidyverse)
 #library(dplyr)
@@ -71,6 +72,8 @@ d1 = d.sin.normalizar.solo.FyM.mc.filter
 d1[d1 == "Masculino"] <- "1"
 d1[d1 == "Femenino"] <- "0"
 d1$Im <- as.integer(d1$Im)
+
+d1
 
 a=lm(mc ~aq.norm +
        Im +
@@ -454,3 +457,106 @@ m5 <- glmer(PC ~ confidence_key*AQ*genero + (1 + confidence_key + confidence_key
             control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
 summary(m5)
 
+
+a <- lm(mc ~ #DomainPsychoticism +
+          #DomainDisinhibition +
+          #DomainAntagonism+
+          #DomainDetachment+
+          DomainNegativeAffect + 
+          edad:DomainNegativeAffect + 
+          Im:DomainNegativeAffect , data = d.mc.filter)
+summary(a)
+
+a <- lm(mc ~ #Anhedonia+
+        #Anxiousness+
+        #AttentionSeeking+
+        #Callousness +
+        #Deceitfulness+
+        #Depressivity +
+        #Distractivility +
+        #Excentricity +
+        #EmotionalLability+
+        #Grandiosity +
+        #Hostility +
+        #Impulsivity +
+        #IntimacyAvoidance +
+        #Irresponsibility +
+        #Manipulativeness +
+        #PerceptualDysregulation +
+        #Perseveration +
+        #RestrictedAffectivity +
+        #RigidPerfeccionism +
+        RiskTaking +
+        #SeparationInsecurity+
+        #Submissiveness +
+        #Suspiciousness +
+        #UnusualBeliefsAndExperiences +
+        #Withdrawal+
+        edad + Im + edad:RiskTaking+
+        Im: RiskTaking, data = d.mc.filter)
+
+summary(a)
+plot_model(a)
+
+d <- d.mc.filter
+vec_variables_string <- c("Anhedonia",
+                   "Anxiousness",
+                   "AttentionSeeking",
+                   "Callousness",
+                   "Deceitfulness",
+                   "Depressivity",
+                   "Distractivility",
+                   "Excentricity",
+                   "EmotionalLability",
+                   "Grandiosity",
+                   "Hostility",
+                   "Impulsivity",
+                   "IntimacyAvoidance",
+                   "Irresponsibility",
+                   "Manipulativeness",
+                   "PerceptualDysregulation",
+                   "Perseveration",
+                   "RestrictedAffectivity",
+                   "RigidPerfeccionism",
+                   "RiskTaking",
+                   "SeparationInsecurity",
+                   "Submissiveness",
+                   "Suspiciousness",
+                   "UnusualBeliefsAndExperiences",
+                   "Withdrawal")
+
+
+vec_variables_values <- list(d$Anhedonia,
+                          d$Anxiousness,
+                          d$AttentionSeeking,
+                          d$Callousness,
+                          d$Deceitfulness,
+                    d$Depressivity,
+                   d$Distractivility,
+                   d$Excentricity,
+                   d$EmotionalLability,
+                   d$Grandiosity,
+                   d$Hostility,
+                   d$Impulsivity,
+                   d$IntimacyAvoidance,
+                   d$Irresponsibility,
+                   d$Manipulativeness,
+                   d$PerceptualDysregulation,
+                   d$Perseveration,
+                   d$RestrictedAffectivity,
+                   d$RigidPerfeccionism,
+                   d$RiskTaking,
+                   d$SeparationInsecurity,
+                   d$Submissiveness,
+                   d$Suspiciousness,
+                   d$UnusualBeliefsAndExperiences,
+                   d$Withdrawal)
+
+for (i in 1:length(vec_variables_string)) {
+  a <- lm(d2$mc ~ vec_variables_values[[i]] + 
+            d$edad + d$Im +
+            d$edad:vec_variables_values[[i]] +
+            d$Im: vec_variables_values[[i]])
+  print(vec_variables_string[i])
+  print(summary(a))
+}

@@ -41,18 +41,17 @@ DataFrame_ForGraphics <- function(experimento,
   
   ## Filter by reaction times 
   
-  # In the discrimination task
-  df_total <- df_total[df_total$t_ensayo_discriminacion <= filtroRT_Disc_Sup &
-                         df_total$t_ensayo_discriminacion >= filtroRT_Disc_Inf,]
-  # In the confidence task
-    df_total <- df_total[df_total$t_ensayo_confianza <= filtroRT_Conf_Sup &
-                         df_total$t_ensayo_confianza >= filtroRT_Conf_Inf,]
-  
-  # Filter by trails
-  df_total <- df_total[df_total$trials > filtroTrial,]
+  source(root$find_file("Analysis/AuxiliaryFunctions/auroc2_by_ReactionTimeFilter.R"))
+  list_exp <- Auroc2_by_RT_filter(d = df_total,
+                                filtroRT_Disc_Sup = filtroRT_Disc_Sup,
+                                filtroRT_Disc_Inf = filtroRT_Disc_Inf,
+                                filtroRT_Conf_Sup = filtroRT_Conf_Sup,
+                                filtroRT_Conf_Inf = filtroRT_Conf_Inf,
+                                filtroTrial = filtroTrial)
+  auc2 <- list_exp$mc_Rt_Discarded
+  df_total <- list_exp$df_total
   
   # tomo las variables de interes
-  auc2 <- rep(NaN, length(unique(df_total$sujetos)))
   horasSuen <- rep(NaN, length(unique(df_total$sujetos)))
   PC <- rep(NaN, length(unique(df_total$sujetos)))
   genero <- rep(NaN, length(unique(df_total$sujetos)))
@@ -98,7 +97,6 @@ DataFrame_ForGraphics <- function(experimento,
   
   for (i in 1:length(unique(df_total$sujetos))) {
     
-    auc2[i] <- unique(df_total[df_total$sujetos == ExistingSubjects[i],"auc2"])
     PC[i] <- unique(df_total[df_total$sujetos == ExistingSubjects[i],"PC"])
     genero[i]<- unique(df_total[df_total$sujetos == ExistingSubjects[i],"genero"])
     horasSueno[i]<- unique(df_total[df_total$sujetos == ExistingSubjects[i],"horasSueno"])
@@ -180,8 +178,10 @@ DataFrame_ForGraphics <- function(experimento,
                                 DomainDisinhibition = DomainDisinhibition,
                                 DomainPsychoticism = DomainPsychoticism 
   )
-  d <- d.sin.normalizar
   
+  d.sin.normalizar.mc.filter <- d.sin.normalizar[d.sin.normalizar$mc >= 0.5,]
+  
+  d <- d.sin.normalizar.mc.filter
   
   d$pc <- (d$pc - mean(d$pc)) / sd(d$pc)
   #d$hs <- (d$hs - mean(d$hs)) / sd(d$hs)
@@ -221,16 +221,21 @@ DataFrame_ForGraphics <- function(experimento,
   d$DomainPsychoticism <- (d$DomainPsychoticism - mean(d$DomainPsychoticism)) / sd(d$DomainPsychoticism)
   
   
-  d.mc.filter <- d[d$mc >= 0.5,]
-
+  d.mc.filter <- d
   d.sin.normalizar.solo.FyM <- d.sin.normalizar[d.sin.normalizar$Im == "Masculino" | d.sin.normalizar$Im == "Femenino",]
   d.sin.normalizar.solo.FyM.mc.filter <- d.sin.normalizar.solo.FyM[d.sin.normalizar.solo.FyM$mc >= 0.5,]
   d.solo.FyM.mc.filter <- d.mc.filter[d.mc.filter$Im == 'Femenino' | d.mc.filter$Im == 'Masculino',]
   df_total.sin.normalizar.solo.FyM.mc.filter <-  df_total[df_total$genero == 'Femenino' | df_total$genero == 'Masculino',]
-
-  DF_list <- list(a = df_total, b = d.sin.normalizar, c = d,
-                  d = d.mc.filter, e = d.sin.normalizar.solo.FyM, f = d.sin.normalizar.solo.FyM.mc.filter,
-                  g = d.solo.FyM.mc.filter, h = df_total.sin.normalizar.solo.FyM.mc.filter)
+  
+    
+  DF_list <- list(a = df_total, 
+                  b = d.sin.normalizar, 
+                  c= d.sin.normalizar.mc.filter,
+                  d = d.mc.filter, 
+                  e = d.sin.normalizar.solo.FyM, 
+                  f = d.sin.normalizar.solo.FyM.mc.filter,
+                  g = d.solo.FyM.mc.filter, 
+                  h = df_total.sin.normalizar.solo.FyM.mc.filter)
   
   
   return(DF_list)
