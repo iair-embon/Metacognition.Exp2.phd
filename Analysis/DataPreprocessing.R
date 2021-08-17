@@ -16,8 +16,8 @@ root <- rprojroot::is_rstudio_project
 basename(getwd())
 # REEMPLAZAR:
 #read each line and convert 
-content<-readLines(root$find_file("Data/Experiment_Complete/jatos_results_20210801001553_PID_5_Ultimo.txt"))
-#content<-readLines(root$find_file("Data/Experiment_OnlySurvey/datos_PIDOnlySurv+Metacog.txt"))
+#content<-readLines(root$find_file("Data/Experiment_Complete/jatos_results_20210406141549.txt"))
+content<-readLines(root$find_file("Data/Experiment_OnlySurvey/datos_PIDOnlySurv+Metacog.txt"))
 res<-lapply(content,fromJSON)
 
 # each subject has 6 lists in order of arrival and by subjects.
@@ -445,13 +445,13 @@ df_total <- cbind(df_total, discrimination_is_correct = df_exp_mod2$discriminati
 
 
 # RESULTS_EXP
-filepath <- root$find_file("Data/Experiment_Complete/df_total.Rda")
-save(df_total,file = filepath)
+#filepath <- root$find_file("Data/Experiment_Complete/df_total_SIN_DESCARTAR.Rda")
+#save(df_total,file = filepath)
 
 
 # RESULTS_EXP
-#filepath <- root$find_file("Data/Experiment_OnlySurvey/df_total.Rda")
-#save(df_total,file = filepath)
+filepath <- root$find_file("Data/Experiment_OnlySurvey/df_total_SIN_DESCARTAR.Rda")
+save(df_total,file = filepath)
 
 
 # save the df in .txt format, it is saved in the mail folder

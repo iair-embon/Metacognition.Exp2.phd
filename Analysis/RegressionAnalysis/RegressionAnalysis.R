@@ -15,7 +15,7 @@ DF_list <- DataFrame_ForGraphics(experimento = "ambos",
                                  filtroRT_Disc_Sup = 5000,
                                  filtroRT_Disc_Inf = 200,
                                  filtroRT_Conf_Sup = 5000,
-                                 filtroRT_Conf_Inf = 0,
+                                 filtroRT_Conf_Inf = 100,
                                  filtroTrial = 20)
 
 # DF_list:
@@ -458,13 +458,13 @@ m5 <- glmer(PC ~ confidence_key*AQ*genero + (1 + confidence_key + confidence_key
 summary(m5)
 
 
-a <- lm(mc ~ #DomainPsychoticism +
-          #DomainDisinhibition +
-          #DomainAntagonism+
-          #DomainDetachment+
-          DomainNegativeAffect + 
-          edad:DomainNegativeAffect + 
-          Im:DomainNegativeAffect , data = d.mc.filter)
+a <- lm(d.sin.normalizar.solo.FyM.mc.filter$mc ~ #d.mc.filter$DomainPsychoticism +
+          #d.mc.filter$DomainDisinhibition +
+          #d.mc.filter$DomainAntagonism+
+          #d.mc.filter$DomainDetachment+
+          d.mc.filter$DomainNegativeAffect + 
+          d.mc.filter$edad:d.mc.filter$DomainNegativeAffect + 
+          d.mc.filter$Im:d.mc.filter$DomainNegativeAffect)
 summary(a)
 
 a <- lm(mc ~ #Anhedonia+
@@ -551,6 +551,7 @@ vec_variables_values <- list(d$Anhedonia,
                    d$Suspiciousness,
                    d$UnusualBeliefsAndExperiences,
                    d$Withdrawal)
+d2 <- d.sin.normalizar[d.sin.normalizar$mc > 0.5,]
 
 for (i in 1:length(vec_variables_string)) {
   a <- lm(d2$mc ~ vec_variables_values[[i]] + 

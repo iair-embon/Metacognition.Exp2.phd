@@ -24,11 +24,11 @@ DataFrame_ForGraphics <- function(experimento,
     df_total <- load(file= filepath)}
   if (experimento == 'ambos'){
     ## ambos df_total:
-    filepath <- (root$find_file("Data/Experiment_Complete/df_total.Rda"))
+    filepath <- (root$find_file("Data/Experiment_Complete/df_total_SIN_DESCARTAR.Rda"))
     load(file= filepath)
     a <- df_total
     
-    filepath <- (root$find_file("Data/Experiment_OnlySurvey/df_total.Rda"))
+    filepath <- (root$find_file("Data/Experiment_OnlySurvey/df_total_SIN_DESCARTAR.Rda"))
     load(file= filepath)
     b <- df_total
     # sumo 100 a la columna sujetos, para que no se pisen los nros y este nro sea unico
