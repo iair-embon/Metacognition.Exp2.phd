@@ -17,7 +17,8 @@ basename(getwd())
 # REEMPLAZAR:
 #read each line and convert 
 #content<-readLines(root$find_file("Data/Experiment_Complete/jatos_results_20210406141549.txt"))
-content<-readLines(root$find_file("Data/Experiment_OnlySurvey/datos_PIDOnlySurv+Metacog.txt"))
+#content<-readLines(root$find_file("Data/Experiment_OnlySurvey/datos_PIDOnlySurv+Metacog.txt"))
+content<-readLines(root$find_file("Data/PID5_sorteo/jatos_results_20210826172451.txt"))
 res<-lapply(content,fromJSON)
 
 # each subject has 6 lists in order of arrival and by subjects.
@@ -392,15 +393,15 @@ df_DatosUnicos_mod2 <- df_DatosUnicos_mod[df_DatosUnicos_mod$affeccionPsico ==
 df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$medicacion ==
                                              'No',]
 ## Filter by sincericide, leaving only those who tell us that we can count on their answers.
-# library (stringr)
-# library (tidyverse)
-# df_DatosUnicos_mod2 <- df_DatosUnicos_mod2 %>% 
-#   filter(str_detect(df_DatosUnicos_mod2$sincericidio, "Pueden")) # if start with "Pueden"
-#                                                                  # it stays
+library (stringr)
+library (tidyverse)
+df_DatosUnicos_mod2 <- df_DatosUnicos_mod2 %>% 
+  filter(str_detect(df_DatosUnicos_mod2$sincericidio, "Pueden")) # if start with "Pueden"
+                                                                # it stays
 
 ## Filter by TeEscuchamos leaving only those who didnt interrup the task drastically (= ok)
-# df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$TeEscuchamos ==
-#                                              'ok',] 
+df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$TeEscuchamos ==
+                                            'ok',] 
 
 ## Filter by performance, leaving only those who have PC > 60 
 df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$PC > 0.60,] 
@@ -453,6 +454,9 @@ df_total <- cbind(df_total, discrimination_is_correct = df_exp_mod2$discriminati
 filepath <- root$find_file("Data/Experiment_OnlySurvey/df_total_SIN_DESCARTAR.Rda")
 save(df_total,file = filepath)
 
+# RESULTS_EXP
+filepath <- root$find_file("Data/PID5_sorteo/DescartandoMedicacionYafeccionPsico/df_total_SIN_DESCARTAR.Rda")
+save(df_total,file = filepath)
 
 # save the df in .txt format, it is saved in the mail folder
 write.table(df_total, file= 'df_total.txt')
