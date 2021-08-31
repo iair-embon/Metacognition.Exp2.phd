@@ -19,11 +19,12 @@ source(root$find_file("Analysis/AuxiliaryFunctions/DataFrame_Filtered.R"))
 # get the df list
 # experimento = completo,survey,sorteo, todos
 DF_list <- DataFrame_Filtered(experimento = "todos", 
-                                 filtroRT_Disc_Sup = 5000,
-                                 filtroRT_Disc_Inf = 200,
-                                 filtroRT_Conf_Sup = 5000,
-                                 filtroRT_Conf_Inf = 0,
-                                 filtroTrial = 20)
+                              filtroRT_Disc_Sup = 5000,
+                              filtroRT_Disc_Inf = 200,
+                              filtroRT_Conf_Sup = 5000,
+                              filtroRT_Conf_Inf = 0,
+                              filtroTrial = 20,
+                              cant_trial_filter = 70)
 
 # DF_list:
 # a = df_total
@@ -35,6 +36,7 @@ df_total <- DF_list$a
 d.sin.normalizar <- DF_list$b
 d.sin.normalizar.mc.filter <- DF_list$c
 d.mc.filter <- DF_list$d 
+d <- d.mc.filter
 ###############
 ### library ###
 ###############
@@ -50,28 +52,14 @@ library(dplyr)
 d1 = d.sin.normalizar.mc.filter
 
 # sujetos que tienen un 85 % de trials en una misma respuesta de confianza
-d2 <- d1[d1$sujetos != 7 & d1$sujetos != 72 & d1$sujetos != 84
-         & d1$sujetos != 86 & d1$sujetos != 90 & d1$sujetos != 91
-         & d1$sujetos != 108 & d1$sujetos != 125 & d1$sujetos != 146
-         & d1$sujetos != 169 & d1$sujetos != 1008 & d1$sujetos != 2009
-         & d1$sujetos != 2035 & d1$sujetos != 2039 & d1$sujetos != 2040
-         & d1$sujetos != 2047 & d1$sujetos != 2067 & d1$sujetos != 2076, ]
 
-# sujetos que tienen menos de 70 de trials
-d3 <- d2[d2$sujetos != 3 & d2$sujetos != 10 & d2$sujetos != 17
-         & d2$sujetos != 23 & d2$sujetos != 31 & d2$sujetos != 90
-         & d2$sujetos != 99 & d2$sujetos != 103 & d2$sujetos != 109
-         & d2$sujetos != 125 & d2$sujetos != 160 & d2$sujetos != 1030
-         & d2$sujetos != 1033 & d2$sujetos != 1038 & d2$sujetos != 2009
-         & d2$sujetos != 2031 & d2$sujetos != 2033 & d2$sujetos != 2036
-         & d2$sujetos != 2009 & d2$sujetos != 2038 & d2$sujetos != 2039
-         & d2$sujetos != 2061 & d2$sujetos != 2064 & d2$sujetos != 2067
-         & d2$sujetos != 2085, ]
+source(root$find_file("Analysis/AuxiliaryFunctions/discard_by_x_same_confidence.R"))
+sujetos_a_descartar <- discard_by_x_same_confidence(85)
+d2 <- d1[! d1$sujetos %in% sujetos_a_descartar,]
 
-d.mc.filter <-  d.mc.filter %>% 
-  filter(d.mc.filter$sujetos %in% d3$sujetos)
 
-d <- d.mc.filter
+d <- subset(d, d$sujetos %in% d2$sujetos)
+
 
 ```
 
@@ -135,7 +123,7 @@ vec_variables_string <- c("Anhedonia",
 
 
 for (i in 1:length(vec_variables_string)) {
-  a <- lm(d3$mc ~ vec_variables_values[[i]] + 
+  a <- lm(d$m_c ~ vec_variables_values[[i]] + 
                   d$edad + 
                   #d$Im +
                   d$edad:vec_variables_values[[i]]) #+
@@ -164,7 +152,7 @@ vec_variables_string <- c("DomainPsychoticism",
 
 
 for (i in 1:length(vec_variables_string)) {
-  a <- lm(d3$mc ~ vec_variables_values[[i]] + 
+  a <- lm(d$m_c ~ vec_variables_values[[i]] + 
                   d$edad + 
                   #d$Im +
                   d$edad:vec_variables_values[[i]]) #+

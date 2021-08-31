@@ -1,9 +1,10 @@
 DataFrame_Filtered <- function(experimento, 
-                                  filtroRT_Disc_Sup,
-                                  filtroRT_Disc_Inf,
-                                  filtroRT_Conf_Sup,
-                                  filtroRT_Conf_Inf,
-                                  filtroTrial = 0){ 
+                               filtroRT_Disc_Sup,
+                               filtroRT_Disc_Inf,
+                               filtroRT_Conf_Sup,
+                               filtroRT_Conf_Inf,
+                               filtroTrial = 0,
+                               cant_trial_filter){ 
   
   # experimento = completo,survey,sorteo, todos
   # Superior and inferior filtro Reaction Time Discrimination task 
@@ -55,7 +56,8 @@ DataFrame_Filtered <- function(experimento,
                                 filtroRT_Disc_Inf = filtroRT_Disc_Inf,
                                 filtroRT_Conf_Sup = filtroRT_Conf_Sup,
                                 filtroRT_Conf_Inf = filtroRT_Conf_Inf,
-                                filtroTrial = filtroTrial)
+                                filtroTrial = filtroTrial,
+                                cant_trial_filter = cant_trial_filter)
   auc2 <- list_exp$mc_Rt_Discarded
   df_total <- list_exp$df_total
   
@@ -98,6 +100,8 @@ DataFrame_Filtered <- function(experimento,
   estudio <- rep(NaN, length(unique(df_total$sujetos)))
   media_tr_discri <- rep(NaN, length(unique(df_total$sujetos)))
   media_tr_confi <- rep(NaN, length(unique(df_total$sujetos)))
+  media_confidence <- rep(NaN, length(unique(df_total$sujetos)))
+  sd_confidence <- rep(NaN, length(unique(df_total$sujetos)))
   
   
   # sujetos que quedaron
@@ -112,6 +116,8 @@ DataFrame_Filtered <- function(experimento,
     estudio[i]<- unique(df_total[df_total$sujetos == ExistingSubjects[i],"estudio"])
     media_tr_discri[i]<- unique(df_total[df_total$sujetos == ExistingSubjects[i],"media_tr_discri"])
     media_tr_confi[i]<- unique(df_total[df_total$sujetos == ExistingSubjects[i],"media_tr_confi"])
+    media_confidence[i]<- unique(df_total[df_total$sujetos == ExistingSubjects[i],"media_confidence"])
+    sd_confidence[i]<- unique(df_total[df_total$sujetos == ExistingSubjects[i],"sd_confidence"])
     
     Anhedonia [i]<- unique(df_total[df_total$sujetos == ExistingSubjects[i],"Anhedonia"])
     Anxiousness [i]<- unique(df_total[df_total$sujetos == ExistingSubjects[i],"Anxiousness"])
@@ -155,6 +161,8 @@ DataFrame_Filtered <- function(experimento,
                                 es = estudio,
                                 tr_d = media_tr_discri,
                                 tr_c = media_tr_confi,
+                                m_c = media_confidence,
+                                sd_c = sd_confidence,
                                 
                                 Anhedonia = Anhedonia,
                                 Anxiousness = Anxiousness ,
@@ -187,7 +195,12 @@ DataFrame_Filtered <- function(experimento,
                                 DomainDisinhibition = DomainDisinhibition,
                                 DomainPsychoticism = DomainPsychoticism 
   )
+  ## Filtro mc por sd
+  #mean_mc <- mean(d.sin.normalizar$mc)
+  #sd_mc <-sd(d.sin.normalizar$mc)
+  #d.sin.normalizar.mc.filter <- d.sin.normalizar[d.sin.normalizar$mc >= mean_mc - sd_mc* 1.5,]
   
+  ## filtro para los que tienen metacog menores a 0.5
   d.sin.normalizar.mc.filter <- d.sin.normalizar[d.sin.normalizar$mc >= 0.5,]
   
   d <- d.sin.normalizar.mc.filter
@@ -196,6 +209,8 @@ DataFrame_Filtered <- function(experimento,
   d$mc <- (d$mc - mean(d$mc)) / sd(d$mc)
   d$tr_d <- (d$tr_d - mean(d$tr_d)) / sd(d$tr_d)
   d$tr_c <- (d$tr_c - mean(d$tr_c)) / sd(d$tr_c)
+  d$m_c  <- (d$m_c - mean(d$m_c)) / sd(d$m_c)
+  d$sd_c <- (d$sd_c - mean(d$sd_c)) / sd(d$sd_c)
   
   d$Anhedonia <- (d$Anhedonia - mean(d$Anhedonia)) / sd(d$Anhedonia)
   d$Anxiousness <- (d$Anxiousness - mean(d$Anxiousness)) / sd(d$Anxiousness)

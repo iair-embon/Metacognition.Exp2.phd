@@ -395,8 +395,8 @@ df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$medicacion ==
 ## Filter by sincericide, leaving only those who tell us that we can count on their answers.
 library (stringr)
 library (tidyverse)
-df_DatosUnicos_mod2 <- df_DatosUnicos_mod2 %>% 
-  filter(str_detect(df_DatosUnicos_mod2$sincericidio, "Pueden")) # if start with "Pueden"
+df_DatosUnicos_mod2 <- df_DatosUnicos_mod %>% 
+  filter(str_detect(df_DatosUnicos_mod$sincericidio, "Pueden")) # if start with "Pueden"
                                                                 # it stays
 
 ## Filter by TeEscuchamos leaving only those who didnt interrup the task drastically (= ok)
@@ -455,7 +455,7 @@ filepath <- root$find_file("Data/Experiment_OnlySurvey/df_total_SIN_DESCARTAR.Rd
 save(df_total,file = filepath)
 
 # RESULTS_EXP
-filepath <- root$find_file("Data/PID5_sorteo/DescartandoMedicacionYafeccionPsico/df_total_SIN_DESCARTAR.Rda")
+filepath <- root$find_file("Data/PID5_sorteo/df_total_SIN_DESCARTAR.Rda")
 save(df_total,file = filepath)
 
 # save the df in .txt format, it is saved in the mail folder
