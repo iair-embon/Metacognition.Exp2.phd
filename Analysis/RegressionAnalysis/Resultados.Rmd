@@ -60,7 +60,6 @@ d2 <- d1[! d1$sujetos %in% sujetos_a_descartar,]
 
 d <- subset(d, d$sujetos %in% d2$sujetos)
 
-
 ```
 
 ##### Empiezo a correr modelos de regresiones
@@ -123,9 +122,9 @@ vec_variables_string <- c("Anhedonia",
 
 
 for (i in 1:length(vec_variables_string)) {
-  a <- lm(d2$mc ~ vec_variables_values[[i]] + 
+  a <- lm(d$sd_c ~ vec_variables_values[[i]] + 
                   d$edad + 
-                  #d$Im +
+                  d$Im +
                   d$edad:vec_variables_values[[i]]) #+
                   #d$Im: vec_variables_values[[i]])
   print(vec_variables_string[i])
@@ -152,9 +151,9 @@ vec_variables_string <- c("DomainPsychoticism",
 
 
 for (i in 1:length(vec_variables_string)) {
-  a <- lm(d2$mc ~ vec_variables_values[[i]] + 
+  a <- lm(d$sd_c ~ vec_variables_values[[i]] + 
                   d$edad + 
-                  #d$Im +
+                  d$Im +
                   d$edad:vec_variables_values[[i]]) #+
                   #d$Im: vec_variables_values[[i]])
   print(vec_variables_string[i])
