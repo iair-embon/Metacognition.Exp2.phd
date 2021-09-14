@@ -122,7 +122,7 @@ vec_variables_string <- c("Anhedonia",
 
 
 for (i in 1:length(vec_variables_string)) {
-  a <- lm(d$sd_c ~ vec_variables_values[[i]] + 
+  a <- lm(d2$mc ~ vec_variables_values[[i]] + 
                   d$edad + 
                   d$Im +
                   d$edad:vec_variables_values[[i]]) #+
@@ -151,7 +151,7 @@ vec_variables_string <- c("DomainPsychoticism",
 
 
 for (i in 1:length(vec_variables_string)) {
-  a <- lm(d$sd_c ~ vec_variables_values[[i]] + 
+  a <- lm(d2$mc ~ vec_variables_values[[i]] + 
                   d$edad + 
                   d$Im +
                   d$edad:vec_variables_values[[i]]) #+

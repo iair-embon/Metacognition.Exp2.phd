@@ -176,7 +176,7 @@ pre code {
 <pre class="r"><code># voy a la carpeta del proyecto
 root &lt;- rprojroot::is_rstudio_project
 basename(getwd())</code></pre>
-<pre><code>## [1] &quot;RegressionAnalysis&quot;</code></pre>
+<pre><code>## [1] &quot;Metacognition.PersonalityTraits&quot;</code></pre>
 <pre class="r"><code># load the function to get the df list
 source(root$find_file(&quot;Analysis/AuxiliaryFunctions/DataFrame_Filtered.R&quot;))
 
@@ -222,7 +222,7 @@ library(arm)</code></pre>
 <pre><code>## Loading required package: lme4</code></pre>
 <pre><code>## 
 ## arm (Version 1.11-2, built: 2020-7-27)</code></pre>
-<pre><code>## Working directory is D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/Analysis/RegressionAnalysis</code></pre>
+<pre><code>## Working directory is /home/iair/Documents/Investigación/Metacog.Personality/Metacognition.PersonalityTraits</code></pre>
 <pre class="r"><code>library(dplyr)
 
 ###########################
@@ -304,7 +304,7 @@ vec_variables_string &lt;- c(&quot;Anhedonia&quot;,
 
 
 for (i in 1:length(vec_variables_string)) {
-  a &lt;- lm(d$sd_c ~ vec_variables_values[[i]] + 
+  a &lt;- lm(d2$mc ~ vec_variables_values[[i]] + 
                   d$edad + 
                   d$Im +
                   d$edad:vec_variables_values[[i]]) #+
@@ -315,627 +315,627 @@ for (i in 1:length(vec_variables_string)) {
 <pre><code>## [1] &quot;Anhedonia&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.06888 -0.49583 -0.01255  0.47280  2.51783 
+##       Min        1Q    Median        3Q       Max 
+## -0.110259 -0.037631 -0.001682  0.034186  0.138274 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.387398   0.206129   1.879   0.0614 .
-## vec_variables_values[[i]]        -0.154267   0.226657  -0.681   0.4968  
-## d$edad                           -0.008656   0.008112  -1.067   0.2870  
-## d$ImMasculino                     0.069140   0.110986   0.623   0.5339  
-## d$ImNo Binario                    0.391110   0.330449   1.184   0.2378  
-## vec_variables_values[[i]]:d$edad  0.005074   0.009069   0.560   0.5763  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6382961  0.0151857  42.033   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0282211  0.0166936   1.691   0.0923 .  
+## d$edad                           -0.0011660  0.0005977  -1.951   0.0523 .  
+## d$ImMasculino                     0.0143783  0.0081780   1.758   0.0800 .  
+## d$ImNo Binario                   -0.0326189  0.0243499  -1.340   0.1817    
+## vec_variables_values[[i]]:d$edad -0.0011826  0.0006681  -1.770   0.0780 .  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.744 on 235 degrees of freedom
-## Multiple R-squared:  0.0169, Adjusted R-squared:  -0.004017 
-## F-statistic: 0.808 on 5 and 235 DF,  p-value: 0.545
+## Residual standard error: 0.05482 on 235 degrees of freedom
+## Multiple R-squared:  0.0349, Adjusted R-squared:  0.01437 
+## F-statistic:   1.7 on 5 and 235 DF,  p-value: 0.1355
 ## 
 ## [1] &quot;Anxiousness&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.0935 -0.4906 -0.0245  0.4927  2.5162 
+##       Min        1Q    Median        3Q       Max 
+## -0.115650 -0.033874 -0.000937  0.034413  0.142504 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.420491   0.194099   2.166   0.0313 *
-## vec_variables_values[[i]]        -0.064848   0.215784  -0.301   0.7640  
-## d$edad                           -0.010159   0.007404  -1.372   0.1713  
-## d$ImMasculino                     0.079453   0.110691   0.718   0.4736  
-## d$ImNo Binario                    0.323007   0.313587   1.030   0.3041  
-## vec_variables_values[[i]]:d$edad  0.001884   0.008270   0.228   0.8200  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6231565  0.0142464  43.741   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0022382  0.0158439   0.141   0.8878    
+## d$edad                           -0.0005145  0.0005435  -0.947   0.3448    
+## d$ImMasculino                     0.0149624  0.0081285   1.841   0.0669 .  
+## d$ImNo Binario                   -0.0331722  0.0230276  -1.441   0.1510    
+## vec_variables_values[[i]]:d$edad  0.0002057  0.0006073   0.339   0.7351    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7447 on 235 degrees of freedom
-## Multiple R-squared:  0.01484,    Adjusted R-squared:  -0.00612 
-## F-statistic: 0.708 on 5 and 235 DF,  p-value: 0.6179
+## Residual standard error: 0.05469 on 235 degrees of freedom
+## Multiple R-squared:  0.03958,    Adjusted R-squared:  0.01914 
+## F-statistic: 1.937 on 5 and 235 DF,  p-value: 0.08904
 ## 
 ## [1] &quot;AttentionSeeking&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.08383 -0.49504 -0.03957  0.48882  2.54564 
+##       Min        1Q    Median        3Q       Max 
+## -0.117795 -0.035179 -0.003094  0.034809  0.143679 
 ## 
 ## Coefficients:
-##                                    Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.4034783  0.1918997   2.103   0.0366 *
-## vec_variables_values[[i]]         0.0372907  0.2236423   0.167   0.8677  
-## d$edad                           -0.0096318  0.0073490  -1.311   0.1913  
-## d$ImMasculino                     0.0813685  0.1098412   0.741   0.4596  
-## d$ImNo Binario                    0.3200008  0.3124629   1.024   0.3068  
-## vec_variables_values[[i]]:d$edad -0.0005616  0.0087672  -0.064   0.9490  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6269246  0.0140112  44.744   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0291063  0.0163352   1.782   0.0761 .  
+## d$edad                           -0.0006512  0.0005367  -1.213   0.2262    
+## d$ImMasculino                     0.0101356  0.0080236   1.263   0.2078    
+## d$ImNo Binario                   -0.0207707  0.0228234  -0.910   0.3637    
+## vec_variables_values[[i]]:d$edad -0.0008319  0.0006404  -1.299   0.1952    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7447 on 235 degrees of freedom
-## Multiple R-squared:  0.01504,    Adjusted R-squared:  -0.005915 
-## F-statistic: 0.7177 on 5 and 235 DF,  p-value: 0.6107
+## Residual standard error: 0.05439 on 235 degrees of freedom
+## Multiple R-squared:  0.0499, Adjusted R-squared:  0.02968 
+## F-statistic: 2.468 on 5 and 235 DF,  p-value: 0.03338
 ## 
 ## [1] &quot;Callousness&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -1.99986 -0.50210  0.00115  0.48489  2.53352 
+##       Min        1Q    Median        3Q       Max 
+## -0.115768 -0.035821 -0.004052  0.031905  0.151558 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.456653   0.195299   2.338   0.0202 *
-## vec_variables_values[[i]]         0.420774   0.220163   1.911   0.0572 .
-## d$edad                           -0.012187   0.007558  -1.612   0.1082  
-## d$ImMasculino                     0.096514   0.108087   0.893   0.3728  
-## d$ImNo Binario                    0.337073   0.306770   1.099   0.2730  
-## vec_variables_values[[i]]:d$edad -0.013888   0.008994  -1.544   0.1239  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6335129  0.0145639  43.499   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0262592  0.0164206   1.599    0.111    
+## d$edad                           -0.0009392  0.0005637  -1.666    0.097 .  
+## d$ImMasculino                     0.0133031  0.0080631   1.650    0.100    
+## d$ImNo Binario                   -0.0269718  0.0228837  -1.179    0.240    
+## vec_variables_values[[i]]:d$edad -0.0010256  0.0006709  -1.529    0.128    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7358 on 235 degrees of freedom
-## Multiple R-squared:  0.03839,    Adjusted R-squared:  0.01793 
-## F-statistic: 1.876 on 5 and 235 DF,  p-value: 0.09924
+## Residual standard error: 0.05489 on 235 degrees of freedom
+## Multiple R-squared:  0.03258,    Adjusted R-squared:  0.012 
+## F-statistic: 1.583 on 5 and 235 DF,  p-value: 0.1657
 ## 
 ## [1] &quot;Deceitfulness&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.00678 -0.51319 -0.01008  0.49050  2.59298 
+##       Min        1Q    Median        3Q       Max 
+## -0.111731 -0.036661 -0.001278  0.031730  0.144677 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.363397   0.195808   1.856   0.0647 .
-## vec_variables_values[[i]]         0.160776   0.239205   0.672   0.5022  
-## d$edad                           -0.008066   0.007621  -1.058   0.2910  
-## d$ImMasculino                     0.073339   0.108591   0.675   0.5001  
-## d$ImNo Binario                    0.329581   0.307574   1.072   0.2850  
-## vec_variables_values[[i]]:d$edad -0.002285   0.009572  -0.239   0.8115  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6277560  0.0145343  43.191   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0200107  0.0177636   1.126    0.261    
+## d$edad                           -0.0006979  0.0005658  -1.234    0.219    
+## d$ImMasculino                     0.0118319  0.0080646   1.467    0.144    
+## d$ImNo Binario                   -0.0261366  0.0228404  -1.144    0.254    
+## vec_variables_values[[i]]:d$edad -0.0005676  0.0007109  -0.798    0.425    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7377 on 235 degrees of freedom
-## Multiple R-squared:  0.03337,    Adjusted R-squared:  0.0128 
-## F-statistic: 1.622 on 5 and 235 DF,  p-value: 0.1548
+## Residual standard error: 0.05478 on 235 degrees of freedom
+## Multiple R-squared:  0.03628,    Adjusted R-squared:  0.01578 
+## F-statistic:  1.77 on 5 and 235 DF,  p-value: 0.1199
 ## 
 ## [1] &quot;Depressivity&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.09576 -0.47379 -0.00505  0.47211  2.52437 
+##       Min        1Q    Median        3Q       Max 
+## -0.112139 -0.036892 -0.002869  0.035197  0.137325 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.392728   0.193211   2.033   0.0432 *
-## vec_variables_values[[i]]        -0.371709   0.208419  -1.783   0.0758 .
-## d$edad                           -0.008562   0.007425  -1.153   0.2500  
-## d$ImMasculino                     0.052536   0.109295   0.481   0.6312  
-## d$ImNo Binario                    0.485718   0.322689   1.505   0.1336  
-## vec_variables_values[[i]]:d$edad  0.012217   0.008195   1.491   0.1374  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6323459  0.0143506  44.064   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0246639  0.0154847   1.593    0.113    
+## d$edad                           -0.0008976  0.0005516  -1.627    0.105    
+## d$ImMasculino                     0.0131738  0.0081213   1.622    0.106    
+## d$ImNo Binario                   -0.0331083  0.0239773  -1.381    0.169    
+## vec_variables_values[[i]]:d$edad -0.0009935  0.0006089  -1.632    0.104    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7385 on 235 degrees of freedom
-## Multiple R-squared:  0.03114,    Adjusted R-squared:  0.01053 
-## F-statistic: 1.511 on 5 and 235 DF,  p-value: 0.1872
+## Residual standard error: 0.05488 on 235 degrees of freedom
+## Multiple R-squared:  0.03292,    Adjusted R-squared:  0.01234 
+## F-statistic:   1.6 on 5 and 235 DF,  p-value: 0.161
 ## 
 ## [1] &quot;Distractivility&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.05436 -0.48990 -0.03998  0.46023  2.50611 
+##       Min        1Q    Median        3Q       Max 
+## -0.111801 -0.040465  0.001704  0.037756  0.143777 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.426130   0.193542   2.202   0.0287 *
-## vec_variables_values[[i]]         0.231462   0.225614   1.026   0.3060  
-## d$edad                           -0.010800   0.007446  -1.451   0.1482  
-## d$ImMasculino                     0.084054   0.108599   0.774   0.4397  
-## d$ImNo Binario                    0.253669   0.317526   0.799   0.4252  
-## vec_variables_values[[i]]:d$edad -0.008646   0.009006  -0.960   0.3380  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6318634  0.0139832  45.187  &lt; 2e-16 ***
+## vec_variables_values[[i]]         0.0567301  0.0163073   3.479  0.00060 ***
+## d$edad                           -0.0008948  0.0005380  -1.663  0.09764 .  
+## d$ImMasculino                     0.0109891  0.0078498   1.400  0.16285    
+## d$ImNo Binario                   -0.0416060  0.0229506  -1.813  0.07113 .  
+## vec_variables_values[[i]]:d$edad -0.0020796  0.0006509  -3.195  0.00159 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7433 on 235 degrees of freedom
-## Multiple R-squared:  0.01868,    Adjusted R-squared:  -0.002199 
-## F-statistic: 0.8947 on 5 and 235 DF,  p-value: 0.4853
+## Residual standard error: 0.05372 on 235 degrees of freedom
+## Multiple R-squared:  0.07313,    Adjusted R-squared:  0.05341 
+## F-statistic: 3.708 on 5 and 235 DF,  p-value: 0.002997
 ## 
 ## [1] &quot;Excentricity&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -1.9182 -0.5015 -0.0418  0.4942  2.6135 
+##      Min       1Q   Median       3Q      Max 
+## -0.11423 -0.03913 -0.00099  0.03414  0.14325 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.341179   0.199455   1.711   0.0885 .
-## vec_variables_values[[i]]         0.155348   0.215410   0.721   0.4715  
-## d$edad                           -0.007173   0.007848  -0.914   0.3617  
-## d$ImMasculino                     0.074228   0.109350   0.679   0.4979  
-## d$ImNo Binario                    0.156033   0.314779   0.496   0.6206  
-## vec_variables_values[[i]]:d$edad -0.001964   0.008564  -0.229   0.8189  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6322168  0.0148423  42.596   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0245542  0.0160335   1.531   0.1270    
+## d$edad                           -0.0009177  0.0005841  -1.571   0.1175    
+## d$ImMasculino                     0.0136414  0.0081404   1.676   0.0951 .  
+## d$ImNo Binario                   -0.0333161  0.0234329  -1.422   0.1564    
+## vec_variables_values[[i]]:d$edad -0.0009060  0.0006375  -1.421   0.1566    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7375 on 235 degrees of freedom
-## Multiple R-squared:  0.03381,    Adjusted R-squared:  0.01325 
-## F-statistic: 1.645 on 5 and 235 DF,  p-value: 0.149
+## Residual standard error: 0.0549 on 235 degrees of freedom
+## Multiple R-squared:  0.03199,    Adjusted R-squared:  0.0114 
+## F-statistic: 1.553 on 5 and 235 DF,  p-value: 0.1742
 ## 
 ## [1] &quot;EmotionalLability&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.11392 -0.48299 -0.02092  0.48459  2.46263 
+##       Min        1Q    Median        3Q       Max 
+## -0.114189 -0.038311 -0.003539  0.034922  0.143117 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.443720   0.196457   2.259   0.0248 *
-## vec_variables_values[[i]]        -0.013828   0.226089  -0.061   0.9513  
-## d$edad                           -0.011119   0.007483  -1.486   0.1386  
-## d$ImMasculino                     0.071196   0.111210   0.640   0.5227  
-## d$ImNo Binario                    0.334220   0.313344   1.067   0.2872  
-## vec_variables_values[[i]]:d$edad -0.000886   0.008835  -0.100   0.9202  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6278333  0.0145464  43.161   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0114564  0.0167480   0.684    0.495    
+## d$edad                           -0.0007111  0.0005542  -1.283    0.201    
+## d$ImMasculino                     0.0127366  0.0082386   1.546    0.123    
+## d$ImNo Binario                   -0.0295428  0.0232124  -1.273    0.204    
+## vec_variables_values[[i]]:d$edad -0.0004158  0.0006545  -0.635    0.526    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7442 on 235 degrees of freedom
-## Multiple R-squared:  0.01624,    Adjusted R-squared:  -0.004691 
-## F-statistic: 0.7759 on 5 and 235 DF,  p-value: 0.568
+## Residual standard error: 0.05513 on 235 degrees of freedom
+## Multiple R-squared:  0.02397,    Adjusted R-squared:  0.003207 
+## F-statistic: 1.154 on 5 and 235 DF,  p-value: 0.3325
 ## 
 ## [1] &quot;Grandiosity&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -1.96969 -0.49464  0.01037  0.41726  2.52213 
+##       Min        1Q    Median        3Q       Max 
+## -0.113786 -0.038743 -0.002735  0.033771  0.141514 
 ## 
 ## Coefficients:
-##                                    Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.3714637  0.1906152   1.949   0.0525 .
-## vec_variables_values[[i]]         0.0886610  0.2017091   0.440   0.6607  
-## d$edad                           -0.0082570  0.0072845  -1.134   0.2582  
-## d$ImMasculino                     0.0736750  0.1081736   0.681   0.4965  
-## d$ImNo Binario                    0.2893286  0.3081260   0.939   0.3487  
-## vec_variables_values[[i]]:d$edad  0.0001007  0.0082655   0.012   0.9903  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6280198  0.0142036  44.216   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0107909  0.0150359   0.718    0.474    
+## d$edad                           -0.0006935  0.0005429  -1.277    0.203    
+## d$ImMasculino                     0.0116300  0.0080645   1.442    0.151    
+## d$ImNo Binario                   -0.0279451  0.0229700  -1.217    0.225    
+## vec_variables_values[[i]]:d$edad -0.0003877  0.0006161  -0.629    0.530    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7394 on 235 degrees of freedom
-## Multiple R-squared:  0.02902,    Adjusted R-squared:  0.008359 
-## F-statistic: 1.405 on 5 and 235 DF,  p-value: 0.2233
+## Residual standard error: 0.05512 on 235 degrees of freedom
+## Multiple R-squared:  0.02443,    Adjusted R-squared:  0.003672 
+## F-statistic: 1.177 on 5 and 235 DF,  p-value: 0.3212
 ## 
 ## [1] &quot;Hostility&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.05817 -0.53204 -0.01637  0.51080  2.62564 
+##       Min        1Q    Median        3Q       Max 
+## -0.114737 -0.039439 -0.003632  0.035751  0.143646 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.396254   0.191319   2.071   0.0394 *
-## vec_variables_values[[i]]        -0.007492   0.202408  -0.037   0.9705  
-## d$edad                           -0.009546   0.007269  -1.313   0.1904  
-## d$ImMasculino                     0.114091   0.111004   1.028   0.3051  
-## d$ImNo Binario                    0.272165   0.310465   0.877   0.3816  
-## vec_variables_values[[i]]:d$edad  0.002676   0.007610   0.352   0.7255  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       6.283e-01  1.421e-02  44.205   &lt;2e-16 ***
+## vec_variables_values[[i]]         2.102e-03  1.503e-02   0.140    0.889    
+## d$edad                           -7.015e-04  5.401e-04  -1.299    0.195    
+## d$ImMasculino                     1.235e-02  8.251e-03   1.497    0.136    
+## d$ImNo Binario                   -2.830e-02  2.308e-02  -1.226    0.221    
+## vec_variables_values[[i]]:d$edad -6.909e-05  5.653e-04  -0.122    0.903    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7424 on 235 degrees of freedom
-## Multiple R-squared:  0.02108,    Adjusted R-squared:  0.0002486 
-## F-statistic: 1.012 on 5 and 235 DF,  p-value: 0.4113
+## Residual standard error: 0.05519 on 235 degrees of freedom
+## Multiple R-squared:  0.02205,    Adjusted R-squared:  0.001238 
+## F-statistic: 1.059 on 5 and 235 DF,  p-value: 0.3836
 ## 
 ## [1] &quot;Impulsivity&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.05925 -0.48449 -0.02607  0.53208  2.49996 
+##       Min        1Q    Median        3Q       Max 
+## -0.114611 -0.039672 -0.004046  0.036182  0.145395 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.384460   0.198361   1.938   0.0538 .
-## vec_variables_values[[i]]         0.111531   0.230114   0.485   0.6284  
-## d$edad                           -0.008964   0.007545  -1.188   0.2360  
-## d$ImMasculino                     0.088312   0.109241   0.808   0.4197  
-## d$ImNo Binario                    0.314343   0.310853   1.011   0.3129  
-## vec_variables_values[[i]]:d$edad -0.004301   0.009276  -0.464   0.6434  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6293946  0.0146921  42.839   &lt;2e-16 ***
+## vec_variables_values[[i]]        -0.0037563  0.0170511  -0.220    0.826    
+## d$edad                           -0.0007390  0.0005590  -1.322    0.187    
+## d$ImMasculino                     0.0121158  0.0080957   1.497    0.136    
+## d$ImNo Binario                   -0.0284081  0.0230359  -1.233    0.219    
+## vec_variables_values[[i]]:d$edad  0.0001453  0.0006874   0.211    0.833    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7446 on 235 degrees of freedom
-## Multiple R-squared:  0.01512,    Adjusted R-squared:  -0.00583 
-## F-statistic: 0.7218 on 5 and 235 DF,  p-value: 0.6077
+## Residual standard error: 0.05518 on 235 degrees of freedom
+## Multiple R-squared:  0.02216,    Adjusted R-squared:  0.00135 
+## F-statistic: 1.065 on 5 and 235 DF,  p-value: 0.3806
 ## 
 ## [1] &quot;IntimacyAvoidance&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.0500 -0.5064 -0.0182  0.5016  2.4674 
+##       Min        1Q    Median        3Q       Max 
+## -0.112975 -0.039813 -0.002646  0.034273  0.137860 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.488171   0.224441   2.175   0.0306 *
-## vec_variables_values[[i]]         0.065554   0.234226   0.280   0.7798  
-## d$edad                           -0.013236   0.008993  -1.472   0.1424  
-## d$ImMasculino                     0.081656   0.109772   0.744   0.4577  
-## d$ImNo Binario                    0.302108   0.310435   0.973   0.3315  
-## vec_variables_values[[i]]:d$edad -0.004161   0.009687  -0.429   0.6680  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6453591  0.0165108  39.087   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0296512  0.0172258   1.721   0.0865 .  
+## d$edad                           -0.0014656  0.0006616  -2.215   0.0277 *  
+## d$ImMasculino                     0.0125840  0.0080767   1.558   0.1206    
+## d$ImNo Binario                   -0.0300488  0.0228410  -1.316   0.1896    
+## vec_variables_values[[i]]:d$edad -0.0013395  0.0007126  -1.880   0.0614 .  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.744 on 235 degrees of freedom
-## Multiple R-squared:  0.01666,    Adjusted R-squared:  -0.004267 
-## F-statistic: 0.796 on 5 and 235 DF,  p-value: 0.5535
+## Residual standard error: 0.05475 on 235 degrees of freedom
+## Multiple R-squared:  0.03757,    Adjusted R-squared:  0.0171 
+## F-statistic: 1.835 on 5 and 235 DF,  p-value: 0.1068
 ## 
 ## [1] &quot;Irresponsibility&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.04258 -0.50401 -0.02688  0.52680  2.52837 
+##       Min        1Q    Median        3Q       Max 
+## -0.112522 -0.040532  0.000687  0.036417  0.151342 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.450591   0.205527   2.192   0.0293 *
-## vec_variables_values[[i]]         0.202889   0.240652   0.843   0.4000  
-## d$edad                           -0.011941   0.008078  -1.478   0.1407  
-## d$ImMasculino                     0.100025   0.109640   0.912   0.3625  
-## d$ImNo Binario                    0.300907   0.309825   0.971   0.3324  
-## vec_variables_values[[i]]:d$edad -0.007262   0.009623  -0.755   0.4512  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6351083  0.0149015  42.621  &lt; 2e-16 ***
+## vec_variables_values[[i]]         0.0462416  0.0174543   2.649  0.00861 ** 
+## d$edad                           -0.0010568  0.0005858  -1.804  0.07251 .  
+## d$ImMasculino                     0.0145749  0.0079524   1.833  0.06810 .  
+## d$ImNo Binario                   -0.0292570  0.0224714  -1.302  0.19420    
+## vec_variables_values[[i]]:d$edad -0.0015315  0.0006979  -2.194  0.02919 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7437 on 235 degrees of freedom
-## Multiple R-squared:  0.01763,    Adjusted R-squared:  -0.003275 
-## F-statistic: 0.8433 on 5 and 235 DF,  p-value: 0.5202
+## Residual standard error: 0.05394 on 235 degrees of freedom
+## Multiple R-squared:  0.0657, Adjusted R-squared:  0.04582 
+## F-statistic: 3.305 on 5 and 235 DF,  p-value: 0.006642
 ## 
 ## [1] &quot;Manipulativeness&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.0630 -0.4718 -0.0076  0.4934  2.5856 
+##       Min        1Q    Median        3Q       Max 
+## -0.112091 -0.034772 -0.003335  0.029845  0.148546 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.376203   0.192600   1.953    0.052 .
-## vec_variables_values[[i]]         0.106214   0.218347   0.486    0.627  
-## d$edad                           -0.008699   0.007394  -1.176    0.241  
-## d$ImMasculino                     0.085690   0.109367   0.784    0.434  
-## d$ImNo Binario                    0.335518   0.310089   1.082    0.280  
-## vec_variables_values[[i]]:d$edad -0.001699   0.008822  -0.193    0.847  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       6.250e-01  1.422e-02  43.946   &lt;2e-16 ***
+## vec_variables_values[[i]]         7.312e-03  1.613e-02   0.453    0.651    
+## d$edad                           -5.719e-04  5.461e-04  -1.047    0.296    
+## d$ImMasculino                     1.166e-02  8.080e-03   1.443    0.150    
+## d$ImNo Binario                   -2.513e-02  2.291e-02  -1.097    0.274    
+## vec_variables_values[[i]]:d$edad -3.833e-05  6.517e-04  -0.059    0.953    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7422 on 235 degrees of freedom
-## Multiple R-squared:  0.02159,    Adjusted R-squared:  0.0007704 
-## F-statistic: 1.037 on 5 and 235 DF,  p-value: 0.3965
+## Residual standard error: 0.05483 on 235 degrees of freedom
+## Multiple R-squared:  0.03462,    Adjusted R-squared:  0.01408 
+## F-statistic: 1.686 on 5 and 235 DF,  p-value: 0.1388
 ## 
 ## [1] &quot;PerceptualDysregulation&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.00948 -0.46320 -0.00552  0.46307  2.45377 
+##       Min        1Q    Median        3Q       Max 
+## -0.113541 -0.039958 -0.001073  0.030053  0.146214 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)   
-## (Intercept)                       0.392534   0.192172   2.043  0.04221 * 
-## vec_variables_values[[i]]         0.701151   0.235619   2.976  0.00323 **
-## d$edad                           -0.011235   0.007441  -1.510  0.13243   
-## d$ImMasculino                     0.143564   0.107544   1.335  0.18319   
-## d$ImNo Binario                    0.134039   0.312195   0.429  0.66807   
-## vec_variables_values[[i]]:d$edad -0.025542   0.009731  -2.625  0.00924 **
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6245020  0.0142639  43.782   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0408343  0.0174900   2.335   0.0204 *  
+## d$edad                           -0.0006598  0.0005525  -1.194   0.2335    
+## d$ImMasculino                     0.0158969  0.0079859   1.991   0.0477 *  
+## d$ImNo Binario                   -0.0428089  0.0231832  -1.847   0.0661 .  
+## vec_variables_values[[i]]:d$edad -0.0013460  0.0007224  -1.863   0.0637 .  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7285 on 235 degrees of freedom
-## Multiple R-squared:  0.05727,    Adjusted R-squared:  0.03721 
-## F-statistic: 2.855 on 5 and 235 DF,  p-value: 0.01595
+## Residual standard error: 0.0541 on 235 degrees of freedom
+## Multiple R-squared:  0.06016,    Adjusted R-squared:  0.04016 
+## F-statistic: 3.008 on 5 and 235 DF,  p-value: 0.01186
 ## 
 ## [1] &quot;Perseveration&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.05188 -0.47621 -0.01363  0.48768  2.48015 
+##       Min        1Q    Median        3Q       Max 
+## -0.115486 -0.037631 -0.002793  0.033161  0.143104 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.427426   0.196287   2.178   0.0304 *
-## vec_variables_values[[i]]         0.428562   0.197573   2.169   0.0311 *
-## d$edad                           -0.011759   0.007638  -1.540   0.1250  
-## d$ImMasculino                     0.110417   0.108450   1.018   0.3097  
-## d$ImNo Binario                    0.219111   0.311048   0.704   0.4819  
-## vec_variables_values[[i]]:d$edad -0.015053   0.007701  -1.955   0.0518 .
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6279402  0.0145640  43.116   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0261204  0.0146575   1.782    0.076 .  
+## d$edad                           -0.0007472  0.0005668  -1.318    0.189    
+## d$ImMasculino                     0.0132140  0.0080502   1.641    0.102    
+## d$ImNo Binario                   -0.0346531  0.0230891  -1.501    0.135    
+## vec_variables_values[[i]]:d$edad -0.0008522  0.0005714  -1.491    0.137    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7371 on 235 degrees of freedom
-## Multiple R-squared:  0.03486,    Adjusted R-squared:  0.01433 
-## F-statistic: 1.698 on 5 and 235 DF,  p-value: 0.1359
+## Residual standard error: 0.05472 on 235 degrees of freedom
+## Multiple R-squared:  0.03856,    Adjusted R-squared:  0.0181 
+## F-statistic: 1.885 on 5 and 235 DF,  p-value: 0.0977
 ## 
 ## [1] &quot;RestrictedAffectivity&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.11683 -0.48850 -0.01117  0.47633  2.50797 
+##       Min        1Q    Median        3Q       Max 
+## -0.114192 -0.036568 -0.002303  0.031049  0.144663 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.454831   0.193626   2.349   0.0197 *
-## vec_variables_values[[i]]         0.515682   0.236888   2.177   0.0305 *
-## d$edad                           -0.011991   0.007495  -1.600   0.1110  
-## d$ImMasculino                     0.074339   0.108269   0.687   0.4930  
-## d$ImNo Binario                    0.206674   0.308123   0.671   0.5030  
-## vec_variables_values[[i]]:d$edad -0.017266   0.009509  -1.816   0.0707 .
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6318687  0.0144701  43.667   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0273488  0.0177037   1.545    0.124    
+## d$edad                           -0.0008629  0.0005602  -1.540    0.125    
+## d$ImMasculino                     0.0119912  0.0080939   1.482    0.140    
+## d$ImNo Binario                   -0.0320313  0.0230342  -1.391    0.166    
+## vec_variables_values[[i]]:d$edad -0.0009897  0.0007107  -1.393    0.165    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.734 on 235 degrees of freedom
-## Multiple R-squared:  0.04308,    Adjusted R-squared:  0.02272 
-## F-statistic: 2.116 on 5 and 235 DF,  p-value: 0.06435
+## Residual standard error: 0.05487 on 235 degrees of freedom
+## Multiple R-squared:  0.03317,    Adjusted R-squared:  0.0126 
+## F-statistic: 1.613 on 5 and 235 DF,  p-value: 0.1575
 ## 
 ## [1] &quot;RigidPerfeccionism&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2.08522 -0.49649 -0.02707  0.50113  2.47215 
+## -0.11124 -0.03556 -0.00126  0.03425  0.14450 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.434368   0.197018   2.205   0.0284 *
-## vec_variables_values[[i]]         0.055628   0.217170   0.256   0.7981  
-## d$edad                           -0.010919   0.007559  -1.444   0.1500  
-## d$ImMasculino                     0.079133   0.111495   0.710   0.4786  
-## d$ImNo Binario                    0.308401   0.310473   0.993   0.3216  
-## vec_variables_values[[i]]:d$edad -0.002878   0.008320  -0.346   0.7297  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6280999  0.0145647  43.125   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0127255  0.0160608   0.792    0.429    
+## d$edad                           -0.0007227  0.0005590  -1.293    0.197    
+## d$ImMasculino                     0.0135738  0.0082462   1.646    0.101    
+## d$ImNo Binario                   -0.0289986  0.0229617  -1.263    0.208    
+## vec_variables_values[[i]]:d$edad -0.0003879  0.0006153  -0.630    0.529    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7446 on 235 degrees of freedom
-## Multiple R-squared:  0.01514,    Adjusted R-squared:  -0.005811 
-## F-statistic: 0.7227 on 5 and 235 DF,  p-value: 0.607
+## Residual standard error: 0.05507 on 235 degrees of freedom
+## Multiple R-squared:  0.0261, Adjusted R-squared:  0.005379 
+## F-statistic:  1.26 on 5 and 235 DF,  p-value: 0.2822
 ## 
 ## [1] &quot;RiskTaking&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.12389 -0.49657 -0.01994  0.47434  2.52109 
+##       Min        1Q    Median        3Q       Max 
+## -0.110912 -0.038829 -0.002872  0.035505  0.146075 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.447746   0.191103   2.343   0.0200 *
-## vec_variables_values[[i]]         0.262208   0.247580   1.059   0.2906  
-## d$edad                           -0.012293   0.007363  -1.670   0.0963 .
-## d$ImMasculino                     0.132944   0.111966   1.187   0.2363  
-## d$ImNo Binario                    0.313250   0.309376   1.013   0.3123  
-## vec_variables_values[[i]]:d$edad -0.013295   0.010134  -1.312   0.1908  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6274344  0.0142270  44.102   &lt;2e-16 ***
+## vec_variables_values[[i]]        -0.0074783  0.0184329  -0.406    0.685    
+## d$edad                           -0.0006380  0.0005482  -1.164    0.246    
+## d$ImMasculino                     0.0108200  0.0083393   1.297    0.196    
+## d$ImNo Binario                   -0.0283125  0.0230415  -1.229    0.220    
+## vec_variables_values[[i]]:d$edad  0.0003811  0.0007545   0.505    0.614    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7403 on 235 degrees of freedom
-## Multiple R-squared:  0.02665,    Adjusted R-squared:  0.005935 
-## F-statistic: 1.287 on 5 and 235 DF,  p-value: 0.2704
+## Residual standard error: 0.05513 on 235 degrees of freedom
+## Multiple R-squared:  0.02385,    Adjusted R-squared:  0.003078 
+## F-statistic: 1.148 on 5 and 235 DF,  p-value: 0.3357
 ## 
 ## [1] &quot;SeparationInsecurity&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.09057 -0.51958 -0.01939  0.50715  2.54275 
+##       Min        1Q    Median        3Q       Max 
+## -0.113747 -0.036947 -0.002163  0.035144  0.147036 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.382613   0.195034   1.962    0.051 .
-## vec_variables_values[[i]]        -0.156440   0.203152  -0.770    0.442  
-## d$edad                           -0.008649   0.007484  -1.156    0.249  
-## d$ImMasculino                     0.088523   0.108468   0.816    0.415  
-## d$ImNo Binario                    0.312134   0.310199   1.006    0.315  
-## vec_variables_values[[i]]:d$edad  0.006405   0.007968   0.804    0.422  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6295418  0.0144093  43.690   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0176648  0.0150067   1.177    0.240    
+## d$edad                           -0.0007686  0.0005531  -1.390    0.166    
+## d$ImMasculino                     0.0119997  0.0080179   1.497    0.136    
+## d$ImNo Binario                   -0.0294480  0.0229283  -1.284    0.200    
+## vec_variables_values[[i]]:d$edad -0.0005992  0.0005887  -1.018    0.310    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.744 on 235 degrees of freedom
-## Multiple R-squared:  0.01684,    Adjusted R-squared:  -0.004075 
-## F-statistic: 0.8052 on 5 and 235 DF,  p-value: 0.547
+## Residual standard error: 0.05499 on 235 degrees of freedom
+## Multiple R-squared:  0.02886,    Adjusted R-squared:  0.008201 
+## F-statistic: 1.397 on 5 and 235 DF,  p-value: 0.2262
 ## 
 ## [1] &quot;Submissiveness&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2.06670 -0.50059 -0.03557  0.51480  2.53003 
+## -0.11452 -0.03922 -0.00010  0.03334  0.14037 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.370757   0.195790   1.894   0.0595 .
-## vec_variables_values[[i]]        -0.122809   0.208620  -0.589   0.5566  
-## d$edad                           -0.008076   0.007563  -1.068   0.2867  
-## d$ImMasculino                     0.080292   0.109108   0.736   0.4625  
-## d$ImNo Binario                    0.293277   0.316284   0.927   0.3547  
-## vec_variables_values[[i]]:d$edad  0.005972   0.008176   0.730   0.4659  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6339049  0.0142481  44.490  &lt; 2e-16 ***
+## vec_variables_values[[i]]         0.0456838  0.0151881   3.008  0.00292 ** 
+## d$edad                           -0.0010126  0.0005505  -1.839  0.06712 .  
+## d$ImMasculino                     0.0147692  0.0079441   1.859  0.06425 .  
+## d$ImNo Binario                   -0.0373728  0.0230267  -1.623  0.10593    
+## vec_variables_values[[i]]:d$edad -0.0017065  0.0005953  -2.867  0.00452 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7438 on 235 degrees of freedom
-## Multiple R-squared:  0.01741,    Adjusted R-squared:  -0.003496 
-## F-statistic: 0.8328 on 5 and 235 DF,  p-value: 0.5275
+## Residual standard error: 0.05415 on 235 degrees of freedom
+## Multiple R-squared:  0.0584, Adjusted R-squared:  0.03836 
+## F-statistic: 2.915 on 5 and 235 DF,  p-value: 0.01421
 ## 
 ## [1] &quot;Suspiciousness&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2.07510 -0.49192 -0.02893  0.48406  2.53011 
+## -0.10860 -0.03864 -0.00373  0.03693  0.13684 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.400948   0.194214   2.064   0.0401 *
-## vec_variables_values[[i]]        -0.184155   0.194348  -0.948   0.3443  
-## d$edad                           -0.009045   0.007437  -1.216   0.2251  
-## d$ImMasculino                     0.073169   0.110732   0.661   0.5094  
-## d$ImNo Binario                    0.324860   0.313730   1.035   0.3015  
-## vec_variables_values[[i]]:d$edad  0.007360   0.007609   0.967   0.3344  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6324925  0.0143438  44.095   &lt;2e-16 ***
+## vec_variables_values[[i]]        -0.0022408  0.0143540  -0.156    0.876    
+## d$edad                           -0.0008555  0.0005494  -1.557    0.121    
+## d$ImMasculino                     0.0105207  0.0081822   1.286    0.200    
+## d$ImNo Binario                   -0.0234297  0.0231827  -1.011    0.313    
+## vec_variables_values[[i]]:d$edad -0.0001236  0.0005621  -0.220    0.826    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7435 on 235 degrees of freedom
-## Multiple R-squared:  0.01805,    Adjusted R-squared:  -0.002843 
-## F-statistic: 0.8639 on 5 and 235 DF,  p-value: 0.506
+## Residual standard error: 0.05494 on 235 degrees of freedom
+## Multiple R-squared:  0.03066,    Adjusted R-squared:  0.01004 
+## F-statistic: 1.487 on 5 and 235 DF,  p-value: 0.1949
 ## 
 ## [1] &quot;UnusualBeliefsAndExperiences&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2.14431 -0.49112 -0.00596  0.41616  2.48587 
+## -0.11434 -0.03831 -0.00061  0.03073  0.13894 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)   
-## (Intercept)                       0.249043   0.191710   1.299  0.19519   
-## vec_variables_values[[i]]         0.591782   0.189832   3.117  0.00205 **
-## d$edad                           -0.004424   0.007268  -0.609  0.54328   
-## d$ImMasculino                     0.117810   0.106548   1.106  0.26999   
-## d$ImNo Binario                    0.259730   0.302974   0.857  0.39217   
-## vec_variables_values[[i]]:d$edad -0.019303   0.007554  -2.555  0.01124 * 
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6212089  0.0144553  42.975   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0278835  0.0143175   1.948   0.0527 .  
+## d$edad                           -0.0004552  0.0005481  -0.831   0.4071    
+## d$ImMasculino                     0.0130818  0.0080394   1.627   0.1050    
+## d$ImNo Binario                   -0.0293216  0.0228592  -1.283   0.2009    
+## vec_variables_values[[i]]:d$edad -0.0009683  0.0005698  -1.699   0.0906 .  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7247 on 235 degrees of freedom
-## Multiple R-squared:  0.06709,    Adjusted R-squared:  0.04725 
-## F-statistic:  3.38 on 5 and 235 DF,  p-value: 0.005731
+## Residual standard error: 0.05468 on 235 degrees of freedom
+## Multiple R-squared:  0.03987,    Adjusted R-squared:  0.01944 
+## F-statistic: 1.951 on 5 and 235 DF,  p-value: 0.08672
 ## 
 ## [1] &quot;Withdrawal&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.04442 -0.49577 -0.02534  0.48468  2.53685 
+##       Min        1Q    Median        3Q       Max 
+## -0.109588 -0.037833 -0.002774  0.033909  0.147692 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.418415   0.193781   2.159   0.0318 *
-## vec_variables_values[[i]]         0.188219   0.186436   1.010   0.3137  
-## d$edad                           -0.010633   0.007473  -1.423   0.1561  
-## d$ImMasculino                     0.109122   0.110171   0.990   0.3230  
-## d$ImNo Binario                    0.268401   0.311288   0.862   0.3894  
-## vec_variables_values[[i]]:d$edad -0.006061   0.007287  -0.832   0.4064  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6332707  0.0142930  44.306   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0167472  0.0137537   1.218   0.2246    
+## d$edad                           -0.0009398  0.0005513  -1.705   0.0896 .  
+## d$ImMasculino                     0.0138266  0.0081293   1.701   0.0903 .  
+## d$ImNo Binario                   -0.0272041  0.0229693  -1.184   0.2375    
+## vec_variables_values[[i]]:d$edad -0.0008137  0.0005376  -1.513   0.1315    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7429 on 235 degrees of freedom
-## Multiple R-squared:  0.01966,    Adjusted R-squared:  -0.001194 
-## F-statistic: 0.9427 on 5 and 235 DF,  p-value: 0.454</code></pre>
+## Residual standard error: 0.05482 on 235 degrees of freedom
+## Multiple R-squared:  0.03502,    Adjusted R-squared:  0.01448 
+## F-statistic: 1.705 on 5 and 235 DF,  p-value: 0.1341</code></pre>
 </div>
 <div id="modelo-2" class="section level2">
 <h2>Modelo 2</h2>
@@ -954,7 +954,7 @@ vec_variables_string &lt;- c(&quot;DomainPsychoticism&quot;,
 
 
 for (i in 1:length(vec_variables_string)) {
-  a &lt;- lm(d$sd_c ~ vec_variables_values[[i]] + 
+  a &lt;- lm(d2$mc ~ vec_variables_values[[i]] + 
                   d$edad + 
                   d$Im +
                   d$edad:vec_variables_values[[i]]) #+
@@ -965,127 +965,127 @@ for (i in 1:length(vec_variables_string)) {
 <pre><code>## [1] &quot;DomainPsychoticism&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -1.98443 -0.43879 -0.00741  0.42085  2.52627 
+##       Min        1Q    Median        3Q       Max 
+## -0.113891 -0.039306 -0.001081  0.032209  0.141889 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.349045   0.191152   1.826   0.0691 .
-## vec_variables_values[[i]]         0.564928   0.232196   2.433   0.0157 *
-## d$edad                           -0.008868   0.007377  -1.202   0.2305  
-## d$ImMasculino                     0.124659   0.107181   1.163   0.2460  
-## d$ImNo Binario                    0.126329   0.310263   0.407   0.6843  
-## vec_variables_values[[i]]:d$edad -0.018340   0.009426  -1.946   0.0529 .
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6269016  0.0142601  43.962   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0404835  0.0173233   2.337   0.0203 *  
+## d$edad                           -0.0007461  0.0005504  -1.355   0.1766    
+## d$ImMasculino                     0.0146172  0.0079995   1.827   0.0689 .  
+## d$ImNo Binario                   -0.0366654  0.0231568  -1.583   0.1147    
+## vec_variables_values[[i]]:d$edad -0.0014507  0.0007033  -2.063   0.0402 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7292 on 235 degrees of freedom
-## Multiple R-squared:  0.05541,    Adjusted R-squared:  0.03531 
-## F-statistic: 2.757 on 5 and 235 DF,  p-value: 0.01926
+## Residual standard error: 0.05443 on 235 degrees of freedom
+## Multiple R-squared:  0.04871,    Adjusted R-squared:  0.02847 
+## F-statistic: 2.407 on 5 and 235 DF,  p-value: 0.0375
 ## 
 ## [1] &quot;DomainDisinhibition&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.02629 -0.50475 -0.02383  0.51381  2.48977 
+##       Min        1Q    Median        3Q       Max 
+## -0.111778 -0.039524  0.001845  0.035741  0.137808 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.410503   0.192196   2.136   0.0337 *
-## vec_variables_values[[i]]         0.259799   0.232314   1.118   0.2646  
-## d$edad                           -0.010304   0.007379  -1.396   0.1639  
-## d$ImMasculino                     0.088859   0.108863   0.816   0.4152  
-## d$ImNo Binario                    0.278155   0.311982   0.892   0.3735  
-## vec_variables_values[[i]]:d$edad -0.009595   0.009184  -1.045   0.2972  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6276437  0.0139927  44.855  &lt; 2e-16 ***
+## vec_variables_values[[i]]         0.0483714  0.0169198   2.859  0.00463 ** 
+## d$edad                           -0.0007327  0.0005374  -1.363  0.17404    
+## d$ImMasculino                     0.0118683  0.0079295   1.497  0.13580    
+## d$ImNo Binario                   -0.0342325  0.0227235  -1.506  0.13329    
+## vec_variables_values[[i]]:d$edad -0.0017168  0.0006689  -2.567  0.01089 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7429 on 235 degrees of freedom
-## Multiple R-squared:  0.01959,    Adjusted R-squared:  -0.001272 
-## F-statistic: 0.939 on 5 and 235 DF,  p-value: 0.4564
+## Residual standard error: 0.05411 on 235 degrees of freedom
+## Multiple R-squared:  0.05967,    Adjusted R-squared:  0.03966 
+## F-statistic: 2.983 on 5 and 235 DF,  p-value: 0.01247
 ## 
 ## [1] &quot;DomainAntagonism&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.00113 -0.51915  0.01534  0.45234  2.59618 
+##       Min        1Q    Median        3Q       Max 
+## -0.110848 -0.036441 -0.002393  0.032549  0.145959 
 ## 
 ## Coefficients:
-##                                    Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.3523765  0.1927314   1.828   0.0688 .
-## vec_variables_values[[i]]         0.1098615  0.2192400   0.501   0.6168  
-## d$edad                           -0.0075847  0.0074304  -1.021   0.3084  
-## d$ImMasculino                     0.0734424  0.1083227   0.678   0.4984  
-## d$ImNo Binario                    0.3262508  0.3079433   1.059   0.2905  
-## vec_variables_values[[i]]:d$edad -0.0004359  0.0089829  -0.049   0.9613  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6259195  0.0143203  43.709   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0120622  0.0162969   0.740    0.460    
+## d$edad                           -0.0006131  0.0005522  -1.110    0.268    
+## d$ImMasculino                     0.0115661  0.0080524   1.436    0.152    
+## d$ImNo Binario                   -0.0265436  0.0228903  -1.160    0.247    
+## vec_variables_values[[i]]:d$edad -0.0002745  0.0006677  -0.411    0.681    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7386 on 235 degrees of freedom
-## Multiple R-squared:  0.03113,    Adjusted R-squared:  0.01052 
-## F-statistic:  1.51 on 5 and 235 DF,  p-value: 0.1873
+## Residual standard error: 0.0549 on 235 degrees of freedom
+## Multiple R-squared:  0.03215,    Adjusted R-squared:  0.01155 
+## F-statistic: 1.561 on 5 and 235 DF,  p-value: 0.1719
 ## 
 ## [1] &quot;DomainDetachment&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.07924 -0.50223 -0.02628  0.49765  2.51125 
+##       Min        1Q    Median        3Q       Max 
+## -0.108014 -0.037796 -0.001143  0.033256  0.145491 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.435205   0.207258   2.100   0.0368 *
-## vec_variables_values[[i]]         0.057742   0.203340   0.284   0.7767  
-## d$edad                           -0.011108   0.008176  -1.359   0.1756  
-## d$ImMasculino                     0.093063   0.111127   0.837   0.4032  
-## d$ImNo Binario                    0.299950   0.316575   0.947   0.3444  
-## vec_variables_values[[i]]:d$edad -0.002515   0.008067  -0.312   0.7555  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6406528  0.0152142  42.109   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0256104  0.0149226   1.716   0.0874 .  
+## d$edad                           -0.0012723  0.0006003  -2.120   0.0351 *  
+## d$ImMasculino                     0.0141400  0.0081594   1.733   0.0844 .  
+## d$ImNo Binario                   -0.0289140  0.0232453  -1.244   0.2148    
+## vec_variables_values[[i]]:d$edad -0.0011536  0.0005922  -1.948   0.0526 .  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7448 on 235 degrees of freedom
-## Multiple R-squared:  0.01456,    Adjusted R-squared:  -0.006407 
-## F-statistic: 0.6944 on 5 and 235 DF,  p-value: 0.6281
+## Residual standard error: 0.05469 on 235 degrees of freedom
+## Multiple R-squared:  0.03945,    Adjusted R-squared:  0.01901 
+## F-statistic:  1.93 on 5 and 235 DF,  p-value: 0.09009
 ## 
 ## [1] &quot;DomainNegativeAffect&quot;
 ## 
 ## Call:
-## lm(formula = d$sd_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
+## lm(formula = d2$mc ~ vec_variables_values[[i]] + d$edad + d$Im + 
 ##     d$edad:vec_variables_values[[i]])
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.11883 -0.49250 -0.01192  0.48704  2.51946 
+##       Min        1Q    Median        3Q       Max 
+## -0.112095 -0.033665 -0.001522  0.034276  0.143379 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.423098   0.196653   2.151   0.0325 *
-## vec_variables_values[[i]]        -0.102647   0.214572  -0.478   0.6328  
-## d$edad                           -0.010134   0.007525  -1.347   0.1794  
-## d$ImMasculino                     0.078310   0.110231   0.710   0.4781  
-## d$ImNo Binario                    0.329502   0.313360   1.052   0.2941  
-## vec_variables_values[[i]]:d$edad  0.003199   0.008232   0.389   0.6979  
+##                                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                       0.6246386  0.0145056  43.062   &lt;2e-16 ***
+## vec_variables_values[[i]]         0.0130561  0.0158346   0.825   0.4105    
+## d$edad                           -0.0005963  0.0005552  -1.074   0.2838    
+## d$ImMasculino                     0.0141903  0.0081347   1.744   0.0824 .  
+## d$ImNo Binario                   -0.0329130  0.0231241  -1.423   0.1560    
+## vec_variables_values[[i]]:d$edad -0.0003148  0.0006075  -0.518   0.6048    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.7445 on 235 degrees of freedom
-## Multiple R-squared:  0.01553,    Adjusted R-squared:  -0.005413 
-## F-statistic: 0.7416 on 5 and 235 DF,  p-value: 0.593</code></pre>
+## Residual standard error: 0.05494 on 235 degrees of freedom
+## Multiple R-squared:  0.03077,    Adjusted R-squared:  0.01015 
+## F-statistic: 1.492 on 5 and 235 DF,  p-value: 0.1931</code></pre>
 </div>
 
 

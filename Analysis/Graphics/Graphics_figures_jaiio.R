@@ -194,11 +194,11 @@ DomainNegativeAffect <- d2$DomainNegativeAffect
 DomainValues <- c(DomainPsychoticism,DomainDisinhibition,DomainAntagonism,
                   DomainDetachment,DomainNegativeAffect)
 
-DomainPsychoticism_label <- rep("DomainPsychoticism",length(DomainPsychoticism))
-DomainDisinhibition_label <- rep("DomainDisinhibition", length(DomainDisinhibition)) 
-DomainAntagonism_label <- rep("DomainAntagonism", length(DomainAntagonism))
-DomainDetachment_label <- rep("DomainDetachment", length(DomainDetachment))
-DomainNegativeAffect_label <- rep("DomainNegativeAffect", length(DomainNegativeAffect))
+DomainPsychoticism_label <- rep("Psychoticism",length(DomainPsychoticism))
+DomainDisinhibition_label <- rep("Disinhibition", length(DomainDisinhibition)) 
+DomainAntagonism_label <- rep("Antagonism", length(DomainAntagonism))
+DomainDetachment_label <- rep("Detachment", length(DomainDetachment))
+DomainNegativeAffect_label <- rep("Negative Affect", length(DomainNegativeAffect))
 
 DomainLabels <- c(DomainPsychoticism_label,DomainDisinhibition_label,
                   DomainAntagonism_label, DomainDetachment_label,
@@ -207,8 +207,10 @@ DomainLabels <- c(DomainPsychoticism_label,DomainDisinhibition_label,
 d1 <- data.frame(DomainValues = DomainValues,
                  DomainLabels = DomainLabels)
 
-ggplot(d1, aes(x = DomainValues, fill = DomainLabels)) + 
-  geom_density(alpha = 0.1)+
+ggplot(d1, aes(x = DomainValues, color = DomainLabels)) + 
+  geom_density(alpha=0.3,size=1)+
+  scale_x_continuous(expand = c(.0, 0),limits = c(0.1, 2.0)) +
+  labs(colour = "Domain", x = "Domain Values")+
   theme_bw() +
   theme(axis.line = element_line(colour = "black"),
         panel.grid.major = element_blank(),
@@ -242,4 +244,370 @@ dotchart(PlantGrowth$weight,
          xlab="weight",
          gcolor="black",
          color=pg$color)
+
+
+#############################
+### Regression plot ######### 
+#############################
+
+# voy a la carpeta del proyecto
+root <- rprojroot::is_rstudio_project
+basename(getwd())
+
+# load the function to get the df list
+source(root$find_file("Analysis/AuxiliaryFunctions/DataFrame_Filtered.R"))
+
+# get the df list
+# experimento = completo,survey,sorteo, todos
+DF_list <- DataFrame_Filtered(experimento = "todos", 
+                              filtroRT_Disc_Sup = 5000,
+                              filtroRT_Disc_Inf = 200,
+                              filtroRT_Conf_Sup = 5000,
+                              filtroRT_Conf_Inf = 0,
+                              filtroTrial = 20,
+                              cant_trial_filter = 70)
+
+# DF_list:
+# a = df_total
+# b = d.sin.normalizar
+# c = d.sin.normalizar.mc.filter
+# d = d.mc.filter
+
+df_total <- DF_list$a
+d.sin.normalizar <- DF_list$b
+d.sin.normalizar.mc.filter <- DF_list$c
+d.mc.filter <- DF_list$d 
+d <- d.mc.filter
+###############
+### library ###
+###############
+library(arm)
+library(jtools)
+library(broom.mixed)
+library(TMB)
+library(sjPlot)
+library(dotwhisker)
+library(tidyverse)
+library(dplyr)
+
+###########################
+### Regression Analysis ###
+###########################
+
+### lineas para hacer regresion 
+
+d1 = d.sin.normalizar.mc.filter
+
+# sujetos que tienen un 85 % de trials en una misma respuesta de confianza
+
+source(root$find_file("Analysis/AuxiliaryFunctions/discard_by_x_same_confidence.R"))
+sujetos_a_descartar <- discard_by_x_same_confidence(85)
+d2 <- d1[! d1$sujetos %in% sujetos_a_descartar,]
+
+
+d <- subset(d, d$sujetos %in% d2$sujetos)
+
+# preparo para correr regesiones de todas las facetas y dominios
+vec_variables_values <- list(d$Anhedonia,
+                             d$Anxiousness,
+                             d$AttentionSeeking,
+                             d$Callousness,
+                             d$Deceitfulness,
+                             d$Depressivity,
+                             d$Distractivility,
+                             d$Excentricity,
+                             d$EmotionalLability,
+                             d$Grandiosity,
+                             d$Hostility,
+                             d$Impulsivity,
+                             d$IntimacyAvoidance,
+                             d$Irresponsibility,
+                             d$Manipulativeness,
+                             d$PerceptualDysregulation,
+                             d$Perseveration,
+                             d$RestrictedAffectivity,
+                             d$RigidPerfeccionism,
+                             d$RiskTaking,
+                             d$SeparationInsecurity,
+                             d$Submissiveness,
+                             d$Suspiciousness,
+                             d$UnusualBeliefsAndExperiences,
+                             d$Withdrawal)
+
+
+vec_variables_string <- c("Anhedonia",
+                          "Anxiousness",
+                          "AttentionSeeking",
+                          "Callousness",
+                          "Deceitfulness",
+                          "Depressivity",
+                          "Distractivility",
+                          "Excentricity",
+                          "EmotionalLability",
+                          "Grandiosity",
+                          "Hostility",
+                          "Impulsivity",
+                          "IntimacyAvoidance",
+                          "Irresponsibility",
+                          "Manipulativeness",
+                          "PerceptualDysregulation",
+                          "Perseveration",
+                          "RestrictedAffectivity",
+                          "RigidPerfeccionism",
+                          "RiskTaking",
+                          "SeparationInsecurity",
+                          "Submissiveness",
+                          "Suspiciousness",
+                          "UnusualBeliefsAndExperiences",
+                          "Withdrawal")
+
+
+# corro regresiones de cada faceta
+for (i in 1:length(vec_variables_string)) {
+  a <- lm(d$mc ~ vec_variables_values[[i]] + 
+            d$edad + 
+            d$Im +
+            d$edad:vec_variables_values[[i]]) #+
+  #d$Im: vec_variables_values[[i]])
+  print(vec_variables_string[i])
+  print(summary(a))
+}
+
+
+vec_variables_values <- list(d$DomainPsychoticism,
+                             d$DomainDisinhibition,
+                             d$DomainAntagonism,
+                             d$DomainDetachment,
+                             d$DomainNegativeAffect)
+
+
+vec_variables_string <- c("DomainPsychoticism",
+                          'DomainDisinhibition',
+                          'DomainAntagonism',
+                          'DomainDetachment',
+                          'DomainNegativeAffect')
+
+
+# corro regresiones de cada dominio
+for (i in 1:length(vec_variables_string)) {
+  a <- lm(d$mc ~ vec_variables_values[[i]] + 
+            d$edad + 
+            d$Im +
+            d$edad:vec_variables_values[[i]]) #+
+  #d$Im: vec_variables_values[[i]])
+  print(vec_variables_string[i])
+  print(summary(a))
+}
+
+
+# preparo para plotear un modelo de regresion
+a <- lm(d$mc ~ d$Distractivility + 
+          d$edad + 
+          d$Im +
+          d$edad:d$Distractivility)
+
+summary(a)
+display(a)
+
+############################# grafico 1 modelo de regresion individual
+
+plot_summs(a, coefs = c('Distractibility' = 'd$Distractivility',
+                        'Age'='d$edad','Gender-Male' = 'd$ImMasculino',
+                        'Gender-Non binary'='d$ImNo Binario',
+                        'Distractibility:Age'='d$Distractivility:d$edad') ,
+           plot.distributions = FALSE)+
+  ylab("") +
+  xlab("Regression coefficient") +
+  theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        plot.margin = margin(1, 1,1, 1, "cm"),
+        panel.background = element_blank(),
+        axis.text.x = element_text(size = 25),
+        axis.text.y = element_text(size = 25),
+        axis.title.y = element_text(size = 25),
+        axis.title.x = element_text(size = 25))
+
+############################# grafico 2 bar plot de coef, 1 solo modelo
+
+# Distractibility
+a <- lm(d$mc ~ d$Distractivility + 
+          d$edad + 
+          d$Im +
+          d$edad:d$Distractivility)
+
+coeff <- coefficients(a)
+coeff <- coeff[2]
+sd_coef <- unname(summary(a)$coefficients[2,2])
+names.coef <- 'Distractibility'
+
+# Distractibility
+a <- lm(d$mc ~ d$DomainDisinhibition + 
+          d$edad + 
+          d$Im +
+          d$edad:d$DomainDisinhibition)
+
+coe <- coefficients(a)
+coeff <- c(coeff,coe[2])
+sd_coef <- c(sd_coef,unname(summary(a)$coefficients[2,2]))
+names.coef <-c(names.coef,'Domain Disinhibition')
+
+
+dtf1 <- data.frame(Predictor = names.coef,
+                   y = coeff,
+                   sd= sd_coef)
+
+row.names(dtf1) <- NULL
+
+
+ggplot(dtf1, aes(Predictor, y)) +
+  geom_bar(stat = "identity", aes(fill = Predictor), width = 0.9) +
+  #facet_grid(. ~model)+ 
+  geom_errorbar(aes(ymin=y-sd, ymax=y+sd), width=.2,
+                position=position_dodge(.9)) +
+  geom_hline(yintercept=0) +
+  theme_bw() + xlab("") + ylab("Regression coefficient") +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        plot.margin = margin(1, 1,1, 1, "cm"),
+        panel.background = element_blank(),
+        legend.title =element_text(size = 30),#element_blank(),
+        legend.text = element_text(size = 20),#element_blank(),
+        legend.position = "left",
+        aspect.ratio = 2/0.7,
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.text.y = element_text(size = 30),
+        axis.title.y = element_text(size = 30))
+
+
+############################# scatter plots
+# Distractibility
+a <- lm(mc ~ Distractivility + 
+          edad + 
+          Im +
+          edad:Distractivility, data = d)
+
+ggplot(d, aes(x = Distractivility, y = mc)) + 
+  geom_point() + 
+  geom_abline(slope = coef(a)[[2]], intercept = coef(a)[[1]])+
+  ylab('Metacognition')+
+  xlab('Distractibility')+
+  theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        plot.margin = margin(1, 1,1, 1, "cm"),
+        legend.title = element_text(size = 20),
+        legend.text = element_text(size = 20),
+        panel.background = element_blank(),
+        axis.text.x = element_text(size = 30),
+        axis.text.y = element_text(size = 30),
+        axis.title.y = element_text(size = 30),
+        axis.title.x = element_text(size = 30)) 
+
+# DomainDisinhibition
+a <- lm(mc ~ DomainDisinhibition + 
+          edad + 
+          Im +
+          edad:DomainDisinhibition, data = d)
+
+ggplot(d, aes(x = DomainDisinhibition, y = mc)) + 
+  geom_point() + 
+  geom_abline(slope = coef(a)[[2]], intercept = coef(a)[[1]])+
+  ylab('Metacognition')+
+  xlab('Domain Disinhibition')+
+  theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        plot.margin = margin(1, 1,1, 1, "cm"),
+        legend.title = element_text(size = 20),
+        legend.text = element_text(size = 20),
+        panel.background = element_blank(),
+        axis.text.x = element_text(size = 30),
+        axis.text.y = element_text(size = 30),
+        axis.title.y = element_text(size = 30),
+        axis.title.x = element_text(size = 30)) 
+
+############################# grafico 4 bar plot de coef, dos modelos en un graf 
+############################# (EN CONSTRUCCION)
+# Modelo 1
+a <- lm(d$mc ~ d$Distractivility + 
+          d$edad + 
+          d$Im +
+          d$edad:d$Distractivility)
+
+coeff <- coefficients(a1)
+coeff <- coeff[2:4]
+sd_coef <- unname(summary(a1)$coefficients[2:4,2])
+names.coef <- names(coeff)
+model <- rep(1, length(coeff))
+
+dtf1 <- data.frame(Predictor = names.coef,
+                   y = coeff,
+                   sd= sd_coef,
+                   model = model)
+
+row.names(dtf1) <- NULL
+
+# model 2
+a2=lm(mc ~ AQ.norm + Gender + edad + es + AQ.norm: Gender , data = df.plot)
+summary(a2)
+display(a2)
+
+coeff <- coefficients(a2)
+coeff <- coeff[2:10]
+sd_coef <- unname(summary(a2)$coefficients[2:10,2])
+names.coef <- names(coeff)
+# names.coef[1] <- "AQ2"
+# names.coef[2] <-"GenderMale2"
+# names.coef[3] <-"edad2"
+# names.coef[4] <-"esPosgrado incompleto2"
+# names.coef[5] <-"esSecundaria completa2"
+# names.coef[6] <-"esSecundaria incompleta2"
+# names.coef[7] <-"esUniversidad completa2"
+# names.coef[8] <-"esUniversidad incompleta2"
+# names.coef[9] <-"AQ:GenderMale2"   
+model <- rep(2, length(coeff))
+
+dtf2 <- data.frame(Predictor = names.coef,
+                   y = coeff,
+                   sd= sd_coef,
+                   model=model)
+row.names(dtf2) <- NULL
+
+dtf.plot <- dtf2
+
+
+ggplot(dtf.plot, aes(Predictor, y)) +                                  # VA ESTE PARA REGRESION
+  geom_bar(stat = "identity", aes(fill = Predictor), width = 0.9) +
+  #facet_grid(. ~model)+ 
+  geom_errorbar(aes(ymin=y-sd, ymax=y+sd), width=.2,
+                position=position_dodge(.9)) +
+  geom_hline(yintercept=0) +
+  theme_bw() + xlab("") + ylab("Regression coefficient") +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        plot.margin = margin(1, 1,1, 1, "cm"),
+        panel.background = element_blank(),
+        legend.title =element_text(size = 30),#element_blank(),
+        legend.text = element_text(size = 20),#element_blank(),
+        legend.position = "left",
+        aspect.ratio = 2/0.7,
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.text.y = element_text(size = 30),
+        axis.title.y = element_text(size = 30))
+
 
