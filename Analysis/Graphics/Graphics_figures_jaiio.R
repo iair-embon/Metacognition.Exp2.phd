@@ -117,7 +117,7 @@ source(root$find_file("Analysis/AuxiliaryFunctions/discard_by_x_same_confidence.
 sujetos_a_descartar <- discard_by_x_same_confidence(85)
 d2 <- d1[! d1$sujetos %in% sujetos_a_descartar,]
 
-
+d2 <- d2[d2$Im == "Masculino" | d2$Im == "Femenino",]
 
 mc.sorted <-  d2[order(d2$mc),]
 subjects <- 1:nrow(mc.sorted)
@@ -208,7 +208,7 @@ d1 <- data.frame(DomainValues = DomainValues,
                  DomainLabels = DomainLabels)
 
 ggplot(d1, aes(x = DomainValues, color = DomainLabels)) + 
-  geom_density(alpha=0.3,size=1)+
+  geom_density(alpha=0.3,size=1.5)+
   scale_x_continuous(expand = c(.0, 0),limits = c(0.1, 2.0)) +
   labs(colour = "Domain", x = "Domain Values")+
   theme_bw() +
@@ -218,7 +218,9 @@ ggplot(d1, aes(x = DomainValues, color = DomainLabels)) +
         panel.border = element_blank(),
         plot.margin = margin(1, 1,1, 1, "cm"),
         legend.title = element_text(size = 20),
+        #legend.title = element_blank(),
         legend.text = element_text(size = 20),
+        #legend.text = element_blank(),
         panel.background = element_blank(),
         axis.text.x = element_text(size = 30),
         axis.text.y = element_text(size = 30),
@@ -610,4 +612,18 @@ ggplot(dtf.plot, aes(Predictor, y)) +                                  # VA ESTE
         axis.text.y = element_text(size = 30),
         axis.title.y = element_text(size = 30))
 
+
+####### probando cosas
+
+# DomainDisinhibition
+a <- lm(d2$mc ~ d$DomainDisinhibition)
+
+
+p <- plot_model(a, type = "pred", terms = "DomainDisinhibition",
+                axis.labels = c('DomainDisinhibition','Metacognition'),
+                legend.title = '',
+                title = '', 
+                axis.title = c('Domain Disinhibition','Metacognition'),
+                show.data = FALSE)
+p +theme_sjplot(base_size = 25)
 

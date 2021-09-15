@@ -196,12 +196,12 @@ DataFrame_Filtered <- function(experimento,
                                 DomainPsychoticism = DomainPsychoticism 
   )
   ## Filtro mc por sd
-  #mean_mc <- mean(d.sin.normalizar$mc)
-  #sd_mc <-sd(d.sin.normalizar$mc)
-  #d.sin.normalizar.mc.filter <- d.sin.normalizar[d.sin.normalizar$mc >= mean_mc - sd_mc* 1.5,]
+  mean_mc <- mean(d.sin.normalizar$mc)
+  sd_mc <-sd(d.sin.normalizar$mc)
+  d.sin.normalizar.mc.filter <- d.sin.normalizar[d.sin.normalizar$mc >= mean_mc - sd_mc* 1.5,]
   
   ## filtro para los que tienen metacog menores a 0.5
-  d.sin.normalizar.mc.filter <- d.sin.normalizar[d.sin.normalizar$mc >= 0.5,]
+  #d.sin.normalizar.mc.filter <- d.sin.normalizar[d.sin.normalizar$mc >= 0.5,]
   
   d <- d.sin.normalizar.mc.filter
   
