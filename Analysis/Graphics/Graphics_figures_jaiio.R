@@ -299,6 +299,7 @@ library(dplyr)
 ### lineas para hacer regresion 
 
 d1 = d.sin.normalizar.mc.filter
+d1= d1 <- d1[d1$Im == "Masculino" | d1$Im == "Femenino",]
 
 # sujetos que tienen un 85 % de trials en una misma respuesta de confianza
 
@@ -366,7 +367,7 @@ vec_variables_string <- c("Anhedonia",
 
 # corro regresiones de cada faceta
 for (i in 1:length(vec_variables_string)) {
-  a <- lm(d$mc ~ vec_variables_values[[i]] + 
+  a <- lm(d2$mc ~ vec_variables_values[[i]] + 
             d$edad + 
             d$Im +
             d$edad:vec_variables_values[[i]]) #+
@@ -392,7 +393,7 @@ vec_variables_string <- c("DomainPsychoticism",
 
 # corro regresiones de cada dominio
 for (i in 1:length(vec_variables_string)) {
-  a <- lm(d$mc ~ vec_variables_values[[i]] + 
+  a <- lm(d2$mc ~ vec_variables_values[[i]] + 
             d$edad + 
             d$Im +
             d$edad:vec_variables_values[[i]]) #+
@@ -434,8 +435,8 @@ plot_summs(a, coefs = c('Distractibility' = 'd$Distractivility',
 
 ############################# grafico 2 bar plot de coef, 1 solo modelo
 
-# Distractibility
-a <- lm(d$mc ~ d$Distractivility + 
+# Distractibility # *
+a <- lm(d2$mc ~ d$Distractivility + 
           d$edad + 
           d$Im +
           d$edad:d$Distractivility)
@@ -445,8 +446,110 @@ coeff <- coeff[2]
 sd_coef <- unname(summary(a)$coefficients[2,2])
 names.coef <- 'Distractibility'
 
-# Distractibility
-a <- lm(d$mc ~ d$DomainDisinhibition + 
+# Irresponsibility
+a <- lm(d2$mc ~ d$Irresponsibility + 
+          d$edad + 
+          d$Im +
+          d$edad:d$Irresponsibility)
+
+coe <- coefficients(a)
+coeff <- c(coeff,coe[2])
+sd_coef <- c(sd_coef,unname(summary(a)$coefficients[2,2]))
+names.coef <-c(names.coef,'Irresponsibility')
+
+# Impulsivity
+a <- lm(d2$mc ~ d$Impulsivity + 
+          d$edad + 
+          d$Im +
+          d$edad:d$Impulsivity)
+
+coe <- coefficients(a)
+coeff <- c(coeff,coe[2])
+sd_coef <- c(sd_coef,unname(summary(a)$coefficients[2,2]))
+names.coef <-c(names.coef,'Impulsivity')
+
+# Impulsivity
+a <- lm(d2$mc ~ d$Impulsivity + 
+          d$edad + 
+          d$Im +
+          d$edad:d$Impulsivity)
+
+coe <- coefficients(a)
+coeff <- c(coeff,coe[2])
+sd_coef <- c(sd_coef,unname(summary(a)$coefficients[2,2]))
+names.coef <-c(names.coef,'Impulsivity')
+
+
+
+# Submissiveness # *
+a <- lm(d2$mc ~ d$Submissiveness + 
+          d$edad + 
+          d$Im +
+          d$edad:d$Submissiveness)
+
+coe <- coefficients(a)
+coeff <- c(coeff,coe[2])
+sd_coef <- c(sd_coef,unname(summary(a)$coefficients[2,2]))
+names.coef <-c(names.coef,'Submissiveness')
+
+# Anxiousness
+a <- lm(d2$mc ~ d$Anxiousness + 
+          d$edad + 
+          d$Im +
+          d$edad:d$Anxiousness)
+
+coe <- coefficients(a)
+coeff <- c(coeff,coe[2])
+sd_coef <- c(sd_coef,unname(summary(a)$coefficients[2,2]))
+names.coef <-c(names.coef,'Anxiousness')
+
+# RigidPerfeccionism
+a <- lm(d2$mc ~ d$RigidPerfeccionism + 
+          d$edad + 
+          d$Im +
+          d$edad:d$RigidPerfeccionism)
+
+coe <- coefficients(a)
+coeff <- c(coeff,coe[2])
+sd_coef <- c(sd_coef,unname(summary(a)$coefficients[2,2]))
+names.coef <-c(names.coef,'RigidPerfeccionism')
+
+# Depressivity
+a <- lm(d2$mc ~ d$Depressivity + 
+          d$edad + 
+          d$Im +
+          d$edad:d$Depressivity)
+
+coe <- coefficients(a)
+coeff <- c(coeff,coe[2])
+sd_coef <- c(sd_coef,unname(summary(a)$coefficients[2,2]))
+names.coef <-c(names.coef,'Depressivity')
+
+# Perseveration
+a <- lm(d2$mc ~ d$Perseveration + 
+          d$edad + 
+          d$Im +
+          d$edad:d$Perseveration)
+
+coe <- coefficients(a)
+coeff <- c(coeff,coe[2])
+sd_coef <- c(sd_coef,unname(summary(a)$coefficients[2,2]))
+names.coef <-c(names.coef,'Perseveration')
+
+# DomainPsychoticism
+a <- lm(d2$mc ~ d$DomainPsychoticism + 
+          d$edad + 
+          d$Im +
+          d$edad:d$DomainPsychoticism)
+
+coe <- coefficients(a)
+coeff <- c(coeff,coe[2])
+sd_coef <- c(sd_coef,unname(summary(a)$coefficients[2,2]))
+names.coef <-c(names.coef,'Domain Psychoticism')
+
+
+# DomainDisinhibition # *
+a <- lm(d2$mc ~ d$DomainDisinhibition + 
           d$edad + 
           d$Im +
           d$edad:d$DomainDisinhibition)
@@ -478,9 +581,9 @@ ggplot(dtf1, aes(Predictor, y)) +
         plot.margin = margin(1, 1,1, 1, "cm"),
         panel.background = element_blank(),
         legend.title =element_text(size = 30),#element_blank(),
-        legend.text = element_text(size = 20),#element_blank(),
+        legend.text = element_text(size = 30),#element_blank(),
         legend.position = "left",
-        aspect.ratio = 2/0.7,
+        aspect.ratio = 2/1.5,#2/0.7,
         axis.title.x=element_blank(),
         axis.text.x=element_blank(),
         axis.ticks.x=element_blank(),
@@ -613,17 +716,41 @@ ggplot(dtf.plot, aes(Predictor, y)) +                                  # VA ESTE
         axis.title.y = element_text(size = 30))
 
 
-####### probando cosas
+####### scatter plot 2 (va este para SAN)
+
+d$mc.sin.normalizar <-d2$mc
 
 # DomainDisinhibition
-a <- lm(d2$mc ~ d$DomainDisinhibition)
-
+a <- lm(mc.sin.normalizar ~ DomainDisinhibition, data = d)
 
 p <- plot_model(a, type = "pred", terms = "DomainDisinhibition",
                 axis.labels = c('DomainDisinhibition','Metacognition'),
                 legend.title = '',
                 title = '', 
                 axis.title = c('Domain Disinhibition','Metacognition'),
+                show.data = FALSE)
+p +theme_sjplot(base_size = 25)
+
+
+# Submissiveness
+a <- lm(mc.sin.normalizar ~ Submissiveness, data = d)
+
+p <- plot_model(a, type = "pred", terms = "Submissiveness",
+                axis.labels = c('Submissiveness','Metacognition'),
+                legend.title = '',
+                title = '', 
+                axis.title = c('Submissiveness','Metacognition'),
+                show.data = FALSE)
+p +theme_sjplot(base_size = 25)
+
+# Distractibility
+a <- lm(mc.sin.normalizar ~ Distractivility, data = d)
+
+p <- plot_model(a, type = "pred", terms = "Distractivility",
+                axis.labels = c('Distractivility','Metacognition'),
+                legend.title = '',
+                title = '', 
+                axis.title = c('Distractibility','Metacognition'),
                 show.data = FALSE)
 p +theme_sjplot(base_size = 25)
 
