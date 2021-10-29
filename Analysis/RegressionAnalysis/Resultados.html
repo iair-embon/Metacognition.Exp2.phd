@@ -176,7 +176,7 @@ pre code {
 <pre class="r"><code># voy a la carpeta del proyecto
 root &lt;- rprojroot::is_rstudio_project
 basename(getwd())</code></pre>
-<pre><code>## [1] &quot;RegressionAnalysis&quot;</code></pre>
+<pre><code>## [1] &quot;Metacognition.PersonalityTraits&quot;</code></pre>
 <pre class="r"><code># load the function to get the df list
 source(root$find_file(&quot;Analysis/AuxiliaryFunctions/DataFrame_Filtered.R&quot;))
 
@@ -222,7 +222,7 @@ library(arm)</code></pre>
 <pre><code>## Loading required package: lme4</code></pre>
 <pre><code>## 
 ## arm (Version 1.11-2, built: 2020-7-27)</code></pre>
-<pre><code>## Working directory is /home/iair/Documents/Investigación/Metacog.Personality/Metacognition.PersonalityTraits/Analysis/RegressionAnalysis</code></pre>
+<pre><code>## Working directory is /home/iair/Documents/Investigación/Metacog.Personality/Metacognition.PersonalityTraits</code></pre>
 <pre class="r"><code>library(dplyr)
 
 ###########################
@@ -302,7 +302,8 @@ vec_variables_string &lt;- c(&quot;Anhedonia&quot;,
                    &quot;UnusualBeliefsAndExperiences&quot;,
                    &quot;Withdrawal&quot;)
 
-
+## para cada regresor por separado
+######
 # for (i in 1:length(vec_variables_string)) {
 #   a &lt;- lm(d2$mc ~ vec_variables_values[[i]] + 
 #                   d$edad + 
@@ -312,35 +313,52 @@ vec_variables_string &lt;- c(&quot;Anhedonia&quot;,
 #   print(vec_variables_string[i])
 #   print(summary(a))}
 
+### para todos los regresores juntos
 
-a &lt;- lm(d2$mc ~ vec_variables_values[[1]] + 
+## para todos los regresores juntos
+######
+a &lt;- lm(d2$mc ~ vec_variables_values[[1]] +
           vec_variables_values[[2]] +
-          vec_variables_values[[3]] + 
-          vec_variables_values[[4]] + 
-          vec_variables_values[[5]] + 
-          vec_variables_values[[6]] + 
-          vec_variables_values[[7]] + 
-          vec_variables_values[[8]] + 
-          vec_variables_values[[9]] + 
-          vec_variables_values[[10]] + 
-          vec_variables_values[[11]] + 
-          vec_variables_values[[12]] + 
-          vec_variables_values[[13]] + 
-          vec_variables_values[[14]] + 
-          vec_variables_values[[15]] + 
-          vec_variables_values[[16]] + 
-          vec_variables_values[[17]] + 
-          vec_variables_values[[18]] + 
-          vec_variables_values[[19]] + 
-          vec_variables_values[[20]] + 
-          vec_variables_values[[21]] + 
-          vec_variables_values[[22]] + 
-          vec_variables_values[[23]] + 
-          vec_variables_values[[24]] + 
-          vec_variables_values[[25]] + 
-          d$edad + 
+          vec_variables_values[[3]] +
+          vec_variables_values[[4]] +
+          vec_variables_values[[5]] +
+          vec_variables_values[[6]] +
+          vec_variables_values[[7]] +
+          vec_variables_values[[8]] +
+          vec_variables_values[[9]] +
+          vec_variables_values[[10]] +
+          vec_variables_values[[11]] +
+          vec_variables_values[[12]] +
+          vec_variables_values[[13]] +
+          vec_variables_values[[14]] +
+          vec_variables_values[[15]] +
+          vec_variables_values[[16]] +
+          vec_variables_values[[17]] +
+          vec_variables_values[[18]] +
+          vec_variables_values[[19]] +
+          vec_variables_values[[20]] +
+          vec_variables_values[[21]] +
+          vec_variables_values[[22]] +
+          vec_variables_values[[23]] +
+          vec_variables_values[[24]] +
+          vec_variables_values[[25]] +
+          d$edad +
           d$Im)
 
+
+## Para los que nos interesan
+
+## solo los que nos importan
+###### 
+# a &lt;- lm(d2$mc ~ vec_variables_values[[15]] +
+#           vec_variables_values[[24]] +
+#           vec_variables_values[[8]] +
+#           d$edad +
+#           d$Im)
+
+
+## muestro los resultados
+######
 print(vec_variables_string)</code></pre>
 <pre><code>##  [1] &quot;Anhedonia&quot;                    &quot;Anxiousness&quot;                 
 ##  [3] &quot;AttentionSeeking&quot;             &quot;Callousness&quot;                 
@@ -445,8 +463,8 @@ a &lt;- lm(d2$mc ~ vec_variables_values[[1]] +
           vec_variables_values[[3]] +
           vec_variables_values[[4]] +
           vec_variables_values[[5]] +
-          d$edad + 
-          d$Im) 
+          d$edad +
+          d$Im)
 print(vec_variables_string)</code></pre>
 <pre><code>## [1] &quot;DomainPsychoticism&quot;   &quot;DomainDisinhibition&quot;  &quot;DomainAntagonism&quot;    
 ## [4] &quot;DomainDetachment&quot;     &quot;DomainNegativeAffect&quot;</code></pre>

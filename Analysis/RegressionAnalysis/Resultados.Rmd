@@ -135,44 +135,44 @@ vec_variables_string <- c("Anhedonia",
 
 ## para todos los regresores juntos
 ######
-# a <- lm(d2$mc ~ vec_variables_values[[1]] + 
-#           vec_variables_values[[2]] +
-#           vec_variables_values[[3]] + 
-#           vec_variables_values[[4]] + 
-#           vec_variables_values[[5]] + 
-#           vec_variables_values[[6]] + 
-#           vec_variables_values[[7]] + 
-#           vec_variables_values[[8]] + 
-#           vec_variables_values[[9]] + 
-#           vec_variables_values[[10]] + 
-#           vec_variables_values[[11]] + 
-#           vec_variables_values[[12]] + 
-#           vec_variables_values[[13]] + 
-#           vec_variables_values[[14]] + 
-#           vec_variables_values[[15]] + 
-#           vec_variables_values[[16]] + 
-#           vec_variables_values[[17]] + 
-#           vec_variables_values[[18]] + 
-#           vec_variables_values[[19]] + 
-#           vec_variables_values[[20]] + 
-#           vec_variables_values[[21]] + 
-#           vec_variables_values[[22]] + 
-#           vec_variables_values[[23]] + 
-#           vec_variables_values[[24]] + 
-#           vec_variables_values[[25]] + 
-#           d$edad + 
-#           d$Im)
+a <- lm(d2$mc ~ vec_variables_values[[1]] +
+          vec_variables_values[[2]] +
+          vec_variables_values[[3]] +
+          vec_variables_values[[4]] +
+          vec_variables_values[[5]] +
+          vec_variables_values[[6]] +
+          vec_variables_values[[7]] +
+          vec_variables_values[[8]] +
+          vec_variables_values[[9]] +
+          vec_variables_values[[10]] +
+          vec_variables_values[[11]] +
+          vec_variables_values[[12]] +
+          vec_variables_values[[13]] +
+          vec_variables_values[[14]] +
+          vec_variables_values[[15]] +
+          vec_variables_values[[16]] +
+          vec_variables_values[[17]] +
+          vec_variables_values[[18]] +
+          vec_variables_values[[19]] +
+          vec_variables_values[[20]] +
+          vec_variables_values[[21]] +
+          vec_variables_values[[22]] +
+          vec_variables_values[[23]] +
+          vec_variables_values[[24]] +
+          vec_variables_values[[25]] +
+          d$edad +
+          d$Im)
 
 
 ## Para los que nos interesan
 
 ## solo los que nos importan
 ###### 
-a <- lm(d2$mc ~ vec_variables_values[[15]] +
-          vec_variables_values[[24]] +
-          vec_variables_values[[8]] +
-          d$edad +
-          d$Im)
+# a <- lm(d2$mc ~ vec_variables_values[[15]] +
+#           vec_variables_values[[24]] +
+#           vec_variables_values[[8]] +
+#           d$edad +
+#           d$Im)
 
 
 ## muestro los resultados
@@ -215,8 +215,8 @@ a <- lm(d2$mc ~ vec_variables_values[[1]] +
           vec_variables_values[[3]] +
           vec_variables_values[[4]] +
           vec_variables_values[[5]] +
-          d$edad + 
-          d$Im) 
+          d$edad +
+          d$Im)
 print(vec_variables_string)
 print(summary(a))
 ```
