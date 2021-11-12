@@ -52,6 +52,17 @@ df_exp <- rbind(df_exp, df_list$b)
 pid1 <- c(pid1,df_list$c)
 pid2 <- c(pid2,df_list$d)
 
+# pid sorteo
+content<-readLines(root$find_file("Data/PID5_sorteo_final/jatos_results_20211112152407.txt"))
+res<-lapply(content,fromJSON)
+df_list <- initial_df(res)
+df <- df_list$a 
+df$sujetos <- df$sujetos + 8000
+df_DatosUnicos <- rbind(df_DatosUnicos, df) 
+df_exp <- rbind(df_exp, df_list$b)
+pid1 <- c(pid1,df_list$c)
+pid2 <- c(pid2,df_list$d)
+
 ####### add subjects and trials to df_exp
 
 # get the number of trials per subject
@@ -80,7 +91,7 @@ cant_sujetos <- length(df_DatosUnicos$sujetos)
 # location of the sublist where are the first part of pid-5 of the first subject
 ubicacion_comp1_pid <- 4
 
-# load the function to get the AQ quotient  
+# load the function to get the PID5 quotient  
 source(root$find_file("Analysis/AuxiliaryFunctions/pid-5.R"))
 
 # get the pid score
@@ -107,6 +118,7 @@ existing_subjects <- unique(df_DatosUnicos$sujetos)
 for (s in 1:nrow(df_DatosUnicos)){
   PC[s]   <- mean(df_exp$discrimination_is_correct[df_exp$sujetos== existing_subjects[s]])
 }
+
 # add to df_DatosUnicos
 df_DatosUnicos$PC <- PC
 
@@ -317,8 +329,9 @@ for (i in 1:length(ExistingSubjects)){
   df_total <- rbind(df_total, df)
 }
 
-# combino las columnas de df_exp_mod2 que me interesan con el df_total
-df_total <- cbind(df_total, discrimination_is_correct = df_exp$discrimination_is_correct,
+# combino las columnas de df_exp que me interesan con el df_total
+df_total <- cbind(df_total, 
+                  discrimination_is_correct = df_exp$discrimination_is_correct,
                   confidence_key = df_exp$confidence_key, 
                   trials = df_exp$trials,
                   diferencia_puntitos = df_exp$diferencia_puntitos, 
