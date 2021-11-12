@@ -1,7 +1,11 @@
 ### get the PID-5 score
 
-puntaje_pid <- function (cant_sujetos,ubicacion_respuestas_pid1,ubicacion_respuestas_pid2
-                         ,ubicacion_comp1_pid){
+puntaje_pid <- function (cant_sujetos,
+                         ubicacion_respuestas_pid1,
+                         ubicacion_respuestas_pid2,
+                         ubicacion_comp1_pid,
+                         pid1,
+                         pid2){
   # cant_sujetos = cantidad de sujetos; 
   # cant_componentes_por_sujetos = cantidad de componentes en un sujeto;
   # ubicacion_comp_pid = la ubicacion del primer componente pid en el primer sujeto
@@ -98,7 +102,7 @@ puntaje_pid <- function (cant_sujetos,ubicacion_respuestas_pid1,ubicacion_respue
     # puntuar cada valor de cada pregunta
     for (j in 1:length(test.completo)) {
       if(j %in% inversos){
-        puntaje.sujeto.cuestion[j] <- abs(test.completo[j]-3)
+        puntaje.sujeto.cuestion[j] <-  abs((test.completo[j]-1)-3)
       } else {
         puntaje.sujeto.cuestion[j] <- test.completo[j]-1
       }

@@ -62,5 +62,5 @@ fac.criterio.1 <- nCng(dnew.only.facets)
 fac.criterio.2 <- nCng(dnew.only.facets.mc)
 
 # corremos el analisis factorial
-fa.1 <- factanal(dnew.only.facets, factors = 3)
-fa.2 <- factanal(dnew.only.facets.mc, factors = 3)
+fa.1 <- factanal(dnew.only.facets, factors = 5)
+fa.2 <- factanal(dnew.only.facets.mc, factors = 5)

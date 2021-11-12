@@ -27,7 +27,7 @@ DataFrame_Filtered <- function(experimento,
     df_total <- load(file= filepath)}
   if (experimento == 'todos'){
     ## ambos df_total:
-    filepath <- (root$find_file("Data/Experiment_Complete/df_total_SIN_DESCARTAR.Rda"))
+    filepath <- (root$find_file("Data/Experiment_Complete/df_total.Rda"))
     load(file= filepath)
     a <- df_total
     
@@ -37,7 +37,7 @@ DataFrame_Filtered <- function(experimento,
     # sumo 100 a la columna sujetos, para que no se pisen los nros y este nro sea unico
     b$sujetos <- b$sujetos + 1000 
     
-    filepath <- (root$find_file("Data/PID5_sorteo/df_total_SIN_DESCARTAR.Rda"))
+    filepath <- (root$find_file("Data/PID5_sorteo/df_total.Rda"))
     load(file= filepath)
     c <- df_total
     # sumo 100 a la columna sujetos, para que no se pisen los nros y este nro sea unico

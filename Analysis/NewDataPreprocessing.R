@@ -14,163 +14,55 @@ library(jsonlite)
 # Read the .txt result
 root <- rprojroot::is_rstudio_project
 basename(getwd())
-# REEMPLAZAR:
-#read each line and convert 
-#content<-readLines(root$find_file("Data/Experiment_Complete/jatos_results_20210406141549.txt"))
-#content<-readLines(root$find_file("Data/Experiment_OnlySurvey/datos_PIDOnlySurv+Metacog.txt"))
-content<-readLines(root$find_file("Data/PID5_sorteo/jatos_results_20210826172451.txt"))
+
+# load the function to read the .txt results from JATOS and create a dataframe
+source(root$find_file("Analysis/AuxiliaryFunctions/initial_df.R"))
+
+# experiment complete
+content<-readLines(root$find_file("Data/Experiment_Complete/jatos_results_20210406141549.txt"))
 res<-lapply(content,fromJSON)
-
-# each subject has 6 lists in order of arrival and by subjects.
-# res[[1]] are the demographic data of subject 1
-# res[[2]] are the data of the practice of the experiment of subject 1
-# res[[3]] are the data from subject 1's experiment
-# res[[4]] are the first part of personality test of subject 1
-# res[[5]] are the second part of personality test of subject 1 (new subject)
-# res[[6]] are the browser of subject 1
-# res[[7]] are sincericidio and the email data of subject 1
-# res[[8]] are the demographic data of subject 2
-# res[[9]] are the data of the practice of the experiment of subject 2
-# ....
-
-iSub      <- 0
-horasSuen <- c()
-fechaNac  <- c()
-pais      <- c()
-genero    <- c()
-estudio   <- c()
-affeccionPsico <- c()
-medicacion <- c()
-pid1      <- c()
-pid2      <- c()
-Browser <- c()
-Sinc    <- c()
-TeEscuchamos <- c()
-
-# Experiment data frame
-df_exp <- data.frame(t0 =character(), 
-                     t_offset =character(), 
-                     dots_num_left =character(), 
-                     dots_num_right =character(), 
-                     discrimination_is_correct =character(), 
-                     discrimination_t_onset =character(), 
-                     discrimination_t_keydown =character(), 
-                     confidence_key =character(), 
-                     confidence_t_onset=character(), 
-                     confidence_t_keydown=character(), 
-                     stringsAsFactors=FALSE) 
-
-
-for (s in 1:(length(res)-4)){ 
-  ind_suenio <- NaN  
-  ind_fecha <- NaN  
-  ind_pais <- NaN  
-  ind_genero <- NaN  
-  ind_estudio <- NaN  
-  ind_affeccion <- NaN  
-  ind_medicacion <- NaN  
-  
-  for (item in 1:length(res[[s]])){
-    if (is.null(res[[s]][item]$sueno)           ==FALSE){   ind_suenio <- item   }
-    if (is.null(res[[s]][item]$Cumpleanos)      ==FALSE){   ind_fecha  <- item   }
-    if (is.null(res[[s]][item]$Pais)            ==FALSE){   ind_pais   <- item   }
-    if (is.null(res[[s]][item]$Genero)          ==FALSE){   ind_genero <- item   }
-    if (is.null(res[[s]][item]$Estudio)         ==FALSE){   ind_estudio <- item   }
-    if (is.null(res[[s]][item]$AffeccionPsico)  ==FALSE){   ind_affeccion <- item   }
-    if (is.null(res[[s]][item]$medicacion)      ==FALSE){   ind_medicacion <- item   }
-  }
-  
-  # Condition 1 will be TRUE if there is a response to the first component of demographic data
-  condicion1 <-  is.nan(ind_suenio) == FALSE
-  # Condition 2 will be TRUE if there is an answer to the second part PID questions (component 4) 
-  condicion2 <-  is.null(res[[s+4]]$question) ==FALSE    
-  # Condition 4 will be TRUE if there is an answer to the first part PID questions (component 3) 
-  condicion3 <-  is.null(res[[s+3]]$question) ==FALSE    
-  
-  if(condicion1 & condicion2 & condicion3){ # new participant
-    
-    iSub <- iSub + 1;
-    # I take data from component 1 (demographic)
-    horasSuen <- c(horasSuen,res[[s]][ind_suenio]$sueno)
-    fechaNac  <- c(fechaNac,res[[s]][ind_fecha]$Cumpleanos)
-    pais <- c(pais, res[[s]][ind_pais]$Pais)
-    genero <- c(genero,res[[s]][ind_genero]$Genero)
-    estudio <- c(estudio,res[[s]][ind_estudio]$Estudio)
-    affeccionPsico <- c(affeccionPsico,res[[s]][ind_affeccion]$AffeccionPsico)
-    medicacion <- c(medicacion,res[[s]][ind_medicacion]$medicacion)
-    
-    # Experiment data 
-    if (nrow(res[[s+2]]) == 130){
-      df_exp <- rbind(df_exp, res[[s+2]])
-    } else if (nrow(res[[s+1]]) == 130) {
-      df_exp <- rbind(df_exp, res[[s+1]])
-    }
-    
-    # pid1 data
-    pid1 <- c(pid1, res[[s+3]])  
-    
-    # pid2 data
-    pid2 <- c(pid2, res[[s+4]])  
-    
-    if(is.null(res[[s+5]][1]$browser) ==FALSE){
-      Browser <- c(Browser, res[[s+5]][1]$browser)
-    }else{
-      Browser <- c(Browser, NaN)}
-    
-    if(length(res)-s >= 6 ){
-      
-      if(is.null(res[[s+6]][1]$sincericidio) ==FALSE){
-        Sinc <- c(Sinc, res[[s+6]][1]$sincericidio)
-      }else{
-        Sinc <- c(Sinc, NaN)}
-    }
-      
-    if(length(res) - s >= 7 ){
-        if(is.null(res[[s+7]]$TeEscuchamos) ==FALSE){
-          TeEscuchamos <- c(TeEscuchamos, res[[s+7]]$TeEscuchamos)
-        }else{
-          TeEscuchamos <- c(TeEscuchamos, NaN)}
-    }else{
-      TeEscuchamos <- c(TeEscuchamos, NaN) 
-        }
-    }
-  }
-
-####### df 
+df_list <- initial_df(res)
 
 # df_DatosUnicos: for data of each subject.
 # df_exp: save each trial of metacognition exp (already created in previous loop)
+df_DatosUnicos <- df_list$a
+df_exp <- df_list$b
+pid1 <- df_list$c
+pid2 <- df_list$d
 
-## df_DatosUnicos
-sujetos <-  1:iSub
+# only survey
+content<-readLines(root$find_file("Data/Experiment_OnlySurvey/datos_PIDOnlySurv+Metacog.txt"))
+res<-lapply(content,fromJSON)
+df_list <- initial_df(res)
+df <- df_list$a 
+df$sujetos <- df$sujetos + 1000
+df_DatosUnicos <- rbind(df_DatosUnicos, df) 
+df_exp <- rbind(df_exp, df_list$b)
+pid1 <- c(pid1,df_list$c)
+pid2 <- c(pid2,df_list$d)
 
-df_DatosUnicos <- data.frame(
-  sujetos = sujetos, 
-  horasSueno = horasSuen,
-  fechaNac = fechaNac,
-  pais = pais,
-  genero = genero,
-  estudio = estudio,
-  affeccionPsico = affeccionPsico,
-  medicacion = medicacion,
-  Browser = Browser,
-  sincericidio = Sinc,
-  TeEscuchamos = TeEscuchamos,
-  stringsAsFactors = FALSE
-)
+# pid sorteo
+content<-readLines(root$find_file("Data/PID5_sorteo/jatos_results_20210826172451.txt"))
+res<-lapply(content,fromJSON)
+df_list <- initial_df(res)
+df <- df_list$a 
+df$sujetos <- df$sujetos + 5000
+df_DatosUnicos <- rbind(df_DatosUnicos, df) 
+df_exp <- rbind(df_exp, df_list$b)
+pid1 <- c(pid1,df_list$c)
+pid2 <- c(pid2,df_list$d)
 
 ####### add subjects and trials to df_exp
 
 # get the number of trials per subject
-cant_trials <- length(res[[3]]$t0) 
+cant_trials <- 130
 
 # prepare subject column
-col_sujetos <- 1:iSub
-sujetos <- rep(col_sujetos, each = cant_trials)
+sujetos <- rep(df_DatosUnicos$sujetos, each = cant_trials)
 
 # prepare trials column
 col_trials <- 1:cant_trials
-trials <- rep(col_trials, times = iSub)
+trials <- rep(col_trials, times = length(df_DatosUnicos$sujetos))
 
 # add columns to df_exp
 df_exp$sujetos <- sujetos
@@ -183,7 +75,7 @@ ubicacion_respuestas_pid1 <- 2
 ubicacion_respuestas_pid2 <- 2
 
 # number of subject 
-cant_sujetos <- iSub
+cant_sujetos <- length(df_DatosUnicos$sujetos)
 
 # location of the sublist where are the first part of pid-5 of the first subject
 ubicacion_comp1_pid <- 4
@@ -192,45 +84,34 @@ ubicacion_comp1_pid <- 4
 source(root$find_file("Analysis/AuxiliaryFunctions/pid-5.R"))
 
 # get the pid score
-puntaje_pid.5 <- puntaje_pid(cant_sujetos,ubicacion_respuestas_pid1,ubicacion_respuestas_pid2
-                             ,ubicacion_comp1_pid)
+puntaje_pid.5 <- puntaje_pid(cant_sujetos,
+                             ubicacion_respuestas_pid1,
+                             ubicacion_respuestas_pid2,
+                             ubicacion_comp1_pid,
+                             pid1,
+                             pid2)
 
 # add to df_DatosUnicos
 df_DatosUnicos <- cbind(df_DatosUnicos,puntaje_pid.5)
 
-####### metacognitive sensivity 
-
-# load the type 2 ROC analysis function
-source(root$find_file("Analysis/AuxiliaryFunctions/auroc2.R"))
-
-
 ######### Adding columns of reaction times
-df_exp_mod <- df_exp
 
-df_exp_mod$t_ensayo_discriminacion <- df_exp_mod$discrimination_t_keydown - 
-  df_exp_mod$discrimination_t_onset
-df_exp_mod$t_ensayo_confianza <- df_exp_mod$confidence_t_keydown -
-  df_exp_mod$confidence_t_onset
+df_exp$t_ensayo_discriminacion <- df_exp$discrimination_t_keydown - 
+  df_exp$discrimination_t_onset
+df_exp$t_ensayo_confianza <- df_exp$confidence_t_keydown -
+  df_exp$confidence_t_onset
 
-## get metacognitive sensivity
-library(dplyr)
+## get percentage of correct answers
+PC   <- rep(NA, max(df_exp$sujetos)) 
 
-Pc   <- rep(NA, max(df_exp_mod$sujetos)) # Percentage of correct answers
-auc2 <- rep(NA, max(df_exp_mod$sujetos)) # Metacognitive sensivity
-
-for (s in 1:max(df_exp_mod$sujetos)){
-  Pc[s]   <- mean(df_exp_mod$discrimination_is_correct[df_exp_mod$sujetos==s])
-  auc2[s] <- type2roc(correct = df_exp_mod$discrimination_is_correct[df_exp_mod$sujetos==s], 
-                      conf = df_exp_mod$confidence_key[df_exp_mod$sujetos==s], Nratings = 4 )
-}
+for (s in 1:max(df_exp$sujetos)){
+  PC[s]   <- mean(df_exp$discrimination_is_correct[df_exp$sujetos==s])}
 
 # add to df_DatosUnicos
-df_DatosUnicos$PC <- Pc
-df_DatosUnicos$auc2 <- auc2
+df_DatosUnicos$PC <- PC
 
 # add difference in dots in every trial to df_exp
-df_exp_mod$diferencia_puntitos <- abs(df_exp_mod$dots_num_left- df_exp_mod$dots_num_right)
-
+df_exp$diferencia_puntitos <- abs(df_exp$dots_num_left- df_exp$dots_num_right)
 
 ####### Unifying the format of columns values
 # (horaSueno, medicacion affeccionPsico, TeEscuchamos from df_DatosUnicos)
@@ -306,6 +187,9 @@ source(root$find_file("Analysis/AuxiliaryFunctions/unifica_col_TeEscuchamos.R"))
 # converts the TeEscuchamos values in Si, No , noSabe
 df_DatosUnicos_mod <- unifica_col_TeEscuchamos(df_DatosUnicos_mod,df_DatosUnicos) 
 
+
+################# HASTA ACA REVISAMOS ################## HACER FUNCION
+
 ### Add the confidence columns to df_DatosUnicos_mod
 
 # Confidence columns for all the subjects
@@ -321,19 +205,19 @@ for(i in 1:nrow(df_DatosUnicos_mod)){
   confidence_key_3_total <- 0
   confidence_key_4_total <- 0
   
-  df_prueba <- df_exp_mod[df_exp_mod$confidence_key =='1',]
+  df_prueba <- df_exp[df_exp$confidence_key =='1',]
   confidence_key_1_total <- nrow(df_prueba[df_prueba$sujetos==i,])
   confidence_key_1[i] <- confidence_key_1_total
   
-  df_prueba <- df_exp_mod[df_exp_mod$confidence_key =='2',]
+  df_prueba <- df_exp[df_exp$confidence_key =='2',]
   confidence_key_2_total <- nrow(df_prueba[df_prueba$sujetos==i,])
   confidence_key_2[i] <- confidence_key_2_total
   
-  df_prueba <- df_exp_mod[df_exp_mod$confidence_key =='3',]
+  df_prueba <- df_exp[df_exp$confidence_key =='3',]
   confidence_key_3_total <- nrow(df_prueba[df_prueba$sujetos==i,])
   confidence_key_3[i] <- confidence_key_3_total
   
-  df_prueba <- df_exp_mod[df_exp_mod$confidence_key =='4',]
+  df_prueba <- df_exp[df_exp$confidence_key =='4',]
   confidence_key_4_total <- nrow(df_prueba[df_prueba$sujetos==i,])
   confidence_key_4[i] <- confidence_key_4_total
 }
@@ -349,8 +233,8 @@ media_confidence <- rep(NA, nrow(df_DatosUnicos_mod))
 sd_confidence <- rep(NA, nrow(df_DatosUnicos_mod))
 
 for(i in 1:nrow(df_DatosUnicos_mod)){
-  media_confidence[i] <- mean(df_exp_mod[df_exp_mod$sujetos==i,"confidence_key"])
-  sd_confidence[i] <- sd(df_exp_mod[df_exp_mod$sujetos==i,"confidence_key"])
+  media_confidence[i] <- mean(df_exp[df_exp$sujetos==i,"confidence_key"])
+  sd_confidence[i] <- sd(df_exp[df_exp$sujetos==i,"confidence_key"])
 }
 
 df_DatosUnicos_mod$media_confidence <- media_confidence
@@ -361,8 +245,8 @@ media_tr_discri <- rep(NA, nrow(df_DatosUnicos_mod))
 sd_tr_discri <- rep(NA, nrow(df_DatosUnicos_mod))
 
 for(i in 1:nrow(df_DatosUnicos_mod)){
-  media_tr_discri[i] <- mean(df_exp_mod[df_exp_mod$sujetos==i,"t_ensayo_discriminacion"])
-  sd_tr_discri[i] <- sd(df_exp_mod[df_exp_mod$sujetos==i,"t_ensayo_discriminacion"])
+  media_tr_discri[i] <- mean(df_exp[df_exp$sujetos==i,"t_ensayo_discriminacion"])
+  sd_tr_discri[i] <- sd(df_exp[df_exp$sujetos==i,"t_ensayo_discriminacion"])
 }
 
 df_DatosUnicos_mod$media_tr_discri <- media_tr_discri
@@ -373,8 +257,8 @@ media_tr_confi <- rep(NA, nrow(df_DatosUnicos_mod))
 sd_tr_confi <- rep(NA, nrow(df_DatosUnicos_mod))
 
 for(i in 1:nrow(df_DatosUnicos_mod)){
-  media_tr_confi[i] <- mean(df_exp_mod[df_exp_mod$sujetos==i,"t_ensayo_confianza"])
-  sd_tr_confi[i] <- sd(df_exp_mod[df_exp_mod$sujetos==i,"t_ensayo_confianza"])
+  media_tr_confi[i] <- mean(df_exp[df_exp$sujetos==i,"t_ensayo_confianza"])
+  sd_tr_confi[i] <- sd(df_exp[df_exp$sujetos==i,"t_ensayo_confianza"])
 }
 
 df_DatosUnicos_mod$media_tr_confi <- media_tr_confi
@@ -413,7 +297,7 @@ df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$edad > 17,]
 df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[!is.na(df_DatosUnicos_mod2$edad),]
 
 ## filter in df_exp those who survived the filters applied to df_DatosUnicos_mod2
-df_exp_mod2 <- df_exp_mod %>% 
+df_exp_mod2 <- df_exp %>% 
   filter(df_exp_mod$sujetos %in% df_DatosUnicos_mod2$sujetos)
 
 ####### Prepare the df for the regression analysis
