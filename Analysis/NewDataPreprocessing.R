@@ -279,10 +279,12 @@ df_DatosUnicos_mod$sd_tr_confi <- sd_tr_confi
 ####### Inclusion criteria, data is not included in future analysis
 ## Comment / uncomment or modify filters as required
 
-Filter for hours of sleep, leaving me only with > 4
+cat("Cantidad de sujetos antes de todo filtro: ", nrow(df_DatosUnicos_mod))
+
+##Filter for hours of sleep, leaving me only with > 4
 df_DatosUnicos_mod2 <- df_DatosUnicos_mod[df_DatosUnicos_mod$horasSueno > 4,] 
 
-cat("Cantidad de sujetos antes de todo filtro: ", nrow(df_DatosUnicos_mod))
+cat("Cantidad de sujetos luego de filtrar por horas sueno: ", nrow(df_DatosUnicos_mod))
 
 # ## Filter by psychological disorder, staying only with those who do not have.
 # df_DatosUnicos_mod2 <- df_DatosUnicos_mod[df_DatosUnicos_mod$affeccionPsico ==
