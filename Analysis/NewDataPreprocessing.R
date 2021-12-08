@@ -279,8 +279,8 @@ df_DatosUnicos_mod$sd_tr_confi <- sd_tr_confi
 ####### Inclusion criteria, data is not included in future analysis
 ## Comment / uncomment or modify filters as required
 
-## Filter for hours of sleep, leaving me only with > 4
-#df_DatosUnicos_mod2 <- df_DatosUnicos_mod[df_DatosUnicos_mod$horasSueno > 4,] 
+Filter for hours of sleep, leaving me only with > 4
+df_DatosUnicos_mod2 <- df_DatosUnicos_mod[df_DatosUnicos_mod$horasSueno > 4,] 
 
 cat("Cantidad de sujetos antes de todo filtro: ", nrow(df_DatosUnicos_mod))
 
@@ -296,9 +296,9 @@ cat("Cantidad de sujetos luego de filtrar por trastorno psi: ", nrow(df_DatosUni
 
 cat("Cantidad de sujetos luego de filtrar por medicacion: ", nrow(df_DatosUnicos_mod))
 
-## Filter by age, leaving only those who are age > 17, < 100, and are not NA
+## Filter by age, leaving only those who are age > 17, < 60, and are not NA
 df_DatosUnicos_mod <- df_DatosUnicos_mod[df_DatosUnicos_mod$edad > 17,]
-df_DatosUnicos_mod <- df_DatosUnicos_mod[df_DatosUnicos_mod$edad < 100,]
+df_DatosUnicos_mod <- df_DatosUnicos_mod[df_DatosUnicos_mod$edad < 60,]
 df_DatosUnicos_mod <- df_DatosUnicos_mod[!is.na(df_DatosUnicos_mod$edad),]
 
 cat("Cantidad de sujetos luego de filtrar por edad: ", nrow(df_DatosUnicos_mod))
