@@ -294,602 +294,46 @@ vec_variables_string &lt;- c(&quot;Anhedonia&quot;,
 
 ## para cada regresor por separado
 ######
-for (i in 1:length(vec_variables_string)) {
-  a &lt;- lm(d$m_c ~ vec_variables_values[[i]] +
-                  d$edad +
-                  d$Im +
-                  d$edad:vec_variables_values[[i]]) #+
-                  #d$Im: vec_variables_values[[i]])
-  print(vec_variables_string[i])
-  print(summary(a))}</code></pre>
-<pre><code>## [1] &quot;Anhedonia&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.78744 -0.65738  0.01955  0.79972  1.96738 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.168575   0.207716   0.812    0.418
-## vec_variables_values[[i]]        -0.019944   0.211904  -0.094    0.925
-## d$edad                           -0.004364   0.007312  -0.597    0.551
-## d$Im                             -0.125648   0.144788  -0.868    0.386
-## vec_variables_values[[i]]:d$edad  0.002609   0.007515   0.347    0.729
-## 
-## Residual standard error: 1.001 on 240 degrees of freedom
-## Multiple R-squared:  0.008821,   Adjusted R-squared:  -0.007699 
-## F-statistic: 0.534 on 4 and 240 DF,  p-value: 0.7109
-## 
-## [1] &quot;Anxiousness&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.69489 -0.68999  0.01142  0.77408  1.94317 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.180510   0.212921   0.848    0.397
-## vec_variables_values[[i]]        -0.073523   0.233112  -0.315    0.753
-## d$edad                           -0.004749   0.007534  -0.630    0.529
-## d$Im                             -0.125595   0.144432  -0.870    0.385
-## vec_variables_values[[i]]:d$edad  0.003055   0.008395   0.364    0.716
-## 
-## Residual standard error: 1.002 on 240 degrees of freedom
-## Multiple R-squared:  0.006599,   Adjusted R-squared:  -0.009957 
-## F-statistic: 0.3986 on 4 and 240 DF,  p-value: 0.8096
-## 
-## [1] &quot;AttentionSeeking&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.72850 -0.65228  0.01404  0.75686  2.09856 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.108777   0.208305   0.522   0.6020  
-## vec_variables_values[[i]]        -0.326292   0.220042  -1.483   0.1394  
-## d$edad                           -0.001180   0.007405  -0.159   0.8735  
-## d$Im                             -0.173702   0.144752  -1.200   0.2313  
-## vec_variables_values[[i]]:d$edad  0.014278   0.008238   1.733   0.0844 .
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 0.9956 on 240 degrees of freedom
-## Multiple R-squared:  0.01967,    Adjusted R-squared:  0.003332 
-## F-statistic: 1.204 on 4 and 240 DF,  p-value: 0.3098
-## 
-## [1] &quot;Callousness&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.68266 -0.68676  0.01906  0.81304  2.01143 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.100171   0.215443   0.465    0.642
-## vec_variables_values[[i]]        -0.128284   0.243145  -0.528    0.598
-## d$edad                           -0.001101   0.007806  -0.141    0.888
-## d$Im                             -0.168176   0.144383  -1.165    0.245
-## vec_variables_values[[i]]:d$edad  0.008961   0.009613   0.932    0.352
-## 
-## Residual standard error: 0.9967 on 240 degrees of freedom
-## Multiple R-squared:  0.01752,    Adjusted R-squared:  0.00115 
-## F-statistic:  1.07 on 4 and 240 DF,  p-value: 0.3719
-## 
-## [1] &quot;Deceitfulness&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.65611 -0.63979  0.01462  0.77484  2.04531 
-## 
-## Coefficients:
-##                                    Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.1004249  0.2169749   0.463    0.644
-## vec_variables_values[[i]]        -0.3535988  0.2343709  -1.509    0.133
-## d$edad                           -0.0008438  0.0079004  -0.107    0.915
-## d$Im                             -0.1513243  0.1443694  -1.048    0.296
-## vec_variables_values[[i]]:d$edad  0.0133666  0.0088039   1.518    0.130
-## 
-## Residual standard error: 0.9977 on 240 degrees of freedom
-## Multiple R-squared:  0.01559,    Adjusted R-squared:  -0.000821 
-## F-statistic:  0.95 on 4 and 240 DF,  p-value: 0.4358
-## 
-## [1] &quot;Depressivity&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.74511 -0.66420  0.01543  0.77099  1.92940 
-## 
-## Coefficients:
-##                                    Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.1855497  0.2118358   0.876    0.382
-## vec_variables_values[[i]]         0.0086368  0.2245670   0.038    0.969
-## d$edad                           -0.0051677  0.0075277  -0.686    0.493
-## d$Im                             -0.1202063  0.1448793  -0.830    0.408
-## vec_variables_values[[i]]:d$edad  0.0006177  0.0082798   0.075    0.941
-## 
-## Residual standard error: 1.002 on 240 degrees of freedom
-## Multiple R-squared:  0.006586,   Adjusted R-squared:  -0.00997 
-## F-statistic: 0.3978 on 4 and 240 DF,  p-value: 0.8101
-## 
-## [1] &quot;Distractivility&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.68815 -0.65659 -0.00995  0.75373  1.92320 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.167249   0.210206   0.796    0.427
-## vec_variables_values[[i]]        -0.016147   0.228658  -0.071    0.944
-## d$edad                           -0.004283   0.007420  -0.577    0.564
-## d$Im                             -0.131217   0.142728  -0.919    0.359
-## vec_variables_values[[i]]:d$edad  0.002921   0.008560   0.341    0.733
-## 
-## Residual standard error: 1.001 on 240 degrees of freedom
-## Multiple R-squared:  0.009842,   Adjusted R-squared:  -0.00666 
-## F-statistic: 0.5964 on 4 and 240 DF,  p-value: 0.6656
-## 
-## [1] &quot;Excentricity&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.71178 -0.66983  0.02878  0.79393  2.00607 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.137627   0.206854   0.665    0.506
-## vec_variables_values[[i]]        -0.193130   0.194910  -0.991    0.323
-## d$edad                           -0.002539   0.007303  -0.348    0.728
-## d$Im                             -0.164468   0.144799  -1.136    0.257
-## vec_variables_values[[i]]:d$edad  0.008996   0.006842   1.315    0.190
-## 
-## Residual standard error: 0.9978 on 240 degrees of freedom
-## Multiple R-squared:  0.01528,    Adjusted R-squared:  -0.001131 
-## F-statistic: 0.9311 on 4 and 240 DF,  p-value: 0.4465
-## 
-## [1] &quot;EmotionalLability&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.7572 -0.6472  0.0085  0.7760  1.9434 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.166810   0.210137   0.794    0.428
-## vec_variables_values[[i]]         0.141568   0.235763   0.600    0.549
-## d$edad                           -0.005043   0.007276  -0.693    0.489
-## d$Im                             -0.095199   0.146688  -0.649    0.517
-## vec_variables_values[[i]]:d$edad -0.003612   0.008582  -0.421    0.674
-## 
-## Residual standard error: 1.001 on 240 degrees of freedom
-## Multiple R-squared:  0.00867,    Adjusted R-squared:  -0.007852 
-## F-statistic: 0.5247 on 4 and 240 DF,  p-value: 0.7176
-## 
-## [1] &quot;Grandiosity&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.75357 -0.64462  0.04464  0.74884  2.15614 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.110534   0.203884   0.542   0.5882  
-## vec_variables_values[[i]]        -0.187065   0.200891  -0.931   0.3527  
-## d$edad                           -0.001529   0.007127  -0.214   0.8303  
-## d$Im                             -0.155491   0.141203  -1.101   0.2719  
-## vec_variables_values[[i]]:d$edad  0.012455   0.007515   1.657   0.0988 .
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 0.9886 on 240 degrees of freedom
-## Multiple R-squared:  0.03336,    Adjusted R-squared:  0.01725 
-## F-statistic:  2.07 on 4 and 240 DF,  p-value: 0.08534
-## 
-## [1] &quot;Hostility&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.78998 -0.68772  0.01113  0.76725  2.23522 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.164771   0.203499   0.810    0.419
-## vec_variables_values[[i]]        -0.123857   0.220992  -0.560    0.576
-## d$edad                           -0.004406   0.006989  -0.630    0.529
-## d$Im                             -0.090108   0.143559  -0.628    0.531
-## vec_variables_values[[i]]:d$edad  0.009108   0.008003   1.138    0.256
-## 
-## Residual standard error: 0.9932 on 240 degrees of freedom
-## Multiple R-squared:  0.02442,    Adjusted R-squared:  0.008165 
-## F-statistic: 1.502 on 4 and 240 DF,  p-value: 0.2022
-## 
-## [1] &quot;Impulsivity&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.55011 -0.67070 -0.04402  0.76972  2.00233 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.192319   0.202033   0.952    0.342
-## vec_variables_values[[i]]         0.092730   0.188300   0.492    0.623
-## d$edad                           -0.005500   0.006958  -0.790    0.430
-## d$Im                             -0.114020   0.140037  -0.814    0.416
-## vec_variables_values[[i]]:d$edad  0.003399   0.006678   0.509    0.611
-## 
-## Residual standard error: 0.9848 on 240 degrees of freedom
-## Multiple R-squared:  0.04078,    Adjusted R-squared:  0.0248 
-## F-statistic: 2.551 on 4 and 240 DF,  p-value: 0.03985
-## 
-## [1] &quot;IntimacyAvoidance&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.69509 -0.69070 -0.00438  0.73204  2.08920 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.195987   0.203725   0.962   0.3370  
-## vec_variables_values[[i]]        -0.444779   0.215180  -2.067   0.0398 *
-## d$edad                           -0.004774   0.007056  -0.677   0.4993  
-## d$Im                             -0.135218   0.141497  -0.956   0.3402  
-## vec_variables_values[[i]]:d$edad  0.015717   0.007972   1.971   0.0498 *
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 0.9937 on 240 degrees of freedom
-## Multiple R-squared:  0.02338,    Adjusted R-squared:  0.007104 
-## F-statistic: 1.436 on 4 and 240 DF,  p-value: 0.2226
-## 
-## [1] &quot;Irresponsibility&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.7352 -0.6749  0.0313  0.7726  1.9526 
-## 
-## Coefficients:
-##                                    Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.0684303  0.2293336   0.298    0.766
-## vec_variables_values[[i]]        -0.2427581  0.2290662  -1.060    0.290
-## d$edad                            0.0002142  0.0084878   0.025    0.980
-## d$Im                             -0.1597447  0.1448562  -1.103    0.271
-## vec_variables_values[[i]]:d$edad  0.0102428  0.0085364   1.200    0.231
-## 
-## Residual standard error: 0.9993 on 240 degrees of freedom
-## Multiple R-squared:  0.01234,    Adjusted R-squared:  -0.004123 
-## F-statistic: 0.7496 on 4 and 240 DF,  p-value: 0.5592
-## 
-## [1] &quot;Manipulativeness&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.70520 -0.67857  0.04071  0.76612  1.99838 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.113321   0.212008   0.535    0.593
-## vec_variables_values[[i]]        -0.247018   0.205342  -1.203    0.230
-## d$edad                           -0.001497   0.007600  -0.197    0.844
-## d$Im                             -0.159421   0.144261  -1.105    0.270
-## vec_variables_values[[i]]:d$edad  0.010690   0.007663   1.395    0.164
-## 
-## Residual standard error: 0.9982 on 240 degrees of freedom
-## Multiple R-squared:  0.01457,    Adjusted R-squared:  -0.001851 
-## F-statistic: 0.8873 on 4 and 240 DF,  p-value: 0.4721
-## 
-## [1] &quot;PerceptualDysregulation&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.63359 -0.66331  0.01195  0.77146  1.99484 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.179481   0.213675   0.840    0.402
-## vec_variables_values[[i]]        -0.223433   0.236023  -0.947    0.345
-## d$edad                           -0.004182   0.007667  -0.545    0.586
-## d$Im                             -0.142123   0.143397  -0.991    0.323
-## vec_variables_values[[i]]:d$edad  0.007892   0.009208   0.857    0.392
-## 
-## Residual standard error: 1.001 on 240 degrees of freedom
-## Multiple R-squared:  0.009825,   Adjusted R-squared:  -0.006678 
-## F-statistic: 0.5953 on 4 and 240 DF,  p-value: 0.6663
-## 
-## [1] &quot;Perseveration&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.64087 -0.64676  0.01871  0.78631  2.02364 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.160674   0.206803   0.777    0.438
-## vec_variables_values[[i]]        -0.274142   0.191409  -1.432    0.153
-## d$edad                           -0.003442   0.007265  -0.474    0.636
-## d$Im                             -0.145162   0.142517  -1.019    0.309
-## vec_variables_values[[i]]:d$edad  0.010033   0.006639   1.511    0.132
-## 
-## Residual standard error: 0.9978 on 240 degrees of freedom
-## Multiple R-squared:  0.01537,    Adjusted R-squared:  -0.00104 
-## F-statistic: 0.9366 on 4 and 240 DF,  p-value: 0.4434
-## 
-## [1] &quot;RestrictedAffectivity&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.74138 -0.61140 -0.01376  0.78604  2.00706 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.159933   0.204056   0.784    0.434
-## vec_variables_values[[i]]        -0.021816   0.233380  -0.093    0.926
-## d$edad                           -0.003480   0.007142  -0.487    0.627
-## d$Im                             -0.175244   0.143341  -1.223    0.223
-## vec_variables_values[[i]]:d$edad  0.005916   0.008807   0.672    0.502
-## 
-## Residual standard error: 0.9934 on 240 degrees of freedom
-## Multiple R-squared:  0.02402,    Adjusted R-squared:  0.007755 
-## F-statistic: 1.477 on 4 and 240 DF,  p-value: 0.2099
-## 
-## [1] &quot;RigidPerfeccionism&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.67736 -0.62015 -0.00643  0.75618  1.98915 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.198741   0.205286   0.968    0.334
-## vec_variables_values[[i]]        -0.288874   0.201095  -1.437    0.152
-## d$edad                           -0.005111   0.007118  -0.718    0.473
-## d$Im                             -0.141483   0.142612  -0.992    0.322
-## vec_variables_values[[i]]:d$edad  0.008942   0.007065   1.266    0.207
-## 
-## Residual standard error: 0.998 on 240 degrees of freedom
-## Multiple R-squared:  0.01482,    Adjusted R-squared:  -0.001599 
-## F-statistic: 0.9026 on 4 and 240 DF,  p-value: 0.4631
-## 
-## [1] &quot;RiskTaking&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.60290 -0.66416 -0.00977  0.76397  2.00560 
-## 
-## Coefficients:
-##                                    Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.2063165  0.2040574   1.011    0.313
-## vec_variables_values[[i]]         0.0567064  0.1972593   0.287    0.774
-## d$edad                           -0.0055723  0.0070500  -0.790    0.430
-## d$Im                             -0.1616904  0.1460714  -1.107    0.269
-## vec_variables_values[[i]]:d$edad  0.0006168  0.0069596   0.089    0.929
-## 
-## Residual standard error: 0.9999 on 240 degrees of freedom
-## Multiple R-squared:  0.01113,    Adjusted R-squared:  -0.005353 
-## F-statistic: 0.6752 on 4 and 240 DF,  p-value: 0.6098
-## 
-## [1] &quot;SeparationInsecurity&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.48982 -0.65408  0.00299  0.80474  1.97926 
-## 
-## Coefficients:
-##                                    Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.2822877  0.2225351   1.269    0.206
-## vec_variables_values[[i]]        -0.0859026  0.2231835  -0.385    0.701
-## d$edad                           -0.0087796  0.0080660  -1.088    0.277
-## d$Im                             -0.1301376  0.1418025  -0.918    0.360
-## vec_variables_values[[i]]:d$edad -0.0008586  0.0083675  -0.103    0.918
-## 
-## Residual standard error: 0.9969 on 240 degrees of freedom
-## Multiple R-squared:  0.01711,    Adjusted R-squared:  0.0007272 
-## F-statistic: 1.044 on 4 and 240 DF,  p-value: 0.3849
-## 
-## [1] &quot;Submissiveness&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.53901 -0.69373  0.02428  0.82105  1.91000 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.192323   0.208343   0.923   0.3569  
-## vec_variables_values[[i]]        -0.394586   0.208907  -1.889   0.0601 .
-## d$edad                           -0.004925   0.007363  -0.669   0.5042  
-## d$Im                             -0.135310   0.140960  -0.960   0.3381  
-## vec_variables_values[[i]]:d$edad  0.009800   0.007595   1.290   0.1981  
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 0.9897 on 240 degrees of freedom
-## Multiple R-squared:  0.03131,    Adjusted R-squared:  0.01516 
-## F-statistic: 1.939 on 4 and 240 DF,  p-value: 0.1046
-## 
-## [1] &quot;Suspiciousness&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.85489 -0.66328  0.04442  0.78313  2.02067 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.123061   0.206038   0.597    0.551
-## vec_variables_values[[i]]        -0.106748   0.187450  -0.569    0.570
-## d$edad                           -0.002268   0.007209  -0.315    0.753
-## d$Im                             -0.135651   0.143559  -0.945    0.346
-## vec_variables_values[[i]]:d$edad  0.007595   0.006510   1.167    0.244
-## 
-## Residual standard error: 0.995 on 240 degrees of freedom
-## Multiple R-squared:  0.0209, Adjusted R-squared:  0.004586 
-## F-statistic: 1.281 on 4 and 240 DF,  p-value: 0.2781
-## 
-## [1] &quot;UnusualBeliefsAndExperiences&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.6847 -0.6374  0.0225  0.7633  1.9807 
-## 
-## Coefficients:
-##                                    Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.1726847  0.2050759   0.842    0.401
-## vec_variables_values[[i]]         0.0614870  0.2178958   0.282    0.778
-## d$edad                           -0.0047553  0.0070810  -0.672    0.503
-## d$Im                             -0.1167678  0.1423348  -0.820    0.413
-## vec_variables_values[[i]]:d$edad  0.0001219  0.0082965   0.015    0.988
-## 
-## Residual standard error: 1 on 240 degrees of freedom
-## Multiple R-squared:  0.01004,    Adjusted R-squared:  -0.006456 
-## F-statistic: 0.6087 on 4 and 240 DF,  p-value: 0.6567
-## 
-## [1] &quot;Withdrawal&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.67513 -0.67627  0.00866  0.76245  2.11822 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.198354   0.202258   0.981    0.328
-## vec_variables_values[[i]]        -0.271377   0.202787  -1.338    0.182
-## d$edad                           -0.005305   0.006979  -0.760    0.448
-## d$Im                             -0.147720   0.142251  -1.038    0.300
-## vec_variables_values[[i]]:d$edad  0.011589   0.007204   1.609    0.109
-## 
-## Residual standard error: 0.9964 on 240 degrees of freedom
-## Multiple R-squared:  0.01805,    Adjusted R-squared:  0.001682 
-## F-statistic: 1.103 on 4 and 240 DF,  p-value: 0.3559</code></pre>
-<pre class="r"><code>### para todos los regresores juntos
+# for (i in 1:length(vec_variables_string)) {
+#   a &lt;- lm(d$m_c ~ vec_variables_values[[i]] +
+#                   d$edad +
+#                   d$Im +
+#                   d$edad:vec_variables_values[[i]]) #+
+#                   #d$Im: vec_variables_values[[i]])
+#   print(vec_variables_string[i])
+#   print(summary(a))}
+
+### para todos los regresores juntos
 
 ## para todos los regresores juntos
 ######
-# a &lt;- lm(d2$mc ~ vec_variables_values[[1]] +
-#           vec_variables_values[[2]] +
-#           vec_variables_values[[3]] +
-#           vec_variables_values[[4]] +
-#           vec_variables_values[[5]] +
-#           vec_variables_values[[6]] +
-#           vec_variables_values[[7]] +
-#           vec_variables_values[[8]] +
-#           vec_variables_values[[9]] +
-#           vec_variables_values[[10]] +
-#           vec_variables_values[[11]] +
-#           vec_variables_values[[12]] +
-#           vec_variables_values[[13]] +
-#           vec_variables_values[[14]] +
-#           vec_variables_values[[15]] +
-#           vec_variables_values[[16]] +
-#           vec_variables_values[[17]] +
-#           vec_variables_values[[18]] +
-#           vec_variables_values[[19]] +
-#           vec_variables_values[[20]] +
-#           vec_variables_values[[21]] +
-#           vec_variables_values[[22]] +
-#           vec_variables_values[[23]] +
-#           vec_variables_values[[24]] +
-#           vec_variables_values[[25]] +
-#           d$edad +
-#           d$Im)
+a &lt;- lm(d$m_c ~ vec_variables_values[[1]] +
+          vec_variables_values[[2]] +
+          vec_variables_values[[3]] +
+          vec_variables_values[[4]] +
+          vec_variables_values[[5]] +
+          vec_variables_values[[6]] +
+          vec_variables_values[[7]] +
+          vec_variables_values[[8]] +
+          vec_variables_values[[9]] +
+          vec_variables_values[[10]] +
+          vec_variables_values[[11]] +
+          vec_variables_values[[12]] +
+          vec_variables_values[[13]] +
+          vec_variables_values[[14]] +
+          vec_variables_values[[15]] +
+          vec_variables_values[[16]] +
+          vec_variables_values[[17]] +
+          vec_variables_values[[18]] +
+          vec_variables_values[[19]] +
+          vec_variables_values[[20]] +
+          vec_variables_values[[21]] +
+          vec_variables_values[[22]] +
+          vec_variables_values[[23]] +
+          vec_variables_values[[24]] +
+          vec_variables_values[[25]] +
+          d$edad +
+          d$Im)
 
 
 ## Para los que nos interesan
@@ -905,8 +349,76 @@ for (i in 1:length(vec_variables_string)) {
 
 ## muestro los resultados
 ######
-# print(vec_variables_string)
-# print(summary(a))</code></pre>
+print(vec_variables_string)</code></pre>
+<pre><code>##  [1] &quot;Anhedonia&quot;                    &quot;Anxiousness&quot;                 
+##  [3] &quot;AttentionSeeking&quot;             &quot;Callousness&quot;                 
+##  [5] &quot;Deceitfulness&quot;                &quot;Depressivity&quot;                
+##  [7] &quot;Distractivility&quot;              &quot;Excentricity&quot;                
+##  [9] &quot;EmotionalLability&quot;            &quot;Grandiosity&quot;                 
+## [11] &quot;Hostility&quot;                    &quot;Impulsivity&quot;                 
+## [13] &quot;IntimacyAvoidance&quot;            &quot;Irresponsibility&quot;            
+## [15] &quot;Manipulativeness&quot;             &quot;PerceptualDysregulation&quot;     
+## [17] &quot;Perseveration&quot;                &quot;RestrictedAffectivity&quot;       
+## [19] &quot;RigidPerfeccionism&quot;           &quot;RiskTaking&quot;                  
+## [21] &quot;SeparationInsecurity&quot;         &quot;Submissiveness&quot;              
+## [23] &quot;Suspiciousness&quot;               &quot;UnusualBeliefsAndExperiences&quot;
+## [25] &quot;Withdrawal&quot;</code></pre>
+<pre class="r"><code>print(summary(a))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = d$m_c ~ vec_variables_values[[1]] + vec_variables_values[[2]] + 
+##     vec_variables_values[[3]] + vec_variables_values[[4]] + vec_variables_values[[5]] + 
+##     vec_variables_values[[6]] + vec_variables_values[[7]] + vec_variables_values[[8]] + 
+##     vec_variables_values[[9]] + vec_variables_values[[10]] + 
+##     vec_variables_values[[11]] + vec_variables_values[[12]] + 
+##     vec_variables_values[[13]] + vec_variables_values[[14]] + 
+##     vec_variables_values[[15]] + vec_variables_values[[16]] + 
+##     vec_variables_values[[17]] + vec_variables_values[[18]] + 
+##     vec_variables_values[[19]] + vec_variables_values[[20]] + 
+##     vec_variables_values[[21]] + vec_variables_values[[22]] + 
+##     vec_variables_values[[23]] + vec_variables_values[[24]] + 
+##     vec_variables_values[[25]] + d$edad + d$Im)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.34348 -0.67464 -0.00467  0.66498  1.97707 
+## 
+## Coefficients:
+##                              Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)                 0.3130573  0.2158654   1.450   0.1484  
+## vec_variables_values[[1]]   0.1092916  0.1241882   0.880   0.3798  
+## vec_variables_values[[2]]   0.1317210  0.1052634   1.251   0.2122  
+## vec_variables_values[[3]]   0.0361791  0.0957617   0.378   0.7059  
+## vec_variables_values[[4]]  -0.1312487  0.1033639  -1.270   0.2055  
+## vec_variables_values[[5]]  -0.0970453  0.1111253  -0.873   0.3835  
+## vec_variables_values[[6]]   0.0005513  0.1218372   0.005   0.9964  
+## vec_variables_values[[7]]   0.0124489  0.1018294   0.122   0.9028  
+## vec_variables_values[[8]]   0.0027867  0.0989841   0.028   0.9776  
+## vec_variables_values[[9]]   0.0387763  0.0981746   0.395   0.6933  
+## vec_variables_values[[10]]  0.1694083  0.0918387   1.845   0.0665 .
+## vec_variables_values[[11]]  0.1299153  0.0968694   1.341   0.1813  
+## vec_variables_values[[12]]  0.1816623  0.0797497   2.278   0.0237 *
+## vec_variables_values[[13]] -0.1073315  0.0885127  -1.213   0.2266  
+## vec_variables_values[[14]] -0.0081280  0.0885404  -0.092   0.9269  
+## vec_variables_values[[15]] -0.0054109  0.1061325  -0.051   0.9594  
+## vec_variables_values[[16]] -0.2482407  0.1224856  -2.027   0.0439 *
+## vec_variables_values[[17]] -0.0023828  0.1142179  -0.021   0.9834  
+## vec_variables_values[[18]]  0.2006570  0.0914032   2.195   0.0292 *
+## vec_variables_values[[19]] -0.1264419  0.0865321  -1.461   0.1454  
+## vec_variables_values[[20]] -0.0365244  0.0836850  -0.436   0.6629  
+## vec_variables_values[[21]] -0.1538157  0.0844648  -1.821   0.0700 .
+## vec_variables_values[[22]] -0.1188617  0.0809351  -1.469   0.1434  
+## vec_variables_values[[23]]  0.0200322  0.0957518   0.209   0.8345  
+## vec_variables_values[[24]]  0.1257152  0.0966570   1.301   0.1948  
+## vec_variables_values[[25]] -0.0158040  0.1130603  -0.140   0.8890  
+## d$edad                     -0.0101605  0.0074612  -1.362   0.1747  
+## d$Im                       -0.0967241  0.1620077  -0.597   0.5511  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9719 on 217 degrees of freedom
+## Multiple R-squared:  0.1552, Adjusted R-squared:  0.05013 
+## F-statistic: 1.477 on 27 and 217 DF,  p-value: 0.06794</code></pre>
 </div>
 <div id="modelo-2" class="section level2">
 <h2>Modelo 2</h2>
@@ -924,135 +436,54 @@ vec_variables_string &lt;- c(&quot;DomainPsychoticism&quot;,
                           &#39;DomainNegativeAffect&#39;)
 
 
-for (i in 1:length(vec_variables_string)) {
-  a &lt;- lm(d$m_c ~ vec_variables_values[[i]] +
-                  d$edad +
-                  d$Im +
-                  d$edad:vec_variables_values[[i]]) #+
-                  #d$Im: vec_variables_values[[i]])
-  print(vec_variables_string[i])
-  print(summary(a))
-}</code></pre>
-<pre><code>## [1] &quot;DomainPsychoticism&quot;
-## 
+# for (i in 1:length(vec_variables_string)) {
+#   a &lt;- lm(d$m_c ~ vec_variables_values[[i]] +
+#                   d$edad +
+#                   d$Im +
+#                   d$edad:vec_variables_values[[i]]) #+
+#                   #d$Im: vec_variables_values[[i]])
+#   print(vec_variables_string[i])
+#   print(summary(a))
+# }
+
+
+a &lt;- lm(d$m_c ~ vec_variables_values[[1]] +
+          vec_variables_values[[2]] +
+          vec_variables_values[[3]] +
+          vec_variables_values[[4]] +
+          vec_variables_values[[5]] +
+          d$edad +
+          d$Im)
+print(vec_variables_string)</code></pre>
+<pre><code>## [1] &quot;DomainPsychoticism&quot;   &quot;DomainDisinhibition&quot;  &quot;DomainAntagonism&quot;    
+## [4] &quot;DomainDetachment&quot;     &quot;DomainNegativeAffect&quot;</code></pre>
+<pre class="r"><code>print(summary(a))</code></pre>
+<pre><code>## 
 ## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
+## lm(formula = d$m_c ~ vec_variables_values[[1]] + vec_variables_values[[2]] + 
+##     vec_variables_values[[3]] + vec_variables_values[[4]] + vec_variables_values[[5]] + 
+##     d$edad + d$Im)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2.71166 -0.66460  0.02405  0.77429  2.01867 
+## -2.41039 -0.66444 -0.02268  0.65784  2.04507 
 ## 
 ## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.146029   0.208557   0.700    0.484
-## vec_variables_values[[i]]        -0.183368   0.216293  -0.848    0.397
-## d$edad                           -0.002911   0.007398  -0.394    0.694
-## d$Im                             -0.145860   0.143217  -1.018    0.309
-## vec_variables_values[[i]]:d$edad  0.008649   0.008145   1.062    0.289
-## 
-## Residual standard error: 0.9996 on 240 degrees of freedom
-## Multiple R-squared:  0.01183,    Adjusted R-squared:  -0.00464 
-## F-statistic: 0.7183 on 4 and 240 DF,  p-value: 0.5802
-## 
-## [1] &quot;DomainDisinhibition&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.6099 -0.6372 -0.0029  0.7356  1.9657 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.122023   0.206328   0.591    0.555
-## vec_variables_values[[i]]        -0.058400   0.218150  -0.268    0.789
-## d$edad                           -0.002266   0.007267  -0.312    0.755
-## d$Im                             -0.142989   0.142038  -1.007    0.315
-## vec_variables_values[[i]]:d$edad  0.007071   0.008026   0.881    0.379
-## 
-## Residual standard error: 0.9931 on 240 degrees of freedom
-## Multiple R-squared:  0.02464,    Adjusted R-squared:  0.008384 
-## F-statistic: 1.516 on 4 and 240 DF,  p-value: 0.1982
-## 
-## [1] &quot;DomainAntagonism&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.70912 -0.65216  0.01722  0.75242  2.08563 
-## 
-## Coefficients:
-##                                    Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                       0.0706047  0.2125316   0.332   0.7400  
-## vec_variables_values[[i]]        -0.2747444  0.2029001  -1.354   0.1770  
-## d$edad                            0.0004342  0.0076419   0.057   0.9547  
-## d$Im                             -0.1700342  0.1435450  -1.185   0.2374  
-## vec_variables_values[[i]]:d$edad  0.0132399  0.0076165   1.738   0.0834 .
+##                            Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)                0.206795   0.212798   0.972   0.3321  
+## vec_variables_values[[1]] -0.021418   0.085646  -0.250   0.8027  
+## vec_variables_values[[2]]  0.157631   0.075606   2.085   0.0381 *
+## vec_variables_values[[3]]  0.044201   0.071891   0.615   0.5393  
+## vec_variables_values[[4]] -0.003251   0.072797  -0.045   0.9644  
+## vec_variables_values[[5]] -0.082611   0.077934  -1.060   0.2902  
+## d$edad                    -0.005470   0.007358  -0.743   0.4579  
+## d$Im                      -0.171559   0.146157  -1.174   0.2417  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.9946 on 240 degrees of freedom
-## Multiple R-squared:  0.02168,    Adjusted R-squared:  0.005377 
-## F-statistic:  1.33 on 4 and 240 DF,  p-value: 0.2595
-## 
-## [1] &quot;DomainDetachment&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.63867 -0.69366  0.00944  0.76803  2.07369 
-## 
-## Coefficients:
-##                                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.165360   0.204293   0.809    0.419
-## vec_variables_values[[i]]        -0.312455   0.213347  -1.465    0.144
-## d$edad                           -0.003648   0.007113  -0.513    0.609
-## d$Im                             -0.151209   0.142868  -1.058    0.291
-## vec_variables_values[[i]]:d$edad  0.012615   0.007704   1.637    0.103
-## 
-## Residual standard error: 0.9967 on 240 degrees of freedom
-## Multiple R-squared:  0.01737,    Adjusted R-squared:  0.0009947 
-## F-statistic: 1.061 on 4 and 240 DF,  p-value: 0.3766
-## 
-## [1] &quot;DomainNegativeAffect&quot;
-## 
-## Call:
-## lm(formula = d$m_c ~ vec_variables_values[[i]] + d$edad + d$Im + 
-##     d$edad:vec_variables_values[[i]])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.67013 -0.69577  0.02508  0.77345  1.94823 
-## 
-## Coefficients:
-##                                    Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                       0.2186382  0.2181283   1.002    0.317
-## vec_variables_values[[i]]        -0.0274713  0.2310166  -0.119    0.905
-## d$edad                           -0.0063107  0.0078103  -0.808    0.420
-## d$Im                             -0.1320558  0.1451242  -0.910    0.364
-## vec_variables_values[[i]]:d$edad  0.0002356  0.0083640   0.028    0.978
-## 
-## Residual standard error: 1.002 on 240 degrees of freedom
-## Multiple R-squared:  0.006406,   Adjusted R-squared:  -0.01015 
-## F-statistic: 0.3868 on 4 and 240 DF,  p-value: 0.818</code></pre>
-<pre class="r"><code># a &lt;- lm(d2$mc ~ vec_variables_values[[1]] +
-#           vec_variables_values[[2]] +
-#           vec_variables_values[[3]] +
-#           vec_variables_values[[4]] +
-#           vec_variables_values[[5]] +
-#           d$edad +
-#           d$Im)
-# print(vec_variables_string)
-# print(summary(a))</code></pre>
+## Residual standard error: 0.9972 on 237 degrees of freedom
+## Multiple R-squared:  0.02879,    Adjusted R-squared:  0.0001084 
+## F-statistic: 1.004 on 7 and 237 DF,  p-value: 0.4292</code></pre>
 </div>
 
 
