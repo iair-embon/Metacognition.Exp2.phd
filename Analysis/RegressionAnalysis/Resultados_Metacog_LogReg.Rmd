@@ -1,6 +1,6 @@
 ---
 title: "Logistic multilevel regression analysis"
-author: "Embon, Gerbaudo , Iorio, Barttfeld & Solovey"
+author: "Embon, Gerbaudo, Iorio, Barttfeld & Solovey"
 date: "8/9/2021"
 output: html_document
 ---
@@ -37,6 +37,8 @@ print(str(d))
 library(arm)
 library(dplyr)
 library(lme4)
+
+nrow(d)
 ```
 
 ##### Empiezo a correr modelos de regresiones
