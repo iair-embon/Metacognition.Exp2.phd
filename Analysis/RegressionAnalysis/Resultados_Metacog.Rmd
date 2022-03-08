@@ -1,6 +1,7 @@
 ---
 title: "Regression Analysis"
 author: "Embon,Gerbaudo , Iorio, Barttfeld & Solovey"
+author: "Embon, Gerbaudo, Iorio, Barttfeld & Solovey"
 date: "8/9/2021"
 output: html_document
 ---
@@ -13,30 +14,33 @@ output: html_document
 root <- rprojroot::is_rstudio_project
 basename(getwd())
 
-# load the function to get the df list
-source(root$find_file("Analysis/AuxiliaryFunctions/DataFrame_Filtered.R"))
+####### data frames with filters already applied
+filepath <- root$find_file("Data/All_exp_exclusion_criteria/df_total.Rda")
+load(file= filepath)
 
-# get the df list
-# experimento = completo,survey,sorteo, todos
-DF_list <- DataFrame_Filtered(experimento = "todos", 
-                              filtroRT_Disc_Sup = 5000,
-                              filtroRT_Disc_Inf = 200,
-                              filtroRT_Conf_Sup = 5000,
-                              filtroRT_Conf_Inf = 0,
-                              filtroTrial = 20,
-                              cant_trial_filter = 70)
+source(root$find_file("Analysis/AuxiliaryFunctions/DataFrame_Filtered_already_applied.R"))
+DF_list <- DataFrame_Filtered_already_applied(df_total)
 
 # DF_list:
-# a = df_total
+# a = d (df normalizado)
 # b = d.sin.normalizar
-# c = d.sin.normalizar.mc.filter
-# d = d.mc.filter
 
-df_total <- DF_list$a
+d <- DF_list$a
 d.sin.normalizar <- DF_list$b
-d.sin.normalizar.mc.filter <- DF_list$c
-d.mc.filter <- DF_list$d 
-d <- d.mc.filter
+
+# only male and female genders
+d <- d[d$Im == "Femenino" | d$Im == "Masculino",]
+d.sin.normalizar <- d.sin.normalizar[d.sin.normalizar$Im == "Femenino" | 
+                                       d.sin.normalizar$Im == "Masculino",]
+
+d[d == "Masculino"] <- "1"
+d[d == "Femenino"] <- "0"
+d$Im <- as.integer(d$Im)
+
+d.sin.normalizar[d.sin.normalizar == "Masculino"] <- "1"
+d.sin.normalizar[d.sin.normalizar == "Femenino"] <- "0"
+d.sin.normalizar$Im <- as.integer(d.sin.normalizar$Im)
+
 ###############
 ### library ###
 ###############
@@ -49,16 +53,9 @@ library(dplyr)
 
 ### lineas para hacer regresion 
 
-d1 = d.sin.normalizar.mc.filter
+d2 = d.sin.normalizar
 
-# sujetos que tienen un 85 % de trials en una misma respuesta de confianza
-
-source(root$find_file("Analysis/AuxiliaryFunctions/discard_by_x_same_confidence.R"))
-sujetos_a_descartar <- discard_by_x_same_confidence(85)
-d2 <- d1[! d1$sujetos %in% sujetos_a_descartar,]
-
-
-d <- subset(d, d$sujetos %in% d2$sujetos)
+print(nrow(d2))
 
 ```
 
@@ -123,8 +120,8 @@ vec_variables_string <- c("Anhedonia",
 ## para cada regresor por separado
 ######
 # for (i in 1:length(vec_variables_string)) {
-#   a <- lm(d2$mc ~ vec_variables_values[[i]] + 
-#                   d$edad + 
+#   a <- lm(d$mc ~ vec_variables_values[[i]] +
+#                   d$edad +
 #                   d$Im +
 #                   d$edad:vec_variables_values[[i]]) #+
 #                   #d$Im: vec_variables_values[[i]])
@@ -135,7 +132,7 @@ vec_variables_string <- c("Anhedonia",
 
 ## para todos los regresores juntos
 ######
-a <- lm(d2$mc ~ vec_variables_values[[1]] +
+a <- lm(d$mc ~ vec_variables_values[[1]] +
           vec_variables_values[[2]] +
           vec_variables_values[[3]] +
           vec_variables_values[[4]] +
@@ -200,8 +197,8 @@ vec_variables_string <- c("DomainPsychoticism",
 
 
 # for (i in 1:length(vec_variables_string)) {
-#   a <- lm(d2$mc ~ vec_variables_values[[i]] + 
-#                   d$edad + 
+#   a <- lm(d$mc ~ vec_variables_values[[i]] +
+#                   d$edad +
 #                   d$Im +
 #                   d$edad:vec_variables_values[[i]]) #+
 #                   #d$Im: vec_variables_values[[i]])
@@ -210,7 +207,7 @@ vec_variables_string <- c("DomainPsychoticism",
 # }
 
 
-a <- lm(d2$mc ~ vec_variables_values[[1]] +
+a <- lm(d$mc ~ vec_variables_values[[1]] +
           vec_variables_values[[2]] +
           vec_variables_values[[3]] +
           vec_variables_values[[4]] +

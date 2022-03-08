@@ -1,0 +1,450 @@
+---
+title: "Logistic multilevel regression analysis"
+author: "Embon, Gerbaudo, Iorio, Barttfeld & Solovey"
+date: "8/9/2021"
+output: html_document
+---
+
+## Levantar datos
+                                 
+```{r levantar datos, echo=TRUE}
+
+# voy a la carpeta del proyecto
+root <- rprojroot::is_rstudio_project
+basename(getwd())
+
+####### data frames with filters already applied
+filepath <- root$find_file("Data/All_exp_exclusion_criteria/df_total.Rda")
+load(file= filepath)
+
+source(root$find_file("Analysis/AuxiliaryFunctions/DataFrame_Filtered_already_applied.R"))
+DF_list <- DataFrame_Filtered_already_applied(df_total)
+
+# only male and female genders
+d <- df_total[df_total$genero == "Masculino" | df_total$genero == "Femenino",]
+
+# modifico las variables que me interesan modificar
+d[d == "Masculino"] <- 1
+d[d == "Femenino"] <- 0
+d$discrimination_is_correct <- ifelse(d$discrimination_is_correct == TRUE, 1, 0)
+d$sujetos <- factor(d$sujetos)
+d$confidence_key <- (d$confidence_key - 1) / 3 # unica variable normalizada
+
+print(str(d))
+###############
+### library ###
+###############
+library(arm)
+library(dplyr)
+library(lme4)
+
+nrow(d)
+```
+
+##### Empiezo a correr modelos de regresiones
+
+## Modelo 1, regresión logística clásica para facetas
+```{r modelo 1, echo=TRUE}
+
+vec_variables_values <- list(d$Anhedonia,
+                          d$Anxiousness,
+                          d$AttentionSeeking,
+                          d$Callousness,
+                          d$Deceitfulness,
+                          d$Depressivity,
+                          d$Distractivility,
+                          d$Excentricity,
+                          d$EmotionalLability,
+                          d$Grandiosity,
+                          d$Hostility,
+                          d$Impulsivity,
+                          d$IntimacyAvoidance,
+                          d$Irresponsibility,
+                          d$Manipulativeness,
+                          d$PerceptualDysregulation,
+                          d$Perseveration,
+                          d$RestrictedAffectivity,
+                          d$RigidPerfeccionism,
+                          d$RiskTaking,
+                          d$SeparationInsecurity,
+                          d$Submissiveness,
+                          d$Suspiciousness,
+                          d$UnusualBeliefsAndExperiences,
+                          d$Withdrawal)
+
+
+vec_variables_string <- c("Anhedonia",
+                   "Anxiousness",
+                   "AttentionSeeking",
+                   "Callousness",
+                   "Deceitfulness",
+                   "Depressivity",
+                   "Distractivility",
+                   "Excentricity",
+                   "EmotionalLability",
+                   "Grandiosity",
+                   "Hostility",
+                   "Impulsivity",
+                   "IntimacyAvoidance",
+                   "Irresponsibility",
+                   "Manipulativeness",
+                   "PerceptualDysregulation",
+                   "Perseveration",
+                   "RestrictedAffectivity",
+                   "RigidPerfeccionism",
+                   "RiskTaking",
+                   "SeparationInsecurity",
+                   "Submissiveness",
+                   "Suspiciousness",
+                   "UnusualBeliefsAndExperiences",
+                   "Withdrawal")
+
+## para cada regresor por separado
+######
+# for (i in 1:length(vec_variables_string)) {
+#   a <- lm(d2$mc ~ vec_variables_values[[i]] +
+#                   d$edad +
+#                   d$Im +
+#                   d$edad:vec_variables_values[[i]]) #+
+#                   #d$Im: vec_variables_values[[i]])
+#   print(vec_variables_string[i])
+#   print(summary(a))}
+
+### para todos los regresores juntos
+a <- glm(discrimination_is_correct ~ confidence_key +
+          vec_variables_values[[1]] +
+          vec_variables_values[[2]] +
+          vec_variables_values[[3]] +
+          vec_variables_values[[4]] +
+          vec_variables_values[[5]] +
+          vec_variables_values[[6]] +
+          vec_variables_values[[7]] +
+          vec_variables_values[[8]] +
+          vec_variables_values[[9]] +
+          vec_variables_values[[10]] +
+          vec_variables_values[[11]] +
+          vec_variables_values[[12]] +
+          vec_variables_values[[13]] +
+          vec_variables_values[[14]] +
+          vec_variables_values[[15]] +
+          vec_variables_values[[16]] +
+          vec_variables_values[[17]] +
+          vec_variables_values[[18]] +
+          vec_variables_values[[19]] +
+          vec_variables_values[[20]] +
+          vec_variables_values[[21]] +
+          vec_variables_values[[22]] +
+          vec_variables_values[[23]] +
+          vec_variables_values[[24]] +
+          vec_variables_values[[25]] +
+          d$edad +
+          d$Im,
+          family=binomial(link="logit"), 
+          data = d)
+
+# muestro los resultados
+print(vec_variables_string)
+print(summary(a))
+```
+
+## Modelo 2, regresión logística clásica para dominios
+```{r Modelo 2, echo=TRUE}
+
+vec_variables_values <- list(d$DomainPsychoticism,
+                             d$DomainDisinhibition,
+                             d$DomainAntagonism,
+                             d$DomainDetachment,
+                             d$DomainNegativeAffect)
+
+vec_variables_string <- c("DomainPsychoticism",
+                          'DomainDisinhibition',
+                          'DomainAntagonism',
+                          'DomainDetachment',
+                          'DomainNegativeAffect')
+
+# for (i in 1:length(vec_variables_string)) {
+#   a <- lm(d2$mc ~ vec_variables_values[[i]] +
+#                   d$edad +
+#                   d$Im +
+#                   d$edad:vec_variables_values[[i]]) #+
+#                   #d$Im: vec_variables_values[[i]])
+#   print(vec_variables_string[i])
+#   print(summary(a))
+# }
+
+a <- glm(discrimination_is_correct ~ confidence_key +
+          vec_variables_values[[1]] +
+          vec_variables_values[[2]] +
+          vec_variables_values[[3]] +
+          vec_variables_values[[4]] +
+          vec_variables_values[[5]] +
+          edad +
+          genero,
+          family=binomial(link="logit"), 
+          data = d)
+
+print(vec_variables_string)
+print(summary(a))
+```
+
+## Modelo 3, regresión logística mixta para facetas, sujetos var random, intercept varía por sujeto
+```{r modelo 3, echo=TRUE}
+
+vec_variables_values <- list(d$Anhedonia,
+                          d$Anxiousness,
+                          d$AttentionSeeking,
+                          d$Callousness,
+                          d$Deceitfulness,
+                          d$Depressivity,
+                          d$Distractivility,
+                          d$Excentricity,
+                          d$EmotionalLability,
+                          d$Grandiosity,
+                          d$Hostility,
+                          d$Impulsivity,
+                          d$IntimacyAvoidance,
+                          d$Irresponsibility,
+                          d$Manipulativeness,
+                          d$PerceptualDysregulation,
+                          d$Perseveration,
+                          d$RestrictedAffectivity,
+                          d$RigidPerfeccionism,
+                          d$RiskTaking,
+                          d$SeparationInsecurity,
+                          d$Submissiveness,
+                          d$Suspiciousness,
+                          d$UnusualBeliefsAndExperiences,
+                          d$Withdrawal)
+
+vec_variables_string <- c("Anhedonia",
+                   "Anxiousness",
+                   "AttentionSeeking",
+                   "Callousness",
+                   "Deceitfulness",
+                   "Depressivity",
+                   "Distractivility",
+                   "Excentricity",
+                   "EmotionalLability",
+                   "Grandiosity",
+                   "Hostility",
+                   "Impulsivity",
+                   "IntimacyAvoidance",
+                   "Irresponsibility",
+                   "Manipulativeness",
+                   "PerceptualDysregulation",
+                   "Perseveration",
+                   "RestrictedAffectivity",
+                   "RigidPerfeccionism",
+                   "RiskTaking",
+                   "SeparationInsecurity",
+                   "Submissiveness",
+                   "Suspiciousness",
+                   "UnusualBeliefsAndExperiences",
+                   "Withdrawal")
+
+a <- glmer(discrimination_is_correct ~ confidence_key +
+          # vec_variables_values[[1]] +
+          vec_variables_values[[2]] +
+          # vec_variables_values[[3]] +
+          vec_variables_values[[4]] +
+          # vec_variables_values[[5]] +
+          # vec_variables_values[[6]] +
+          # vec_variables_values[[7]] +
+          # vec_variables_values[[8]] +
+          # vec_variables_values[[9]] +
+          # vec_variables_values[[10]] +
+          # vec_variables_values[[11]] +
+          vec_variables_values[[12]] +
+          # vec_variables_values[[13]] +
+          # vec_variables_values[[14]] +
+          # vec_variables_values[[15]] +
+          # vec_variables_values[[16]] +
+          # vec_variables_values[[17]] +
+          vec_variables_values[[18]] +
+          # vec_variables_values[[19]] +
+          # vec_variables_values[[20]] +
+          # vec_variables_values[[21]] +
+          # vec_variables_values[[22]] +
+          # vec_variables_values[[23]] +
+          # vec_variables_values[[24]] +
+          # vec_variables_values[[25]] +
+          edad +
+          genero +
+          (1|sujetos),
+          data = d,
+          family = binomial,
+          control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+# muestro los resultados
+print(vec_variables_string)
+print(summary(a))
+print(coef(a))
+print(fixef(a))
+print(ranef(a))
+```
+
+## Modelo 4, regresión logística mixta para dominios, sujetos var random, intercept varía por sujeto
+```{r Modelo 4, echo=TRUE}
+
+vec_variables_values <- list(d$DomainPsychoticism,
+                             d$DomainDisinhibition,
+                             d$DomainAntagonism,
+                             d$DomainDetachment,
+                             d$DomainNegativeAffect)
+
+vec_variables_string <- c("DomainPsychoticism",
+                          'DomainDisinhibition',
+                          'DomainAntagonism',
+                          'DomainDetachment',
+                          'DomainNegativeAffect')
+
+a <- glmer(discrimination_is_correct ~ confidence_key +
+          vec_variables_values[[1]] +
+          vec_variables_values[[2]] +
+          vec_variables_values[[3]] +
+          vec_variables_values[[4]] +
+          vec_variables_values[[5]] +
+          edad +
+          genero +
+          (1|sujetos),
+          data = d,
+          family = binomial,
+          control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+print(vec_variables_string)
+print(summary(a))
+print(coef(a))
+print(fixef(a))
+print(ranef(a))
+```
+
+## Modelo 5, regresión logística mixta para facetas, sujetos var random, intercept y slope varían por sujeto
+```{r modelo 5, echo=TRUE}
+
+vec_variables_values <- list(d$Anhedonia,
+                          d$Anxiousness,
+                          d$AttentionSeeking,
+                          d$Callousness,
+                          d$Deceitfulness,
+                          d$Depressivity,
+                          d$Distractivility,
+                          d$Excentricity,
+                          d$EmotionalLability,
+                          d$Grandiosity,
+                          d$Hostility,
+                          d$Impulsivity,
+                          d$IntimacyAvoidance,
+                          d$Irresponsibility,
+                          d$Manipulativeness,
+                          d$PerceptualDysregulation,
+                          d$Perseveration,
+                          d$RestrictedAffectivity,
+                          d$RigidPerfeccionism,
+                          d$RiskTaking,
+                          d$SeparationInsecurity,
+                          d$Submissiveness,
+                          d$Suspiciousness,
+                          d$UnusualBeliefsAndExperiences,
+                          d$Withdrawal)
+
+vec_variables_string <- c("Anhedonia",
+                   "Anxiousness",
+                   "AttentionSeeking",
+                   "Callousness",
+                   "Deceitfulness",
+                   "Depressivity",
+                   "Distractivility",
+                   "Excentricity",
+                   "EmotionalLability",
+                   "Grandiosity",
+                   "Hostility",
+                   "Impulsivity",
+                   "IntimacyAvoidance",
+                   "Irresponsibility",
+                   "Manipulativeness",
+                   "PerceptualDysregulation",
+                   "Perseveration",
+                   "RestrictedAffectivity",
+                   "RigidPerfeccionism",
+                   "RiskTaking",
+                   "SeparationInsecurity",
+                   "Submissiveness",
+                   "Suspiciousness",
+                   "UnusualBeliefsAndExperiences",
+                   "Withdrawal")
+
+a <- glmer(discrimination_is_correct ~ confidence_key +
+          # vec_variables_values[[1]] +
+          vec_variables_values[[2]] +
+          # vec_variables_values[[3]] +
+          vec_variables_values[[4]] +
+          # vec_variables_values[[5]] +
+          # vec_variables_values[[6]] +
+          # vec_variables_values[[7]] +
+          # vec_variables_values[[8]] +
+          # vec_variables_values[[9]] +
+          # vec_variables_values[[10]] +
+          # vec_variables_values[[11]] +
+          vec_variables_values[[12]] +
+          # vec_variables_values[[13]] +
+          # vec_variables_values[[14]] +
+          # vec_variables_values[[15]] +
+          # vec_variables_values[[16]] +
+          # vec_variables_values[[17]] +
+          vec_variables_values[[18]] +
+          # vec_variables_values[[19]] +
+          # vec_variables_values[[20]] +
+          # vec_variables_values[[21]] +
+          # vec_variables_values[[22]] +
+          # vec_variables_values[[23]] +
+          # vec_variables_values[[24]] +
+          # vec_variables_values[[25]] +
+          edad +
+          genero +
+          (1 + confidence_key|sujetos),
+          data = d,
+          family = binomial,
+          control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+# muestro los resultados
+print(vec_variables_string)
+print(summary(a))
+print(coef(a))
+print(fixef(a))
+print(ranef(a))
+```
+
+## Modelo 6, regresión logística mixta para dominios, sujetos var random, intercept y slope varían por sujeto
+```{r Modelo 6, echo=TRUE}
+
+vec_variables_values <- list(d$DomainPsychoticism,
+                             d$DomainDisinhibition,
+                             d$DomainAntagonism,
+                             d$DomainDetachment,
+                             d$DomainNegativeAffect)
+
+vec_variables_string <- c("DomainPsychoticism",
+                          'DomainDisinhibition',
+                          'DomainAntagonism',
+                          'DomainDetachment',
+                          'DomainNegativeAffect')
+
+a <- glmer(discrimination_is_correct ~ confidence_key +
+          vec_variables_values[[1]] +
+          vec_variables_values[[2]] +
+          vec_variables_values[[3]] +
+          vec_variables_values[[4]] +
+          vec_variables_values[[5]] +
+          edad +
+          genero +
+          (1 + confidence_key|sujetos),
+          data = d,
+          family = binomial,
+          control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5)))
+
+print(vec_variables_string)
+print(summary(a))
+print(coef(a))
+print(fixef(a))
+print(ranef(a))
+```
