@@ -6,7 +6,7 @@
 
 # Read the .txt results from JATOS and perform the data preprocessing.
 
-# (To reado the .txt results from JATOS it was necesary to add an "enter" before the curly brackets
+# (To read the .txt results from JATOS it was necesary to add an "enter" before the curly brackets
 # that open the component "sincericidio").
 
 library(jsonlite)
