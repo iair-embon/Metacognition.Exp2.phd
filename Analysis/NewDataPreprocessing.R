@@ -279,40 +279,40 @@ df_DatosUnicos_mod$sd_tr_confi <- sd_tr_confi
 ####### Inclusion criteria, data is not included in future analysis
 ## Comment / uncomment or modify filters as required
 
-cat("Cantidad de sujetos antes de todo filtro: ", nrow(df_DatosUnicos_mod))
+#cat("Cantidad de sujetos antes de todo filtro: ", nrow(df_DatosUnicos_mod))
 
 ##Filter for hours of sleep, leaving me only with > 4
-df_DatosUnicos_mod <- df_DatosUnicos_mod[df_DatosUnicos_mod$horasSueno > 4,] 
+#df_DatosUnicos_mod <- df_DatosUnicos_mod[df_DatosUnicos_mod$horasSueno > 4,] 
 
-cat("Cantidad de sujetos luego de filtrar por horas sueno: ", nrow(df_DatosUnicos_mod))
+#cat("Cantidad de sujetos luego de filtrar por horas sueno: ", nrow(df_DatosUnicos_mod))
 
 # ## Filter by psychological disorder, staying only with those who do not have.
 # df_DatosUnicos_mod2 <- df_DatosUnicos_mod[df_DatosUnicos_mod$affeccionPsico ==
 #                                             'No',]
 
-cat("Cantidad de sujetos luego de filtrar por trastorno psi: ", nrow(df_DatosUnicos_mod))
+#cat("Cantidad de sujetos luego de filtrar por trastorno psi: ", nrow(df_DatosUnicos_mod))
 
 ## Filter by medication, leaving only with those who do not take.
-# df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$medicacion ==
-#                                              'No',]
+df_DatosUnicos_mod2 <- df_DatosUnicos_mod[df_DatosUnicos_mod$medicacion ==
+                                              'No',]
 
-cat("Cantidad de sujetos luego de filtrar por medicacion: ", nrow(df_DatosUnicos_mod))
+cat("Cantidad de sujetos luego de filtrar por medicacion: ", nrow(df_DatosUnicos_mod2))
 
 ## Filter by age, leaving only those who are age > 17, < 60, and are not NA
-df_DatosUnicos_mod <- df_DatosUnicos_mod[df_DatosUnicos_mod$edad > 17,]
-df_DatosUnicos_mod <- df_DatosUnicos_mod[df_DatosUnicos_mod$edad < 60,]
-df_DatosUnicos_mod <- df_DatosUnicos_mod[!is.na(df_DatosUnicos_mod$edad),]
+df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$edad > 17,]
+df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$edad < 100,]
+df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[!is.na(df_DatosUnicos_mod2$edad),]
 
-cat("Cantidad de sujetos luego de filtrar por edad: ", nrow(df_DatosUnicos_mod))
+cat("Cantidad de sujetos luego de filtrar por edad: ", nrow(df_DatosUnicos_mod2))
 ## filter in df_exp those who survived inclusion criteria applied to 
 ## df_DatosUnicos_mod2
 library(dplyr)
 df_exp <- df_exp %>% 
-  filter(df_exp$sujetos %in% df_DatosUnicos_mod$sujetos)
+  filter(df_exp$sujetos %in% df_DatosUnicos_mod2$sujetos)
 
 ####### putting it all together 
 
-df_total <- df_DatosUnicos_mod[0,]
+df_total <- df_DatosUnicos_mod2[0,]
 
 #  sujetos que quedaron
 ExistingSubjects <- unique(df_exp$sujetos)
@@ -324,14 +324,14 @@ for (i in 1:length(ExistingSubjects)){
   cant_trials <- nrow(sujeto_df_exp)
   
   # repito cada fila del sujeto segun la cantidad de trials que le quedaron
-  sujeto_df_DatosUnicos_mod <- df_DatosUnicos_mod[df_DatosUnicos_mod$sujetos== ExistingSubjects[i],]
-  df <- as.data.frame(lapply(sujeto_df_DatosUnicos_mod, rep, cant_trials))
+  sujeto_df_DatosUnicos_mod <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$sujetos== ExistingSubjects[i],]
+  df <- as.data.frame(lapply(sujeto_df_DatosUnicos_mod2, rep, cant_trials))
   
   # lo agrego al df_total
   df_total <- rbind(df_total, df)
 }
 
-# combino las columnas de df_exp que me interesan con el df_total
+# combino las columnas de df_exp que me interesan con el df_total ## TIRA ERROR!
 df_total <- cbind(df_total, 
                   discrimination_is_correct = df_exp$discrimination_is_correct,
                   confidence_key = df_exp$confidence_key, 
