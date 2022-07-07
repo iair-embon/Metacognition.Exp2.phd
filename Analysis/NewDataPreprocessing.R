@@ -1,8 +1,6 @@
-######################
-## Preprocesamiento ##
-######################
-
-####### Data Preprocessing:
+########################
+## Data Preprocessing ##
+########################
 
 # Read the .txt results from JATOS and perform the data preprocessing.
 
@@ -35,7 +33,7 @@ content<-readLines(root$find_file("Data/Experiment_OnlySurvey/datos_PIDOnlySurv+
 res<-lapply(content,fromJSON)
 df_list <- initial_df(res)
 df <- df_list$a 
-df$sujetos <- df$sujetos + 1000
+df$participant <- df$participant + 1000
 df_DatosUnicos <- rbind(df_DatosUnicos, df) 
 df_exp <- rbind(df_exp, df_list$b)
 pid1 <- c(pid1,df_list$c)
@@ -46,7 +44,7 @@ content<-readLines(root$find_file("Data/PID5_sorteo/jatos_results_20210826172451
 res<-lapply(content,fromJSON)
 df_list <- initial_df(res)
 df <- df_list$a 
-df$sujetos <- df$sujetos + 5000
+df$participant <- df$participant + 5000
 df_DatosUnicos <- rbind(df_DatosUnicos, df) 
 df_exp <- rbind(df_exp, df_list$b)
 pid1 <- c(pid1,df_list$c)
@@ -57,7 +55,7 @@ content<-readLines(root$find_file("Data/PID5_sorteo_final/jatos_results_20211112
 res<-lapply(content,fromJSON)
 df_list <- initial_df(res)
 df <- df_list$a 
-df$sujetos <- df$sujetos + 8000
+df$participant <- df$participant + 8000
 df_DatosUnicos <- rbind(df_DatosUnicos, df) 
 df_exp <- rbind(df_exp, df_list$b)
 pid1 <- c(pid1,df_list$c)
@@ -65,28 +63,18 @@ pid2 <- c(pid2,df_list$d)
 
 ####### add subjects and trials to df_exp
 
-# get the number of trials per subject
-cant_trials <- 130
+# number of trials per subject
+numb_trials <- 130
 
-# prepare subject column
-sujetos <- rep(df_DatosUnicos$sujetos, each = cant_trials)
-
-# prepare trials column
-col_trials <- 1:cant_trials
-trials <- rep(col_trials, times = length(df_DatosUnicos$sujetos))
-
-# add columns to df_exp
-df_exp$sujetos <- sujetos
-df_exp$trials <- trials
+# add columns of participant and trials to df_exp
+df_exp$participant <- rep(df_DatosUnicos$participant, each = numb_trials)
+df_exp$trials <- rep(1:numb_trials, times = length(df_DatosUnicos$participant))
 
 ####### get the PID-5 scores
 
 # where are the responses values of a the first subject
 ubicacion_respuestas_pid1 <- 2
 ubicacion_respuestas_pid2 <- 2
-
-# number of subject 
-cant_sujetos <- length(df_DatosUnicos$sujetos)
 
 # location of the sublist where are the first part of pid-5 of the first subject
 ubicacion_comp1_pid <- 4
@@ -95,7 +83,7 @@ ubicacion_comp1_pid <- 4
 source(root$find_file("Analysis/AuxiliaryFunctions/pid-5.R"))
 
 # get the pid score
-puntaje_pid.5 <- puntaje_pid(cant_sujetos,
+puntaje_pid.5 <- puntaje_pid(length(df_DatosUnicos$participant),
                              ubicacion_respuestas_pid1,
                              ubicacion_respuestas_pid2,
                              ubicacion_comp1_pid,
@@ -114,9 +102,9 @@ df_exp$t_ensayo_confianza <- df_exp$confidence_t_keydown -
 
 ## get percentage of correct answers
 PC  <- rep(NA, nrow(df_DatosUnicos)) 
-existing_subjects <- unique(df_DatosUnicos$sujetos)
+existing_subjects <- unique(df_DatosUnicos$participant)
 for (s in 1:nrow(df_DatosUnicos)){
-  PC[s]   <- mean(df_exp$discrimination_is_correct[df_exp$sujetos== existing_subjects[s]])
+  PC[s]   <- mean(df_exp$discrimination_is_correct[df_exp$participant== existing_subjects[s]])
 }
 
 # add to df_DatosUnicos
@@ -208,7 +196,7 @@ confidence_key_2 <- rep(NA, nrow(df_DatosUnicos_mod))
 confidence_key_3 <- rep(NA, nrow(df_DatosUnicos_mod))
 confidence_key_4 <- rep(NA, nrow(df_DatosUnicos_mod))
 
-ExistingSubjects <- unique(df_exp$sujetos)
+ExistingSubjects_exp <- unique(df_exp$participant)
 
 for(i in 1:nrow(df_DatosUnicos_mod)){
   # confidence columns are created to iterate by subject
@@ -218,19 +206,19 @@ for(i in 1:nrow(df_DatosUnicos_mod)){
   confidence_key_4_total <- 0
   
   df_prueba <- df_exp[df_exp$confidence_key =='1',]
-  confidence_key_1_total <- nrow(df_prueba[df_prueba$sujetos== ExistingSubjects[i],])
+  confidence_key_1_total <- nrow(df_prueba[df_prueba$participant== ExistingSubjects_exp[i],])
   confidence_key_1[i] <- confidence_key_1_total
   
   df_prueba <- df_exp[df_exp$confidence_key =='2',]
-  confidence_key_2_total <- nrow(df_prueba[df_prueba$sujetos==ExistingSubjects[i],])
+  confidence_key_2_total <- nrow(df_prueba[df_prueba$participant==ExistingSubjects_exp[i],])
   confidence_key_2[i] <- confidence_key_2_total
   
   df_prueba <- df_exp[df_exp$confidence_key =='3',]
-  confidence_key_3_total <- nrow(df_prueba[df_prueba$sujetos==ExistingSubjects[i],])
+  confidence_key_3_total <- nrow(df_prueba[df_prueba$participant==ExistingSubjects_exp[i],])
   confidence_key_3[i] <- confidence_key_3_total
   
   df_prueba <- df_exp[df_exp$confidence_key =='4',]
-  confidence_key_4_total <- nrow(df_prueba[df_prueba$sujetos==ExistingSubjects[i],])
+  confidence_key_4_total <- nrow(df_prueba[df_prueba$participant==ExistingSubjects_exp[i],])
   confidence_key_4[i] <- confidence_key_4_total
 }
 
@@ -245,8 +233,8 @@ media_confidence <- rep(NA, nrow(df_DatosUnicos_mod))
 sd_confidence <- rep(NA, nrow(df_DatosUnicos_mod))
 
 for(i in 1:nrow(df_DatosUnicos_mod)){
-  media_confidence[i] <- mean(df_exp[df_exp$sujetos==ExistingSubjects[i],"confidence_key"])
-  sd_confidence[i] <- sd(df_exp[df_exp$sujetos==ExistingSubjects[i],"confidence_key"])
+  media_confidence[i] <- mean(df_exp[df_exp$participant==ExistingSubjects_exp[i],"confidence_key"])
+  sd_confidence[i] <- sd(df_exp[df_exp$participant==ExistingSubjects_exp[i],"confidence_key"])
 }
 
 df_DatosUnicos_mod$media_confidence <- media_confidence
@@ -257,8 +245,8 @@ media_tr_discri <- rep(NA, nrow(df_DatosUnicos_mod))
 sd_tr_discri <- rep(NA, nrow(df_DatosUnicos_mod))
 
 for(i in 1:nrow(df_DatosUnicos_mod)){
-  media_tr_discri[i] <- mean(df_exp[df_exp$sujetos==ExistingSubjects[i],"t_ensayo_discriminacion"])
-  sd_tr_discri[i] <- sd(df_exp[df_exp$sujetos==ExistingSubjects[i],"t_ensayo_discriminacion"])
+  media_tr_discri[i] <- mean(df_exp[df_exp$participant==ExistingSubjects_exp[i],"t_ensayo_discriminacion"])
+  sd_tr_discri[i] <- sd(df_exp[df_exp$participant==ExistingSubjects_exp[i],"t_ensayo_discriminacion"])
 }
 
 df_DatosUnicos_mod$media_tr_discri <- media_tr_discri
@@ -269,8 +257,8 @@ media_tr_confi <- rep(NA, nrow(df_DatosUnicos_mod))
 sd_tr_confi <- rep(NA, nrow(df_DatosUnicos_mod))
 
 for(i in 1:nrow(df_DatosUnicos_mod)){
-  media_tr_confi[i] <- mean(df_exp[df_exp$sujetos==ExistingSubjects[i],"t_ensayo_confianza"])
-  sd_tr_confi[i] <- sd(df_exp[df_exp$sujetos==ExistingSubjects[i],"t_ensayo_confianza"])
+  media_tr_confi[i] <- mean(df_exp[df_exp$participant==ExistingSubjects_exp[i],"t_ensayo_confianza"])
+  sd_tr_confi[i] <- sd(df_exp[df_exp$participant==ExistingSubjects_exp[i],"t_ensayo_confianza"])
 }
 
 df_DatosUnicos_mod$media_tr_confi <- media_tr_confi
@@ -279,52 +267,52 @@ df_DatosUnicos_mod$sd_tr_confi <- sd_tr_confi
 ####### Inclusion criteria, data is not included in future analysis
 ## Comment / uncomment or modify filters as required
 
-#cat("Cantidad de sujetos antes de todo filtro: ", nrow(df_DatosUnicos_mod))
+#cat("Cantidad de participant antes de todo filtro: ", nrow(df_DatosUnicos_mod))
 
 ##Filter for hours of sleep, leaving me only with > 4
 #df_DatosUnicos_mod <- df_DatosUnicos_mod[df_DatosUnicos_mod$horasSueno > 4,] 
 
-#cat("Cantidad de sujetos luego de filtrar por horas sueno: ", nrow(df_DatosUnicos_mod))
+#cat("Cantidad de participant luego de filtrar por horas sueno: ", nrow(df_DatosUnicos_mod))
 
 # ## Filter by psychological disorder, staying only with those who do not have.
 # df_DatosUnicos_mod2 <- df_DatosUnicos_mod[df_DatosUnicos_mod$affeccionPsico ==
 #                                             'No',]
 
-#cat("Cantidad de sujetos luego de filtrar por trastorno psi: ", nrow(df_DatosUnicos_mod))
+#cat("Cantidad de participant luego de filtrar por trastorno psi: ", nrow(df_DatosUnicos_mod))
 
 ## Filter by medication, leaving only with those who do not take.
 df_DatosUnicos_mod2 <- df_DatosUnicos_mod[df_DatosUnicos_mod$medicacion ==
                                               'No',]
 
-cat("Cantidad de sujetos luego de filtrar por medicacion: ", nrow(df_DatosUnicos_mod2))
+cat("Cantidad de participant luego de filtrar por medicacion: ", nrow(df_DatosUnicos_mod2))
 
 ## Filter by age, leaving only those who are age > 17, < 60, and are not NA
 df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$edad > 17,]
 df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$edad < 100,]
 df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[!is.na(df_DatosUnicos_mod2$edad),]
 
-cat("Cantidad de sujetos luego de filtrar por edad: ", nrow(df_DatosUnicos_mod2))
+cat("Cantidad de participant luego de filtrar por edad: ", nrow(df_DatosUnicos_mod2))
 ## filter in df_exp those who survived inclusion criteria applied to 
 ## df_DatosUnicos_mod2
 library(dplyr)
 df_exp <- df_exp %>% 
-  filter(df_exp$sujetos %in% df_DatosUnicos_mod2$sujetos)
+  filter(df_exp$participant %in% df_DatosUnicos_mod2$participant)
 
 ####### putting it all together 
 
 df_total <- df_DatosUnicos_mod2[0,]
 
-#  sujetos que quedaron
-ExistingSubjects <- unique(df_exp$sujetos)
+#  participant que quedaron
+ExistingSubjects <- unique(df_exp$participant)
 
 # iterar por sujeto existente
 for (i in 1:length(ExistingSubjects)){
   # saco la cantidad de trials del sujeto
-  sujeto_df_exp <- df_exp[df_exp$sujetos== ExistingSubjects[i],]
+  sujeto_df_exp <- df_exp[df_exp$participant== ExistingSubjects[i],]
   cant_trials <- nrow(sujeto_df_exp)
   
   # repito cada fila del sujeto segun la cantidad de trials que le quedaron
-  sujeto_df_DatosUnicos_mod <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$sujetos== ExistingSubjects[i],]
+  sujeto_df_DatosUnicos_mod2 <- df_DatosUnicos_mod2[df_DatosUnicos_mod2$participant== ExistingSubjects[i],]
   df <- as.data.frame(lapply(sujeto_df_DatosUnicos_mod2, rep, cant_trials))
   
   # lo agrego al df_total
@@ -342,13 +330,53 @@ df_total <- cbind(df_total,
 
 ####### save the df_total
 
+# select some column names before save it
+library(dplyr)
+df_total <- df_total %>%
+  select(participant,gender,sincericidio,TeEscuchamos,
+         Anhedonia,Anxiousness,AttentionSeeking,Callousness,
+         Deceitfulness,Depressivity,Distractivility,Excentricity,
+         EmotionalLability,Grandiosity,Hostility,Impulsivity,
+         IntimacyAvoidance,Irresponsibility,Manipulativeness,
+         PerceptualDysregulation,Perseveration,RestrictedAffectivity,
+         RigidPerfeccionism,RiskTaking,SeparationInsecurity,
+         SeparationInsecurity,Submissiveness,Suspiciousness,
+         UnusualBeliefsAndExperiences,Withdrawal,DomainNegativeAffect,
+         DomainDetachment,DomainAntagonism,DomainDisinhibition,
+         DomainPsychoticism,PC,edad,confidence_key_1,
+         confidence_key_2,confidence_key_3,confidence_key_4,
+         media_confidence,sd_confidence,media_tr_discri,sd_tr_discri,
+         media_tr_confi,sd_tr_confi,discrimination_is_correct,
+         confidence_key,trials,diferencia_puntitos,t_ensayo_discriminacion,
+         t_ensayo_confianza)
+
+# change some column names before save it
+colnames(df_total)[1] <- "Participant"
+colnames(df_total)[3] <- "RelyOn"
+colnames(df_total)[4] <- "Problems"
+colnames(df_total)[36] <- "age"
+colnames(df_total)[37] <- "ConfKey1"
+colnames(df_total)[38] <- "ConfKey2"
+colnames(df_total)[39] <- "ConfKey3"
+colnames(df_total)[40] <- "ConfKey4"
+colnames(df_total)[41] <- "ConfMean"
+colnames(df_total)[42] <- "ConfSD"
+colnames(df_total)[43] <- "ReacTimeMean_DiscTask"
+colnames(df_total)[44] <- "ReacTimeSD_DiscTask"
+colnames(df_total)[45] <- "ReacTimeMean_ConfTask"
+colnames(df_total)[46] <- "ReacTimeSD_ConfTask"
+colnames(df_total)[50] <- "PointDifference"
+colnames(df_total)[51] <- "ReacTime_DiscTask"
+colnames(df_total)[52] <- "ReacTime_ConfTask"
+
+
 # # RESULTS_EXP
 filepath <- root$find_file("Data/All_exp_inclusion_criteria/df_total.Rda")
 save(df_total,file = filepath)
 
 ####### Exclusion criteria, data is excluded of future analysis
 
-cat("Cantidad de sujetos antes de filtrar por criterios de exclusion: ", length(unique(df_total$sujetos)))
+cat("Cantidad de participant antes de filtrar por criterios de exclusion: ", length(unique(df_total$participant)))
 
 ## Filter by sincericide, leaving only those who tell us that we can count on their answers.
 library (stringr)
@@ -357,25 +385,25 @@ df_total <- df_total %>%
   filter(str_detect(df_total$sincericidio, "Pueden")) # if start with "Pueden"
 #                                                                  # it stays
 
-cat("Cantidad de sujetos luego de filtrar por sincericidio: ", length(unique(df_total$sujetos)))
+cat("Cantidad de participant luego de filtrar por sincericidio: ", length(unique(df_total$participant)))
 
 ## Filter by TeEscuchamos leaving only those who did not interrup the 
 # task drastically (= ok)
 df_total <- df_total[df_total$TeEscuchamos == 'ok',] 
 
-cat("Cantidad de sujetos luego de filtrar por te escuchamos: ", length(unique(df_total$sujetos)))
+cat("Cantidad de participant luego de filtrar por te escuchamos: ", length(unique(df_total$participant)))
 
 ## Filter by performance, leaving only those who have PC > 60 
 df_total <- df_total[df_total$PC > 0.60,]
 
-cat("Cantidad de sujetos luego de filtrar por desempeno: ", length(unique(df_total$sujetos)))
+cat("Cantidad de participant luego de filtrar por desempeno: ", length(unique(df_total$participant)))
 
-## sujetos que tienen un 85 % de trials en una misma respuesta de confianza
+## participant que tienen un 85 % de trials en una misma respuesta de confianza
 source(root$find_file("Analysis/AuxiliaryFunctions/discard_by_x_same_confidence_new.R"))
-sujetos_a_descartar <- discard_by_x_same_confidence_new(85,df_total)  
-df_total <- df_total[! df_total$sujetos %in% sujetos_a_descartar,]
+participant_a_descartar <- discard_by_x_same_confidence_new(85,df_total)  
+df_total <- df_total[! df_total$participant %in% participant_a_descartar,]
 
-cat("Cantidad de sujetos luego de filtrar por X% de trials con la misma confianza: ", length(unique(df_total$sujetos)))
+cat("Cantidad de participant luego de filtrar por X% de trials con la misma confianza: ", length(unique(df_total$participant)))
 
 cat("Cantidad de trials antes de filtrar por RT: ", nrow(df_total))
 ## Filter by reaction times
@@ -394,11 +422,11 @@ cat("Cantidad de trials luego de quemar los primeros 20 trials: ", nrow(df_total
 
 ## Filter by trails needed to calculate AUROC2
 ## discarding because very few trials
-cant_trials_por_sujeto <- rep(NaN, length(unique(df_total$sujetos)))
-existing_subject <- unique(df_total$sujetos)
+cant_trials_por_sujeto <- rep(NaN, length(unique(df_total$participant)))
+existing_subject <- unique(df_total$participant)
 
 for (i in 1:length(cant_trials_por_sujeto)) {
-  cant_trials_por_sujeto[i] <- nrow(df_total[df_total$sujetos == existing_subject[i],])
+  cant_trials_por_sujeto[i] <- nrow(df_total[df_total$participant == existing_subject[i],])
 }
 
 # veo quienes son los que tienen menos trials que X
@@ -406,9 +434,9 @@ indices_cant_trials <- which(cant_trials_por_sujeto < 70) # en el de tea esta en
 subj_pocos_trials<- existing_subject[indices_cant_trials]
 
 # los descarto
-df_total <- df_total[! df_total$sujetos %in% subj_pocos_trials,]
+df_total <- df_total[! df_total$participant %in% subj_pocos_trials,]
 
-cat("Cantidad de sujetos luego de filtrar por trials insuficientes para calcular AUROC2: ", length(unique(df_total$sujetos)))
+cat("Cantidad de participant luego de filtrar por trials insuficientes para calcular AUROC2: ", length(unique(df_total$participant)))
 
 ####### AUROC2
 ## get metacognitive sensivity
@@ -417,35 +445,35 @@ cat("Cantidad de sujetos luego de filtrar por trials insuficientes para calcular
 source(root$find_file("Analysis/AuxiliaryFunctions/auroc2.R"))
 library(dplyr)
 
-Nsuj <- length(unique(df_total$sujetos))
+Nsuj <- length(unique(df_total$participant))
 # saving metacog = mc for each RT discarded
 mc <- rep(NA, Nsuj)
-ExistingSubjects <- unique(df_total$sujetos)
+ExistingSubjects <- unique(df_total$participant)
 
 for (i in 1:Nsuj){
-  mc[i] <- type2roc(correct = df_total$discrimination_is_correct[df_total$sujetos==ExistingSubjects[i]],
-                    conf = df_total$confidence_key[df_total$sujetos==ExistingSubjects[i]], 
+  mc[i] <- type2roc(correct = df_total$discrimination_is_correct[df_total$participant==ExistingSubjects[i]],
+                    conf = df_total$confidence_key[df_total$participant==ExistingSubjects[i]], 
                     Nratings = 4)}
 
 ## adding column mc to df_total
 
-todos_sujetos_mc <- c()
+todos_participant_mc <- c()
 
 # iterar por sujeto existente
 for (i in 1:length(ExistingSubjects)) {
   # saco la cantidad de trials del sujeto
-  sujeto_df_exp <- df_total[df_total$sujetos == ExistingSubjects[i],]
+  sujeto_df_exp <- df_total[df_total$participant == ExistingSubjects[i],]
   cant_trials <- nrow(sujeto_df_exp)
   
   # repito cada valor de mc segun la cantidad de trials que le quedaron al sujeto
   sujeto_mc <-rep(mc[i],cant_trials)
   
-  # lo agrego a un vector que tenga los mc de todos los sujetos por cantidad de trials
-  todos_sujetos_mc <- c(todos_sujetos_mc,sujeto_mc)
+  # lo agrego a un vector que tenga los mc de todos los participant por cantidad de trials
+  todos_participant_mc <- c(todos_participant_mc,sujeto_mc)
 }
 
 # lo agrego al df_total
-df_total$mc <- todos_sujetos_mc
+df_total$mc <- todos_participant_mc
 
 ####### filter by mc
 # filtro para los que tienen metacog menores a 0.5
@@ -455,7 +483,7 @@ df_total <- df_total[df_total$mc >= mean_mc - sd_mc* 1.5,]
 # a partir de cuanto quiero dejar de metacog (otra forma de filtrar)
 # d.sin.normalizar.mc.filter <- d.sin.normalizar[d.sin.normalizar$mc >= 0.4,] 
 
-cat("Cantidad de sujetos luego de filtrar por AUROC2: ", length(unique(df_total$sujetos)))
+cat("Cantidad de participant luego de filtrar por AUROC2: ", length(unique(df_total$participant)))
 
 ####### save the df_total
 
