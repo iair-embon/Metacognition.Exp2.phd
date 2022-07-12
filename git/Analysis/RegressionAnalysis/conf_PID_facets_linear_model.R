@@ -81,4 +81,4 @@ a=lm(ConfMean ~ Anhedonia.norm +
      data = d) 
 summary(a)
 
-save(a, file = "git/Data/Regression_Results/Conf_PID_domain_linear_model.RData")
+save(a, file = "git/Data/Regression_Results/Conf_PID_facets_linear_model.RData")

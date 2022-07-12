@@ -1,0 +1,103 @@
+---
+title: "Algunos resultados de regresiones"
+output: html_document
+date: '2022-07-12'
+---
+
+## Se presentan algunos resultados para buscar bibliografía al respecto sobre lo que dio
+
+Regresion lineal de dominios para predecir confianza media por sujeto
+```{r}
+load("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/Conf_PID_domain_linear_model.RData")
+
+summary(a)
+```
+
+Regresion lineal de facetas para predecir confianza media por sujeto
+```{r}
+load("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/Conf_PID_facets_linear_model.RData")
+
+summary(a)
+```
+
+Regresion lineal de dominios para predecir mc por sujeto
+```{r}
+load("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/mc_PID_domain_linear_model.RData")
+
+summary(a)
+```
+
+Regresion logistica mixta de dominios para predecir mc por sujeto
+```{r}
+load("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/mc_PID_domain_logistic_mixed_model.RData")
+
+summary(a_log)
+```
+
+Regresion lineal de facetas para predecir mc por sujeto
+```{r}
+load("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/mc_PID_facets_linear_model.RData")
+
+summary(a)
+```
+
+Regresion logistica mixta de facetas para predecir mc por sujeto
+```{r}
+load("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/mc_PID_facets_logistic_mixed_model.RData")
+
+summary(a_log)
+```
+
+Regresion lineal - elastic net de facetas para predecir mc por sujeto
+```{r echo=FALSE}
+library(glmnet)
+library(dplyr)
+
+load("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/mc_PID_facets_elasticNet_linear_model.RData")
+
+####### data frame with filters already applied
+root <- rprojroot::is_rstudio_project
+basename(getwd())  
+filepath <- root$find_file("git/Data/df_total_filtered.Rda")
+load(file= filepath)
+
+source(root$find_file("git/Analysis/AuxiliaryFunctions/DataFrame_subset.R"))
+d <- DataFrame_subset(df_total)
+
+### preprocessing
+d$gender <- ifelse(d$gender == "Masculino",1,0)
+
+# transforming the df to a matrix, without a few variables that don't matter
+d_mat <- d %>%
+  select(!c(Participant,
+            DomainNegativeAffect,
+            DomainDetachment,
+            DomainAntagonism,
+            DomainDisinhibition,
+            DomainPsychoticism,
+            PC,
+            ConfMean,
+            ConfSD,
+            ReacTimeMean_DiscTask,
+            ReacTimeSD_DiscTask,
+            ReacTimeMean_ConfTask,
+            ReacTimeSD_ConfTask,
+            mc)) %>%
+  data.matrix()
+
+plot(fit, xvar = "lambda", label = TRUE)
+plot(fit, xvar = "dev", label = TRUE)
+
+# hago cross validation usando los valores por defectos
+cvfit <- cv.glmnet(d_mat, d$mc, type.measure = "mse", nfolds = 10)
+print(cvfit)
+# ploteo los errores cuadraticos
+plot(cvfit)
+
+# elijo el que minimiza el error
+cvfit$lambda.min
+
+# veo el modelo con ese lambda
+coef(cvfit, s = "lambda.min")
+
+```
