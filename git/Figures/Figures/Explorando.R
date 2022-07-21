@@ -47,10 +47,10 @@ ks.test(x, DomainPsychoticism.norm)
 # ahora si es normal por poco...
 
 # bueno, sigo explorando
-p <- ggplot(d, aes(x=ReacTimeSD_ConfTask, y=mc, color=age, size=age)) +
+p <- ggplot(d, aes(x=PerceptualDysregulation, y=mc, color=age, size=age)) +
   geom_point() +
   geom_smooth()+
-  xlim(0,3000) +
+  #xlim(0,3000) +
   theme(legend.position="none")
 
 p2 <- ggMarginal(p, type="density")
