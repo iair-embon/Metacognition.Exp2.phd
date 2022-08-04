@@ -2,7 +2,7 @@
 ### Beta Linear Regression Analysis Metacognition - PID domain ### 
 ##################################################################
 
-library (betareg)
+library(betareg)
 
 ### linear regression model 
 
