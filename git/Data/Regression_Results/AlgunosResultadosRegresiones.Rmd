@@ -10,6 +10,7 @@ Librerias
 require(dplyr)
 library(glmnet)
 require(jtools)
+require(gtsummary)
 ```
 
 ## Se presentan algunos resultados para buscar bibliografía al respecto sobre lo que dio
@@ -33,6 +34,8 @@ filepath <- root$find_file("git/Tables/Code/Conf_PID_facets_linear_model.RData")
 load(file= filepath)
 tab 
 ```
+
+Aclaracion: De confianza, no estan aca los resultados de las regresiones lineales univariadas por dominios y facetas.
 
 Regresion lineal de dominios para predecir mc por sujeto
 ```{r}
