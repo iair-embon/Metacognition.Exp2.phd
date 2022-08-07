@@ -47,6 +47,7 @@ plot(fit, xvar = "lambda", label = TRUE)
 plot(fit, xvar = "dev", label = TRUE)
 
 # hago cross validation usando los valores por defectos
+set.seed(1010)
 cvfit <- cv.glmnet(d_mat, d$ConfMean, type.measure = "mse", nfolds = 10)
 print(cvfit)
 # ploteo los errores cuadraticos
