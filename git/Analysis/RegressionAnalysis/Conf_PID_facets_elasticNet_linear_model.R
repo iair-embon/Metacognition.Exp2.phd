@@ -1,6 +1,7 @@
-##########################################################
-### Linear Regression Analysis Confidence - PID domain ### 
-##########################################################
+######################################################################
+### Elastic-net Linear Regression Analysis Confidence - PID domain ### 
+######################################################################
+
 
 ### Elastic Net regresion model
 library(glmnet)

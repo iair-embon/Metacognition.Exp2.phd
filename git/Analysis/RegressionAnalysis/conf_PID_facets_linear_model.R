@@ -1,5 +1,5 @@
 ##########################################################
-### Linear Regression Analysis Confidence - PID domain ### 
+### Linear Regression Analysis Confidence - PID Facets ### 
 ##########################################################
 
 ### linear regression model 

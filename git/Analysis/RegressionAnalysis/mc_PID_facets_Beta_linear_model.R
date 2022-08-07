@@ -1,5 +1,5 @@
 ##################################################################
-### Beta Linear Regression Analysis Metacognition - PID domain ### 
+### Beta Linear Regression Analysis Metacognition - PID facets ### 
 ##################################################################
 
 library (betareg)

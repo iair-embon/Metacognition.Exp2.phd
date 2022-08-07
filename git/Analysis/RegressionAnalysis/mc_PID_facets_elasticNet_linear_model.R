@@ -1,5 +1,5 @@
 #############################################################
-### Linear Regression Analysis Metacognition - PID domain ### 
+### Linear Regression Analysis Metacognition - PID facets ### 
 #############################################################
 
 ### Elastic Net regresion model

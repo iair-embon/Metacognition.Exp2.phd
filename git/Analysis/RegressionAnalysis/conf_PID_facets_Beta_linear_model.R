@@ -1,5 +1,5 @@
 ###############################################################
-### Beta Linear Regression Analysis Confidence - PID domain ### 
+### Beta Linear Regression Analysis Confidence - PID facets ### 
 ###############################################################
 
 library (betareg)

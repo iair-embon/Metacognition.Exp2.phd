@@ -1,5 +1,5 @@
 #############################################################
-### Linear Regression Analysis Metacognition - PID domain ### 
+### Linear Regression Analysis Metacognition - PID facets ### 
 #############################################################
 
 ### linear regression model 
@@ -60,6 +60,8 @@ for (i in 1:length(vec_variables_string)) {
             age.norm:vec_variables_values[[i]] +
             gender:vec_variables_values[[i]],
           data = d)
+  print(vec_variables_string[[i]])
+  print(summary(a))
   name <- paste('git/Data/Regression_Results/individual_mc_PID_facets_linear_model/',
                 vec_variables_string[[i]],
                 '_mc_PID_facets_linear_model.RData', 
