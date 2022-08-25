@@ -28,15 +28,15 @@ ggplot(d, aes(x=Anxiousness, y=mc)) +
   geom_point()+
   geom_abline(intercept = converted_intercept, 
               slope = converted_slope)+
-  ylab("Metacognition") +
-  xlab("Anxiousness") +
+  ylab("Metacognicion") +
+  xlab("Ansiedad") +
   theme(axis.line = element_line(colour = "black"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.border = element_blank(),
         plot.margin = margin(1, 1,1, 1, "cm"),
         panel.background = element_blank(),
-        axis.title.x=element_text(size = 20),
-        axis.text.x=element_text(size = 20),
-        axis.text.y = element_text(size = 20),
-        axis.title.y = element_text(size = 20))
+        axis.title.x=element_text(size = 30),
+        axis.text.x=element_text(size = 30),
+        axis.text.y = element_text(size = 30),
+        axis.title.y = element_text(size = 30))

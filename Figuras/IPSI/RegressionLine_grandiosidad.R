@@ -6,7 +6,7 @@ library(tidyverse)
 root <- rprojroot::is_rstudio_project
 basename(getwd())
 
-filepath <- root$find_file("git/Data/Regression_Results/conf_PID_facets_linear_model.RData")
+filepath <- root$find_file("git/Data/Regression_Results/Conf_PID_facets_linear_model.RData")
 load(file= filepath)
 
 # data frame with filters already applied
@@ -28,15 +28,15 @@ ggplot(d, aes(x=Grandiosity, y=ConfMean)) +
   geom_point()+
   geom_abline(intercept = converted_intercept, 
               slope = converted_slope)+
-  ylab("Confidence mean") +
-  xlab("Grandiosity") +
+  ylab("Confianza promedio") +
+  xlab("Grandiosidad") +
   theme(axis.line = element_line(colour = "black"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.border = element_blank(),
         plot.margin = margin(1, 1,1, 1, "cm"),
         panel.background = element_blank(),
-        axis.title.x=element_text(size = 20),
-        axis.text.x=element_text(size = 20),
-        axis.text.y = element_text(size = 20),
-        axis.title.y = element_text(size = 20))
+        axis.title.x=element_text(size = 30),
+        axis.text.x=element_text(size = 30),
+        axis.text.y = element_text(size = 30),
+        axis.title.y = element_text(size = 30))

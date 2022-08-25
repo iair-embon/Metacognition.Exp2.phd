@@ -24,17 +24,17 @@ metacognition_Model <- a
 
 plot_summs(metacognition_Model,
            confidence_Model, 
-           coefs = c('Negative Affect' = 'DomainNegativeAffect.norm',
-                     'Detachment'='DomainDetachment.norm',
-                     'Antagonism' = 'DomainAntagonism.norm',
-                     'Disinhibition'='DomainDisinhibition.norm',
-                     'Psychoticism'='DomainPsychoticism.norm',
-                     'gender' = 'gender',
-                     'age' = 'age.norm') ,
-           model.names = c('Metacognition Model', 'Confidence Model'),
+           coefs = c('Afecto Negativo' = 'DomainNegativeAffect.norm',
+                     'Desapego'='DomainDetachment.norm',
+                     'Antagonismo' = 'DomainAntagonism.norm',
+                     'Desinhibicion'='DomainDisinhibition.norm',
+                     'Psicoticismo'='DomainPsychoticism.norm',
+                     'genero' = 'gender',
+                     'edad' = 'age.norm') ,
+           model.names = c('Modelo Metacognicion', 'Modelo Confianza'),
            plot.distributions = FALSE)+
   ylab("") +
-  xlab("Regression coefficient") +
+  xlab("Coeficientes de la regresion") +
   theme_bw() +
   theme(axis.line = element_line(colour = "black"),
         panel.grid.major = element_blank(),
@@ -44,7 +44,7 @@ plot_summs(metacognition_Model,
         legend.text = element_text(size=20),
         legend.title = element_blank(),
         panel.background = element_blank(),
-        axis.text.x = element_text(size = 20),
-        axis.text.y = element_text(size = 20),
-        axis.title.y = element_text(size = 20),
-        axis.title.x = element_text(size = 20))
+        axis.text.x = element_text(size = 30),
+        axis.text.y = element_text(size = 30),
+        axis.title.y = element_text(size = 30),
+        axis.title.x = element_text(size = 30))
