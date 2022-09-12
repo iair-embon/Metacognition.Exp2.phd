@@ -23,7 +23,7 @@ d$DomainAntagonism.norm <- (d$DomainAntagonism - mean(d$DomainAntagonism))/ sd(d
 d$DomainDisinhibition.norm <- (d$DomainDisinhibition - mean(d$DomainDisinhibition))/ sd(d$DomainDisinhibition)
 d$DomainPsychoticism.norm <- (d$DomainPsychoticism - mean(d$DomainPsychoticism))/ sd(d$DomainPsychoticism)
 
-# run the model
+# corro el modelo
 a=lm(mc ~ DomainNegativeAffect.norm+
        DomainDetachment.norm+
        DomainAntagonism.norm+

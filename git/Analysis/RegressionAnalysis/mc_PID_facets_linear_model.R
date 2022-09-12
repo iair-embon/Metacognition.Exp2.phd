@@ -49,7 +49,7 @@ d$Suspiciousness.norm <- normalized_fun(d$Suspiciousness)
 d$UnusualBeliefsAndExperiences.norm <- normalized_fun(d$UnusualBeliefsAndExperiences)
 d$Withdrawal.norm <- normalized_fun(d$Withdrawal)
 
-# corro el modelo
+# run the model
 a=lm(mc ~ Anhedonia.norm +
        Anxiousness.norm +
        AttentionSeeking.norm +
