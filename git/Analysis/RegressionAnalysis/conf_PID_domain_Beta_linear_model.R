@@ -27,7 +27,7 @@ d$DomainPsychoticism.norm <- (d$DomainPsychoticism - mean(d$DomainPsychoticism))
 d$ConfMean.norm <- (d$ConfMean - 1)/3
 
 # corro el modelo
-a=lm(ConfMean.norm ~ DomainNegativeAffect.norm+
+a=betareg(ConfMean.norm ~ DomainNegativeAffect.norm+
        DomainDetachment.norm+
        DomainAntagonism.norm+
        DomainDisinhibition.norm+
