@@ -1,6 +1,8 @@
-#############################################################
-### Linear Regression Analysis Metacognition - PID facets ### 
-#############################################################
+########################################################
+### Beta Regression Analysis Confidence - PID facets ### 
+########################################################
+
+library (betareg)
 
 ### linear regression model 
 
@@ -48,13 +50,14 @@ d$Submissiveness.norm <- normalized_fun(d$Submissiveness)
 d$Suspiciousness.norm <- normalized_fun(d$Suspiciousness)
 d$UnusualBeliefsAndExperiences.norm <- normalized_fun(d$UnusualBeliefsAndExperiences)
 d$Withdrawal.norm <- normalized_fun(d$Withdrawal)
+d$ConfMean.norm <- (d$ConfMean - 1)/3
 
 vec_variables_string <- colnames(d[43:67])
 vec_variables_values <-d[43:67]
 
 # corro el modelo
 for (i in 1:length(vec_variables_string)) {
-  a <- lm(mc ~ vec_variables_values[[i]] + 
+  a <- betareg(ConfMean.norm ~ vec_variables_values[[i]] + 
             age.norm + 
             gender +
             age.norm:vec_variables_values[[i]] +
@@ -62,10 +65,9 @@ for (i in 1:length(vec_variables_string)) {
           data = d)
   print(vec_variables_string[[i]])
   print(summary(a))
-  name <- paste('git/Data/Regression_Results/individual_mc_PID_facets_linear_model/',
+  name <- paste('git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/',
                 vec_variables_string[[i]],
-                '_mc_PID_facets_linear_model.RData', 
+                '_Conf_PID_facets_beta_model.RData', 
                 sep = "")
   save(a, file = name)
-  print(summary(a))
 }
