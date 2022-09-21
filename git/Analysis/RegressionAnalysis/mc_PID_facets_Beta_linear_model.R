@@ -50,9 +50,11 @@ d$Submissiveness.norm <- normalized_fun(d$Submissiveness)
 d$Suspiciousness.norm <- normalized_fun(d$Suspiciousness)
 d$UnusualBeliefsAndExperiences.norm <- normalized_fun(d$UnusualBeliefsAndExperiences)
 d$Withdrawal.norm <- normalized_fun(d$Withdrawal)
+d$mc.norm <- (d$mc - 0.5) *2
+
 
 # corro el modelo
-a=betareg(mc ~ Anhedonia.norm +
+a=betareg(mc.norm ~ Anhedonia.norm +
        Anxiousness.norm +
        AttentionSeeking.norm +
        Callousness.norm +

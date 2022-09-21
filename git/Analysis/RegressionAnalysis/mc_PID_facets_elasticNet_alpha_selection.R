@@ -125,14 +125,6 @@ rep_boot <- boot(
 
 boot.ci(rep_boot, index = 14) # se puede ir variando el index
 
-df_rep_boot <- data.frame(predictor = character(0), ### es posible que deba borrar todo este df
-                          coeffiient = numeric(0),
-                          mean_boot = numeric(0),
-                          std_error_boot = numeric(0),
-                          LCI = numeric(0),
-                          UCI = numeric(0),
-                          prop_zero = numeric(0))  
-
 # probability of 0 (page 154, Statistical learning with sparsity... Hastie)
 sum(rep_boot$t[,4] == 0)/5000
 sum(rep_boot$t[,4] == 0)/5000
