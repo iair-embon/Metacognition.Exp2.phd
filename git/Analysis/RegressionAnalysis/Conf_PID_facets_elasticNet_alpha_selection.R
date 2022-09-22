@@ -123,15 +123,7 @@ rep_boot <- boot(
     ConfMean = d$ConfMean
   )
 
-boot.ci(rep_boot, index = 14) # se puede ir variando el index
-
-df_rep_boot <- data.frame(predictor = character(0), ### es posible que deba borrar todo este df
-                          coeffiient = numeric(0),
-                          mean_boot = numeric(0),
-                          std_error_boot = numeric(0),
-                          LCI = numeric(0),
-                          UCI = numeric(0),
-                          prop_zero = numeric(0))  
+boot.ci(rep_boot, index = 12) # se puede ir variando el index
 
 # probability of 0 (page 154, Statistical learning with sparsity... Hastie)
 sum(rep_boot$t[,12] == 0)/5000
@@ -141,7 +133,7 @@ sum(rep_boot$t[,14] == 0)/5000
 save(rep_boot, file = "git/Data/Regression_Results/Conf_PID_domain_Boot_elasticNet.RData")
 
 hist(rep_boot$t[,13])
-mean(rep_boot$t[,14])
+mean(rep_boot$t[,5])
 plot(rep_boot, index = 2)
 plot(rep_boot, index = 12)
 plot(rep_boot, index = 13)
