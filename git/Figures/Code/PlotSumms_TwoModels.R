@@ -1,0 +1,50 @@
+### Regresion lineal de dominios para predecir confianza media por sujeto
+
+# set root
+root <- rprojroot::is_rstudio_project
+basename(getwd())  
+
+# library
+library(jtools)
+library(tidyverse)
+
+filepath <- root$find_file("git/Data/Regression_Results/Conf_PID_domain_linear_model.RData")
+load(file= filepath)
+
+confidence_Model <- a
+
+### Regresion lineal de dominios para predecir mc por sujeto
+
+filepath <- root$find_file("git/Data/Regression_Results/mc_PID_domain_linear_model.RData")
+load(file= filepath)
+
+metacognition_Model <- a
+
+## plot both models
+
+plot_summs(metacognition_Model,
+           confidence_Model, 
+           coefs = c('Afecto Negativo' = 'DomainNegativeAffect.norm',
+                     'Desapego'='DomainDetachment.norm',
+                     'Antagonismo' = 'DomainAntagonism.norm',
+                     'Desinhibicion'='DomainDisinhibition.norm',
+                     'Psicoticismo'='DomainPsychoticism.norm',
+                     'genero' = 'gender',
+                     'edad' = 'age.norm') ,
+           model.names = c('Modelo Metacognicion', 'Modelo Confianza'),
+           plot.distributions = FALSE)+
+  ylab("") +
+  xlab("Coeficientes de la regresion") +
+  theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        plot.margin = margin(1, 1,1, 1, "cm"),
+        legend.text = element_text(size=20),
+        legend.title = element_blank(),
+        panel.background = element_blank(),
+        axis.text.x = element_text(size = 30),
+        axis.text.y = element_text(size = 30),
+        axis.title.y = element_text(size = 30),
+        axis.title.x = element_text(size = 30))
