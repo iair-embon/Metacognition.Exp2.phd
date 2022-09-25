@@ -79,6 +79,91 @@ print(fit)
 
 a <- coef(fit)
 
+####
+fit <- glmnet(d_mat, d$mc, 
+              family = "gaussian",
+              alpha = alpha_selected)
+
+
+library(reshape)
+
+beta <- coef(fit)
+
+tmp <- as.data.frame(as.matrix(beta))
+tmp$coef <- row.names(tmp)
+tmp <- reshape::melt(tmp, id = "coef")
+tmp$variable <- as.numeric(gsub("s", "", tmp$variable))
+tmp$lambda <- fit$lambda[tmp$variable+1] # extract the lambda values
+tmp$norm <- apply(abs(beta[-1,]), 2, sum)[tmp$variable+1] # compute L1 norm
+
+# Con el lambda elegido no sobrevive ninguno, asi van todos en gris
+
+### the plot without legends
+ggplot(tmp[tmp$coef != "(Intercept)",], 
+       aes(lambda, value, group = coef)) + 
+  geom_line(size = 1, color = "grey") + 
+  scale_x_log10() +
+  ylab("Coeficientes") +
+  xlab("Lambda (escala log)") + 
+  guides(color = guide_legend(title = ""), 
+         linetype = guide_legend(title = "")) +
+  geom_vline(xintercept= lambda_selected,
+             linetype='dashed', color='black', size=1) +
+  geom_hline(yintercept= 0,
+             linetype='dashed', color='black', size=1) +
+  #scale_colour_manual(values = c("FALSE" = 'grey', "TRUE" = 'black')) +
+  theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        plot.margin = margin(1, 1,1, 1, "cm"),
+        legend.text =  element_blank(),
+        panel.background = element_blank(),
+        axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        axis.title.x = element_text(size = 15),
+        axis.title.y = element_text(size = 15))#+ 
+#theme(legend.key.width = unit(3,"lines"))
+
+
+ggsave("git/Figures/Figures/mc_Facets_elasticNet_withoutLabels.png", 
+       width = 10, height = 6)
+
+### the plot with legends
+ggplot(tmp[tmp$coef != "(Intercept)",], 
+       aes(lambda, value, colour = coef)) + 
+  geom_line(size = 1) + 
+  scale_x_log10() +
+  #ylab("Coeficientes") +
+  #xlab("Lambda (escala log)") + 
+  guides(color = guide_legend(title = ""), 
+         linetype = guide_legend(title = "")) +
+  geom_vline(xintercept= lambda_selected,
+             linetype='dashed', color='black', size=1) +
+  geom_hline(yintercept= 0,
+             linetype='dashed', color='black', size=1) +
+  theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        plot.margin = margin(1, 1,1, 1, "cm"),
+        legend.text =  element_text(size = 10),
+        panel.background = element_blank(),
+        axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        axis.title.x =  element_blank(),
+        axis.title.y =  element_blank())#+ 
+#theme(legend.key.width = unit(3,"lines"))
+
+
+ggsave("git/Figures/Figures/mc_Facets_elasticNet_withLabels.png", 
+       width = 10, height = 6)
+
+
+
+
 
 ### now, I perform boostrap to know the CI and the proportion of times that the 
 ### predictor was exactly 0.
