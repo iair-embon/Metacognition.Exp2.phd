@@ -81,6 +81,11 @@ a <- coef(fit)
 
 
 ######## sigo probando ahora mas manual VA ESTE!!!
+fit <- glmnet(d_mat, d$ConfMean, 
+              family = "gaussian",
+              alpha = alpha_selected)
+
+
 library(reshape)
 
 beta <- coef(fit)
@@ -103,18 +108,54 @@ tmp_lala <- tmp %>%
                     coef == "Impulsivity"|
                     coef == "RestrictedAffectivity" |
                     coef == "SeparationInsecurity" |
-                    coef == "Submissiveness")) %>%
-  mutate(color = (coef == "Grandiosity", "red")) #### CORREGIR ACA
+                    coef == "Submissiveness")) ##%>%
+  ##mutate(color = (coef == "Grandiosity", "red")) #### CORREGIR ACA
 
 
-ggplot(tmp[tmp$coef != "(Intercept)",], 
-       aes(lambda, value, color = coef)) + 
+### the plot without legends
+ggplot(tmp_lala[tmp_lala$coef != "(Intercept)",], 
+       aes(lambda, value, colour = color, group = coef)) + 
   geom_line(size = 1) + 
-  scale_x_log10() + 
-  xlab("Lambda (log scale)") + 
+  scale_x_log10() +
+  ylab("Coeficientes") +
+  xlab("Lambda (escala log)") + 
   guides(color = guide_legend(title = ""), 
          linetype = guide_legend(title = "")) +
   geom_vline(xintercept= lambda_selected,
+             linetype='dashed', color='black', size=1) +
+  geom_hline(yintercept= 0,
+             linetype='dashed', color='black', size=1) +
+  scale_colour_manual(values = c("FALSE" = 'grey', "TRUE" = 'black')) +
+  theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        plot.margin = margin(1, 1,1, 1, "cm"),
+        legend.text =  element_blank(),
+        panel.background = element_blank(),
+        axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        axis.title.x = element_text(size = 15),
+        axis.title.y = element_text(size = 15))#+ 
+  #theme(legend.key.width = unit(3,"lines"))
+
+
+ggsave("git/Figures/Figures/Conf_Facets_elasticNet_withoutLabels.png", 
+       width = 10, height = 6)
+
+### the plot with legends
+ggplot(tmp[tmp$coef != "(Intercept)",], 
+       aes(lambda, value, colour = coef)) + 
+  geom_line(size = 1) + 
+  scale_x_log10() +
+  #ylab("Coeficientes") +
+  #xlab("Lambda (escala log)") + 
+  guides(color = guide_legend(title = ""), 
+         linetype = guide_legend(title = "")) +
+  geom_vline(xintercept= lambda_selected,
+             linetype='dashed', color='black', size=1) +
+  geom_hline(yintercept= 0,
              linetype='dashed', color='black', size=1) +
   theme_bw() +
   theme(axis.line = element_line(colour = "black"),
@@ -122,15 +163,17 @@ ggplot(tmp[tmp$coef != "(Intercept)",],
         panel.grid.minor = element_blank(),
         panel.border = element_blank(),
         plot.margin = margin(1, 1,1, 1, "cm"),
-        #legend.text =  element_text(size = 15),
+        legend.text =  element_text(size = 10),
         panel.background = element_blank(),
-        #axis.text.x = element_text(size = 15,angle = 45, hjust=1),
-        #axis.text.y = element_text(size = 15),
-        #axis.title.x = element_blank(),
-        axis.title.y = element_blank())#+ 
-  #theme(legend.key.width = unit(3,"lines"))
+        axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        axis.title.x =  element_blank(),
+        axis.title.y =  element_blank())#+ 
+#theme(legend.key.width = unit(3,"lines"))
 
 
+ggsave("git/Figures/Figures/Conf_Facets_elasticNet_withLabels.png", 
+       width = 10, height = 6)
 
 
 
