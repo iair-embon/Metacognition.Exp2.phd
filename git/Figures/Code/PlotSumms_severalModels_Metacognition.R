@@ -87,7 +87,14 @@ df.models <- rbind(df.models, df.log_mix)
 
 # saco la intercept que no es intepretable
 df.models <- df.models %>%
-  filter(terms != "(Intercept)")
+  filter(terms != "(Intercept)") %>%
+  mutate(terms = fct_relevel(terms, "DomainNegativeAffect.norm",
+                             "DomainDetachment.norm",
+                             "DomainAntagonism.norm",
+                             "DomainDisinhibition.norm",
+                             "DomainPsychoticism.norm",
+                             "gender",
+                             "age.norm"))
 
 
 ## plot both models
@@ -107,17 +114,18 @@ ggplot(df.models, aes(x = terms, y = coeff)) +
 
 ############### intento 2
 
-ggplot(df.models , aes(terms,coeff, color=model)) +
+ggplot(df.models , aes(coeff,terms, color=model)) +
   geom_point(aes(shape=model),size=4, 
-             position=position_dodge(width=0.2)) +
-  geom_hline(yintercept= 0, linetype='dashed', color= "black")+
+             position=position_dodge(width=0.6)) +
+  geom_vline(xintercept= 0, linetype='dashed', color= "black")+
   scale_color_manual(name="Model",
-                     values=c("coral","steelblue", "red")) +
+                     values=c("blue","orange", "black")) +
   scale_shape_manual(name="Model",values=c(17,19, 18)) +
-  scale_y_continuous("Coefficent") +
-  geom_errorbar(aes(ymin= coeff - 2* se,ymax= coeff + 2* se),
+  scale_x_continuous("Coefficent") +
+#  scale_y_discrete(labels = c("Genero")) +
+  geom_errorbar(aes(xmin= coeff - 2* se,xmax= coeff + 2* se),
                 width=0.1,
-                position=position_dodge(width=0.2))+
+                position=position_dodge(width=0.6), size = 1)+
   theme_bw() +
   theme(axis.line = element_line(colour = "black"),
       panel.grid.major = element_blank(),
@@ -126,8 +134,8 @@ ggplot(df.models , aes(terms,coeff, color=model)) +
       plot.margin = margin(1, 1,1, 1, "cm"),
       legend.text =  element_text(size = 15),
       panel.background = element_blank(),
-      axis.text.x = element_text(size = 15,angle = 45, hjust=1),
-      axis.text.y = element_text(size = 15),
+      axis.text.y = element_text(size = 25), #,angle = 45, hjust=1
+      axis.text.x = element_text(size = 25),
       axis.title.x = element_blank(),
       axis.title.y = element_blank())
 
