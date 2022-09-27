@@ -114,15 +114,21 @@ ggplot(df.models, aes(x = terms, y = coeff)) +
 
 ############### intento 2
 
-ggplot(df.models , aes(coeff,terms, color=model)) +
+ggplot(df.models , aes(coeff,fct_rev(terms), color=model)) +
   geom_point(aes(shape=model),size=4, 
              position=position_dodge(width=0.6)) +
   geom_vline(xintercept= 0, linetype='dashed', color= "black")+
-  scale_color_manual(name="Model",
-                     values=c("blue","orange", "black")) +
-  scale_shape_manual(name="Model",values=c(17,19, 18)) +
-  scale_x_continuous("Coefficent") +
-#  scale_y_discrete(labels = c("Genero")) +
+  scale_color_manual(name="Modelos",
+                     values=c("darkgreen","orange", "black")) +
+  scale_shape_manual(name="Modelos",values=c(17,19, 18)) +
+  scale_x_continuous("Coeficientes de la regresión") +
+  scale_y_discrete(labels= c("edad",
+                             "género",
+                             "Psicoticísmo",
+                             "Desinhibición",
+                             "Antagonísmo",
+                             "Desapego",
+                             "Afecto Negativo"))+
   geom_errorbar(aes(xmin= coeff - 2* se,xmax= coeff + 2* se),
                 width=0.1,
                 position=position_dodge(width=0.6), size = 1)+
@@ -132,12 +138,13 @@ ggplot(df.models , aes(coeff,terms, color=model)) +
       panel.grid.minor = element_blank(),
       panel.border = element_blank(),
       plot.margin = margin(1, 1,1, 1, "cm"),
-      legend.text =  element_text(size = 15),
+      legend.text =  element_text(size = 20),
+      legend.title =  element_blank(),
       panel.background = element_blank(),
-      axis.text.y = element_text(size = 25), #,angle = 45, hjust=1
-      axis.text.x = element_text(size = 25),
-      axis.title.x = element_blank(),
-      axis.title.y = element_blank())
+      axis.text.x = element_text(size = 30),
+      axis.text.y = element_text(size = 30),
+      axis.title.y = element_blank(),
+      axis.title.x = element_text(size = 30))
 
 
 ggsave("git/Figures/Figures/severalModels_Metacognicion.png", 

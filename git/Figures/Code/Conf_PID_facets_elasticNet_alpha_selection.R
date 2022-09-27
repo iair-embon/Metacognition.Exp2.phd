@@ -134,10 +134,10 @@ ggplot(tmp_lala[tmp_lala$coef != "(Intercept)",],
         plot.margin = margin(1, 1,1, 1, "cm"),
         legend.text =  element_blank(),
         panel.background = element_blank(),
-        axis.text.x = element_text(size = 25),
-        axis.text.y = element_text(size = 25),
-        axis.title.x = element_text(size = 25),
-        axis.title.y = element_text(size = 25))#+ 
+        axis.text.x = element_text(size = 30),
+        axis.text.y = element_text(size = 30),
+        axis.title.x = element_text(size = 30),
+        axis.title.y = element_text(size = 30))#+ 
   #theme(legend.key.width = unit(3,"lines"))
 
 
@@ -253,6 +253,9 @@ boot.ci(rep_boot, index = 12) # se puede ir variando el index
 sum(rep_boot$t[,12] == 0)/5000
 sum(rep_boot$t[,13] == 0)/5000
 sum(rep_boot$t[,14] == 0)/5000
+sum(rep_boot$t[,20] == 0)/5000
+sum(rep_boot$t[,23] == 0)/5000
+sum(rep_boot$t[,24] == 0)/5000
 
 save(rep_boot, file = "git/Data/Regression_Results/Conf_PID_domain_Boot_elasticNet.RData")
 

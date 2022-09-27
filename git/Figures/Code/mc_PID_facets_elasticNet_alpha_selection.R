@@ -120,10 +120,10 @@ ggplot(tmp[tmp$coef != "(Intercept)",],
         plot.margin = margin(1, 1,1, 1, "cm"),
         legend.text =  element_blank(),
         panel.background = element_blank(),
-        axis.text.x = element_text(size = 25),
-        axis.text.y = element_text(size = 25),
-        axis.title.x = element_text(size = 25),
-        axis.title.y = element_text(size = 25))#+ 
+        axis.text.x = element_text(size = 30),
+        axis.text.y = element_text(size = 30),
+        axis.title.x = element_text(size = 30),
+        axis.title.y = element_text(size = 30))#+ 
 #theme(legend.key.width = unit(3,"lines"))
 
 

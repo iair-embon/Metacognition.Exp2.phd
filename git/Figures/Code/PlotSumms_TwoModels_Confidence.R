@@ -26,15 +26,15 @@ plot_summs(Linear_Model,
            Beta_Model, 
            coefs = c('Afecto Negativo' = 'DomainNegativeAffect.norm',
                      'Desapego'='DomainDetachment.norm',
-                     'Antagonismo' = 'DomainAntagonism.norm',
-                     'Desinhibicion'='DomainDisinhibition.norm',
-                     'Psicoticismo'='DomainPsychoticism.norm',
-                     'genero' = 'gender',
+                     'Antagonísmo' = 'DomainAntagonism.norm',
+                     'Desinhibición'='DomainDisinhibition.norm',
+                     'Psicoticísmo'='DomainPsychoticism.norm',
+                     'género' = 'gender',
                      'edad' = 'age.norm') ,
-           model.names = c('Modelo normal', 'Modelo beta'),
+           model.names = c('normal', 'beta'),
            plot.distributions = FALSE)+
   ylab("") +
-  xlab("Coeficientes de la regresion") +
+  xlab("Coeficientes de la regresión") +
   theme_bw() +
   theme(axis.line = element_line(colour = "black"),
         panel.grid.major = element_blank(),
@@ -48,3 +48,6 @@ plot_summs(Linear_Model,
         axis.text.y = element_text(size = 30),
         axis.title.y = element_text(size = 30),
         axis.title.x = element_text(size = 30))
+
+ggsave("git/Figures/Figures/TwoModels_Confidence.png", 
+       width = 10, height = 6)
