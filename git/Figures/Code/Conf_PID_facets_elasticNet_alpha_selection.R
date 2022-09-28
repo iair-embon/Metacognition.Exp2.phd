@@ -20,34 +20,9 @@ d <- DataFrame_subset(df_total)
 ### preprocessing
 d$gender <- ifelse(d$gender == "Masculino",1,0)
 
-# transforming the df to a matrix, without a few variables that don't matter
-d_caret <- d %>%
-  select(!c(Participant,
-            DomainNegativeAffect,
-            DomainDetachment,
-            DomainAntagonism,
-            DomainDisinhibition,
-            DomainPsychoticism,
-            PC,
-            ConfSD,
-            ReacTimeMean_DiscTask,
-            ReacTimeSD_DiscTask,
-            ReacTimeMean_ConfTask,
-            ReacTimeSD_ConfTask,
-            mc))
 
-### selecting the alpha and the lambda using caret
-loocv = trainControl(method = "LOOCV")
-
-m_elnet  = train(
-  ConfMean ~ ., data = d_caret,
-  method = "glmnet",
-  trControl = loocv,
-  tuneLength = 50
-)
-
-alpha_selected <- m_elnet$bestTune[[1]] # 0.2285714
-lambda_selected <- m_elnet$bestTune[[2]] # 0.1555395
+alpha_selected <- 0.2285714
+lambda_selected <-  0.1555395
 
 ## runing the model regression with the selected alpha and lambda
 
@@ -80,7 +55,7 @@ print(fit)
 a <- coef(fit)
 
 
-######## sigo probando ahora mas manual VA ESTE!!!
+######## Vamos con el plotting!
 fit <- glmnet(d_mat, d$ConfMean, 
               family = "gaussian",
               alpha = alpha_selected)
@@ -108,8 +83,13 @@ tmp_lala <- tmp %>%
                     coef == "Impulsivity"|
                     coef == "RestrictedAffectivity" |
                     coef == "SeparationInsecurity" |
-                    coef == "Submissiveness")) ##%>%
-  ##mutate(color = (coef == "Grandiosity", "red")) #### CORREGIR ACA
+                    coef == "Submissiveness")) %>%
+  mutate(color = replace(color, coef == "Grandiosity", "Grandiosity"),
+         color = replace(color, coef == "Hostility", "Hostility"),
+         color = replace(color, coef == "Impulsivity", "Impulsivity"),
+         color = replace(color, coef == "RestrictedAffectivity", "RestrictedAffectivity"),
+         color = replace(color, coef == "SeparationInsecurity", "SeparationInsecurity"),
+         color = replace(color, coef == "Submissiveness", "Submissiveness")) #### CORREGIR ACA
 
 
 ### the plot without legends
@@ -125,7 +105,12 @@ ggplot(tmp_lala[tmp_lala$coef != "(Intercept)",],
              linetype='dashed', color='black', size=1) +
   geom_hline(yintercept= 0,
              linetype='dashed', color='black', size=1) +
-  scale_colour_manual(values = c("FALSE" = 'grey', "TRUE" = 'black')) +
+  scale_colour_manual(values = c("FALSE" = 'grey', "Grandiosity" = 'red',
+                                 "Hostility" = "green",
+                                 "Impulsivity" = "blue",
+                                 "RestrictedAffectivity" = "orange",
+                                 "SeparationInsecurity" = "brown",
+                                 "Submissiveness" = "violet")) + ## ASIGNAR COLORES
   theme_bw() +
   theme(axis.line = element_line(colour = "black"),
         panel.grid.major = element_blank(),
