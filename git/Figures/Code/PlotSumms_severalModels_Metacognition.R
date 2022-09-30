@@ -124,9 +124,9 @@ ggplot(df.models , aes(coeff,fct_rev(terms), color=model)) +
   scale_x_continuous("Coeficientes de la regresión") +
   scale_y_discrete(labels= c("edad",
                              "género",
-                             "Psicoticísmo",
+                             "Psicoticismo",
                              "Desinhibición",
-                             "Antagonísmo",
+                             "Antagonismo",
                              "Desapego",
                              "Afecto Negativo"))+
   geom_errorbar(aes(xmin= coeff - 2* se,xmax= coeff + 2* se),
