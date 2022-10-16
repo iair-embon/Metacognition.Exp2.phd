@@ -5,26 +5,164 @@ date: "2022-10-13"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+## Analisis para confianza
+
+# dominios
+
+Regresion beta multivariada
+```{r}
+
 ```
 
-## R Markdown
+Regresion lineal multivariada
+```{r}
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
 ```
 
-## Including Plots
+Regresion lineal univariada
+```{r}
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Usando regularización con un alpha 0.5 y un lambda elegido por loocv
+```{r}
+
+```
+
+Usando regularización con un alpha y lambda elegido por loocv
+```{r}
+
+```
+
+
+Conclusión: No hay nada significativo, los dominios no muestran relación con confianza
+
+# facetas
+
+Regresion beta multivariada
+```{r}
+
+```
+
+Regresion lineal multivariada
+```{r}
+
+```
+
+Regresion lineal univariada
+```{r}
+
+```
+
+Correlación r de person entre facetas
+```{r}
+
+```
+
+Usando regularización con un alpha 0.5 y un lambda elegido por loocv
+```{r}
+
+```
+
+Usando regularización con un alpha y lambda elegido por loocv
+```{r}
+
+```
+
+
+Conclusión: Acá hay una mayor diversidad de resultados. El análisis mñas conservador es el último, que no muestra ningún tipo de relación entre alpha y lambda elegido por loocv. Aunque sin duda grandiosidad muestra cierta relación, que es significativa en la mayoría de los análisis. 
+
+## Analisis para metacognición
+
+# dominios
+
+Regresion beta multivariada (sin escalar, mc va de 0.5 a 1)
+```{r}
+
+```
+
+Regresion beta multivariada (escalada, mc va de 0 a 1, se hizo (mc-0.5)*2)
+```{r}
+
+```
+
+Regresion beta univariada (escalada, mc va de 0 a 1, se hizo (mc-0.5)*2)
+```{r}
+
+```
+
+Regresion lineal multivariada
+```{r}
+
+```
+
+Regresion lineal univariada
+```{r}
+
+```
+
+Reg normal usando regularización con un alpha 0.5 y un lambda elegido por loocv
+```{r}
+
+```
+
+Reg normal usando regularización con un alpha y lambda elegido por loocv
+```{r}
+
+```
+
+Regresión logística mixta
+```{r}
+
+```
+
+Conclusión: No hay nada significativo, los dominios no muestran relación con metacognición
+
+# facetas
+
+Regresion beta multivariada (sin escalar, mc va de 0.5 a 1)
+```{r}
+
+```
+
+Regresion beta multivariada (escalada, mc va de 0 a 1, se hizo (mc-0.5)*2)
+```{r}
+
+```
+
+Regresion beta univariada (escalada, mc va de 0 a 1, se hizo (mc-0.5)*2)
+```{r}
+
+```
+
+Regresion lineal multivariada
+```{r}
+
+```
+
+Regresion lineal univariada
+```{r}
+
+```
+
+Correlación r de person entre facetas
+```{r}
+
+```
+
+Reg normal usando regularización con un alpha 0.5 y un lambda elegido por loocv
+```{r}
+
+```
+
+Reg normal usando regularización con un alpha y lambda elegido por loocv
+```{r}
+
+```
+
+Regresión logística mixta
+```{r}
+
+```
+
+Conclusión: Acá hay una mayor diversidad de resultados. El análisis más conservador es el último, que no muestra ningún tipo de relación entre alpha y lambda elegido por loocv. Aunque ansiedad muestra cierta relación con metacognición, ya que es significativa en algunos análisis. 
