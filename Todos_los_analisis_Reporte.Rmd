@@ -470,11 +470,6 @@ Regresion lineal univariada
 
 ```
 
-Correlación r de person entre facetas
-```{r echo=FALSE}
-
-```
-
 Reg normal usando regularización con un alpha 0.5 y un lambda elegido por loocv
 ```{r echo=FALSE}
 
