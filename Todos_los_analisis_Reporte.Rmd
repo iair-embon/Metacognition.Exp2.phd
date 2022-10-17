@@ -5,67 +5,211 @@ date: "2022-10-13"
 output: html_document
 ---
 
+```{r echo=FALSE}
+# Pongo el path del poryecto
+root <- rprojroot::is_rstudio_project
+basename(getwd())               
+```
+
+
 ## Analisis para confianza
 
 # dominios
 
 Regresion beta multivariada
-```{r}
+```{r echo=FALSE}
+load("git/Data/Regression_Results/Conf_PID_domain_Beta_linear_model.RData")
+summary(a)
+```
 
+Regresion beta univariada
+```{r echo=FALSE}
+load("git/Data/Regression_Results/individual_Conf_PID_domain_beta_model/DomainAntagonism.norm_Conf_PID_domain_beta_model.RData")
+print("Antagonismo")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_domain_beta_model/DomainDetachment.norm_Conf_PID_domain_beta_model.RData")
+print("Detachment")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_domain_beta_model/DomainDisinhibition.norm_Conf_PID_domain_beta_model.RData")
+print("Disinhibition")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_domain_beta_model/DomainNegativeAffect.norm_Conf_PID_domain_beta_model.RData")
+print("NegativeAffect")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_domain_beta_model/DomainPsychoticism.norm_Conf_PID_domain_beta_model.RData")
+print("Psychoticism")
+summary(a)
 ```
 
 Regresion lineal multivariada
-```{r}
-
+```{r echo=FALSE}
+load("git/Data/Regression_Results/Conf_PID_domain_linear_model.RData")
+summary(a)
 ```
 
 Regresion lineal univariada
-```{r}
+```{r echo=FALSE}
+load("git/Data/Regression_Results/individual_Conf_PID_domain_linear_model/DomainAntagonism.norm_Conf_PID_domain_linear_model.RData")
+print("Antagonismo")
+summary(a)
 
+load("git/Data/Regression_Results/individual_Conf_PID_domain_linear_model/DomainDetachment.norm_Conf_PID_domain_linear_model.RData")
+print("Detachment")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_domain_linear_model/DomainDisinhibition.norm_Conf_PID_domain_linear_model.RData")
+print("Disinhibition")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_domain_linear_model/DomainNegativeAffect.norm_Conf_PID_domain_linear_model.RData")
+print("NegativeAffect")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_domain_linear_model/DomainPsychoticism.norm_Conf_PID_domain_linear_model.RData")
+print("Psychoticism")
+summary(a)
 ```
 
-Usando regularización con un alpha 0.5 y un lambda elegido por loocv
-```{r}
 
-```
-
-Usando regularización con un alpha y lambda elegido por loocv
-```{r}
-
-```
-
-
-Conclusión: No hay nada significativo, los dominios no muestran relación con confianza
+Conclusión: No hay nada significativo, los dominios no muestran relación con confianza. Los resultados significativos de los análisis univariados no pasan la corrección por bonferroni.
 
 # facetas
 
 Regresion beta multivariada
-```{r}
+```{r echo=FALSE}
+load("git/Data/Regression_Results/Conf_PID_facets_Beta_linear_model.RData")
+summary(a)
+```
 
+Regresion beta univariada
+```{r echo=FALSE}
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anxiousness.norm_Conf_PID_facets_beta_model.RData")
+print("Anxiousness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/AttentionSeeking.norm_Conf_PID_facets_beta_model.RData")
+print("AttentionSeeking")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Callousness.norm_Conf_PID_facets_beta_model.RData")
+print("Callousness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Deceitfulness.norm_Conf_PID_facets_beta_model.RData")
+print("Deceitfulness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Depressivity.norm_Conf_PID_facets_beta_model.RData")
+print("Depressivity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Distractivility.norm_Conf_PID_facets_beta_model.RData")
+print("Distractivility")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/EmotionalLability.norm_Conf_PID_facets_beta_model.RData")
+print("EmotionalLability")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Excentricity.norm_Conf_PID_facets_beta_model.RData")
+print("Excentricity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Grandiosity.norm_Conf_PID_facets_beta_model.RData")
+print("Grandiosity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
+print("Anhedonia")
+summary(a)
 ```
 
 Regresion lineal multivariada
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Regresion lineal univariada
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Correlación r de person entre facetas
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Usando regularización con un alpha 0.5 y un lambda elegido por loocv
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Usando regularización con un alpha y lambda elegido por loocv
-```{r}
+```{r echo=FALSE}
 
 ```
 
@@ -77,42 +221,42 @@ Conclusión: Acá hay una mayor diversidad de resultados. El análisis mñas con
 # dominios
 
 Regresion beta multivariada (sin escalar, mc va de 0.5 a 1)
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Regresion beta multivariada (escalada, mc va de 0 a 1, se hizo (mc-0.5)*2)
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Regresion beta univariada (escalada, mc va de 0 a 1, se hizo (mc-0.5)*2)
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Regresion lineal multivariada
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Regresion lineal univariada
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Reg normal usando regularización con un alpha 0.5 y un lambda elegido por loocv
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Reg normal usando regularización con un alpha y lambda elegido por loocv
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Regresión logística mixta
-```{r}
+```{r echo=FALSE}
 
 ```
 
@@ -121,47 +265,47 @@ Conclusión: No hay nada significativo, los dominios no muestran relación con m
 # facetas
 
 Regresion beta multivariada (sin escalar, mc va de 0.5 a 1)
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Regresion beta multivariada (escalada, mc va de 0 a 1, se hizo (mc-0.5)*2)
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Regresion beta univariada (escalada, mc va de 0 a 1, se hizo (mc-0.5)*2)
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Regresion lineal multivariada
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Regresion lineal univariada
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Correlación r de person entre facetas
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Reg normal usando regularización con un alpha 0.5 y un lambda elegido por loocv
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Reg normal usando regularización con un alpha y lambda elegido por loocv
-```{r}
+```{r echo=FALSE}
 
 ```
 
 Regresión logística mixta
-```{r}
+```{r echo=FALSE}
 
 ```
 
