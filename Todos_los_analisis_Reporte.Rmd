@@ -12,9 +12,9 @@ basename(getwd())
 ```
 
 
-## Analisis para confianza
+# Analisis para confianza
 
-# dominios
+####  dominios
 
 Regresion beta multivariada
 ```{r echo=FALSE}
@@ -77,7 +77,7 @@ summary(a)
 
 Conclusión: No hay nada significativo, los dominios no muestran relación con confianza. Los resultados significativos de los análisis univariados no pasan la corrección por bonferroni.
 
-# facetas
+####  facetas
 
 Regresion beta multivariada
 ```{r echo=FALSE}
@@ -127,98 +127,279 @@ load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Grandiosi
 print("Grandiosity")
 summary(a)
 
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Hostility.norm_Conf_PID_facets_beta_model.RData")
+print("Hostility")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Impulsivity.norm_Conf_PID_facets_beta_model.RData")
+print("Impulsivity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/IntimacyAvoidance.norm_Conf_PID_facets_beta_model.RData")
+print("IntimacyAvoidance")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Irresponsibility.norm_Conf_PID_facets_beta_model.RData")
+print("Irresponsibility")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Manipulativeness.norm_Conf_PID_facets_beta_model.RData")
+print("Manipulativeness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/PerceptualDysregulation.norm_Conf_PID_facets_beta_model.RData")
+print("PerceptualDysregulation")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Perseveration.norm_Conf_PID_facets_beta_model.RData")
+print("Perseveration")
 summary(a)
 
 load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
 print("Anhedonia")
 summary(a)
 
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/RestrictedAffectivity.norm_Conf_PID_facets_beta_model.RData")
+print("RestrictedAffectivity")
 summary(a)
 
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/RigidPerfeccionism.norm_Conf_PID_facets_beta_model.RData")
+print("RigidPerfeccionism")
 summary(a)
 
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/RiskTaking.norm_Conf_PID_facets_beta_model.RData")
+print("RiskTaking")
 summary(a)
 
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/SeparationInsecurity.norm_Conf_PID_facets_beta_model.RData")
+print("SeparationInsecurity")
 summary(a)
 
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Submissiveness.norm_Conf_PID_facets_beta_model.RData")
+print("Submissiveness")
 summary(a)
 
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Suspiciousness.norm_Conf_PID_facets_beta_model.RData")
+print("Suspiciousness")
 summary(a)
 
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/UnusualBeliefsAndExperiences.norm_Conf_PID_facets_beta_model.RData")
+print("UnusualBeliefsAndExperiences")
 summary(a)
 
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
-summary(a)
-
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
-summary(a)
-
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
-summary(a)
-
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
-summary(a)
-
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
-summary(a)
-
-load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Anhedonia.norm_Conf_PID_facets_beta_model.RData")
-print("Anhedonia")
+load("git/Data/Regression_Results/individual_Conf_PID_facet_beta_model/Withdrawal.norm_Conf_PID_facets_beta_model.RData")
+print("Withdrawal")
 summary(a)
 ```
 
 Regresion lineal multivariada
 ```{r echo=FALSE}
-
+load("git/Data/Regression_Results/Conf_PID_facets_linear_model.RData")
+summary(a)
 ```
 
 Regresion lineal univariada
 ```{r echo=FALSE}
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Anhedonia.norm_Conf_PID_facets_linear_model.RData")
+print("Anhedonia")
+summary(a)
 
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Anxiousness.norm_Conf_PID_facets_linear_model.RData")
+print("Anxiousness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/AttentionSeeking.norm_Conf_PID_facets_linear_model.RData")
+print("AttentionSeeking")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Callousness.norm_Conf_PID_facets_linear_model.RData")
+print("Callousness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Deceitfulness.norm_Conf_PID_facets_linear_model.RData")
+print("Deceitfulness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Depressivity.norm_Conf_PID_facets_linear_model.RData")
+print("Depressivity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Distractivility.norm_Conf_PID_facets_linear_model.RData")
+print("Distractivility")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/EmotionalLability.norm_Conf_PID_facets_linear_model.RData")
+print("EmotionalLability")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Excentricity.norm_Conf_PID_facets_linear_model.RData")
+print("Excentricity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Grandiosity.norm_Conf_PID_facets_linear_model.RData")
+print("Grandiosity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Hostility.norm_Conf_PID_facets_linear_model.RData")
+print("Hostility")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Impulsivity.norm_Conf_PID_facets_linear_model.RData")
+print("Impulsivity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/IntimacyAvoidance.norm_Conf_PID_facets_linear_model.RData")
+print("IntimacyAvoidance")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Irresponsibility.norm_Conf_PID_facets_linear_model.RData")
+print("Irresponsibility")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Manipulativeness.norm_Conf_PID_facets_linear_model.RData")
+print("Manipulativeness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/PerceptualDysregulation.norm_Conf_PID_facets_linear_model.RData")
+print("PerceptualDysregulation")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Perseveration.norm_Conf_PID_facets_linear_model.RData")
+print("Perseveration")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Anhedonia.norm_Conf_PID_facets_linear_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/RestrictedAffectivity.norm_Conf_PID_facets_linear_model.RData")
+print("RestrictedAffectivity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/RigidPerfeccionism.norm_Conf_PID_facets_linear_model.RData")
+print("RigidPerfeccionism")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/RiskTaking.norm_Conf_PID_facets_linear_model.RData")
+print("RiskTaking")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/SeparationInsecurity.norm_Conf_PID_facets_linear_model.RData")
+print("SeparationInsecurity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Submissiveness.norm_Conf_PID_facets_linear_model.RData")
+print("Submissiveness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Suspiciousness.norm_Conf_PID_facets_linear_model.RData")
+print("Suspiciousness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/UnusualBeliefsAndExperiences.norm_Conf_PID_facets_linear_model.RData")
+print("UnusualBeliefsAndExperiences")
+summary(a)
+
+load("git/Data/Regression_Results/individual_Conf_PID_facet_linear_model/Withdrawal.norm_Conf_PID_facets_linear_model.RData")
+print("Withdrawal")
+summary(a)
 ```
 
 Correlación r de person entre facetas
 ```{r echo=FALSE}
-
+### library
+library(corrplot)
+load("git/Data/Regression_Results/Correlation_Matrix_PID_domain_facets.RData")
+corrplot(a$r, type="upper",  tl.col = "black", tl.srt = 45)
 ```
+Se puede ver que hay correlaciones altas entre facetas, eso puede ser un problema para la regresión multivaiada.
 
 Usando regularización con un alpha 0.5 y un lambda elegido por loocv
 ```{r echo=FALSE}
+load("git/Data/Regression_Results/Conf_PID_facets_elasticNet_linear_model.RData")
+library(glmnet)
+library(dplyr)
 
+filepath <- root$find_file("git/Data/df_total_filtered.Rda")
+load(file= filepath)
+source(root$find_file("git/Analysis/AuxiliaryFunctions/DataFrame_subset.R"))
+d <- DataFrame_subset(df_total)
+
+### preprocessing
+d$gender <- ifelse(d$gender == "Masculino",1,0)
+
+# transforming the df to a matrix, without a few variables that don't matter
+d_mat <- d %>%
+  select(!c(Participant,
+            DomainNegativeAffect,
+            DomainDetachment,
+            DomainAntagonism,
+            DomainDisinhibition,
+            DomainPsychoticism,
+            PC,
+            ConfMean,
+            ConfSD,
+            ReacTimeMean_DiscTask,
+            ReacTimeSD_DiscTask,
+            ReacTimeMean_ConfTask,
+            ReacTimeSD_ConfTask,
+            mc)) %>%
+  data.matrix()
+
+set.seed(1010)
+cvfit <- cv.glmnet(d_mat, d$ConfMean, type.measure = "mse", nfolds = nrow(d))
+print(cvfit)
+# ploteo los errores cuadraticos
+plot(cvfit)
+
+# elijo el que minimiza el error
+
+#cvfit$lambda.min
+
+# veo el modelo con ese lambda
+coef(cvfit, s = "lambda.min")
 ```
 
 Usando regularización con un alpha y lambda elegido por loocv
 ```{r echo=FALSE}
+alpha_selected <-  0.2285714
+lambda_selected <- 0.1555395
 
+fit <- glmnet(d_mat, d$ConfMean, 
+              family = "gaussian",
+              alpha = alpha_selected,
+              lambda = lambda_selected)
+
+print(fit)
+
+a <- coef(fit)
+print(a)
+
+load("git/Data/Regression_Results/Conf_PID_domain_Boot_elasticNet.RData")
+
+print("probability of 0 (page 154, Statistical learning with sparsity... Hastie")
+
+print("intercept")
+sum(rep_boot$t[,1] == 0)/5000
+print("Grandiosity")
+sum(rep_boot$t[,12] == 0)/5000
+print("Hostility")
+sum(rep_boot$t[,13] == 0)/5000
+print("Impulsivity")
+sum(rep_boot$t[,14] == 0)/5000
+print("RestrictedAffectivity")
+sum(rep_boot$t[,20] == 0)/5000
+print("SeparationInsecurity")
+sum(rep_boot$t[,23] == 0)/5000
+print("Submissiveness")
+sum(rep_boot$t[,24] == 0)/5000
 ```
-
 
 Conclusión: Acá hay una mayor diversidad de resultados. El análisis mñas conservador es el último, que no muestra ningún tipo de relación entre alpha y lambda elegido por loocv. Aunque sin duda grandiosidad muestra cierta relación, que es significativa en la mayoría de los análisis. 
 
-## Analisis para metacognición
+# Analisis para metacognición
 
-# dominios
+#### dominios
 
 Regresion beta multivariada (sin escalar, mc va de 0.5 a 1)
 ```{r echo=FALSE}
@@ -262,7 +443,7 @@ Regresión logística mixta
 
 Conclusión: No hay nada significativo, los dominios no muestran relación con metacognición
 
-# facetas
+#### facetas
 
 Regresion beta multivariada (sin escalar, mc va de 0.5 a 1)
 ```{r echo=FALSE}
