@@ -732,18 +732,173 @@ summary(a)
 
 Regresion lineal univariada
 ```{r echo=FALSE}
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Anhedonia.norm_mc_PID_facets_linear_model.RData")
+print("Anhedonia")
+summary(a)
 
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Anxiousness.norm_mc_PID_facets_linear_model.RData")
+print("Anxiousness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/AttentionSeeking.norm_mc_PID_facets_linear_model.RData")
+print("AttentionSeeking")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Callousness.norm_mc_PID_facets_linear_model.RData")
+print("Callousness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Deceitfulness.norm_mc_PID_facets_linear_model.RData")
+print("Deceitfulness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Depressivity.norm_mc_PID_facets_linear_model.RData")
+print("Depressivity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Distractivility.norm_mc_PID_facets_linear_model.RData")
+print("Distractivility")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/EmotionalLability.norm_mc_PID_facets_linear_model.RData")
+print("EmotionalLability")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Excentricity.norm_mc_PID_facets_linear_model.RData")
+print("Excentricity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Grandiosity.norm_mc_PID_facets_linear_model.RData")
+print("Grandiosity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Hostility.norm_mc_PID_facets_linear_model.RData")
+print("Hostility")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Impulsivity.norm_mc_PID_facets_linear_model.RData")
+print("Impulsivity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/IntimacyAvoidance.norm_mc_PID_facets_linear_model.RData")
+print("IntimacyAvoidance")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Irresponsibility.norm_mc_PID_facets_linear_model.RData")
+print("Irresponsibility")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Manipulativeness.norm_mc_PID_facets_linear_model.RData")
+print("Manipulativeness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/PerceptualDysregulation.norm_mc_PID_facets_linear_model.RData")
+print("PerceptualDysregulation")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Perseveration.norm_mc_PID_facets_linear_model.RData")
+print("Perseveration")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Anhedonia.norm_mc_PID_facets_linear_model.RData")
+print("Anhedonia")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/RestrictedAffectivity.norm_mc_PID_facets_linear_model.RData")
+print("RestrictedAffectivity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/RigidPerfeccionism.norm_mc_PID_facets_linear_model.RData")
+print("RigidPerfeccionism")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/RiskTaking.norm_mc_PID_facets_linear_model.RData")
+print("RiskTaking")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/SeparationInsecurity.norm_mc_PID_facets_linear_model.RData")
+print("SeparationInsecurity")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Submissiveness.norm_mc_PID_facets_linear_model.RData")
+print("Submissiveness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Suspiciousness.norm_mc_PID_facets_linear_model.RData")
+print("Suspiciousness")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/UnusualBeliefsAndExperiences.norm_mc_PID_facets_linear_model.RData")
+print("UnusualBeliefsAndExperiences")
+summary(a)
+
+load("git/Data/Regression_Results/individual_mc_PID_facets_linear_model/Withdrawal.norm_mc_PID_facets_linear_model.RData")
+print("Withdrawal")
+summary(a)
 ```
 
 Reg normal usando regularización con un alpha 0.5 y un lambda elegido por loocv
 ```{r echo=FALSE}
+load("git/Data/Regression_Results/mc_PID_facets_elasticNet_linear_model.RData")
+library(glmnet)
+library(dplyr)
 
+filepath <- root$find_file("git/Data/df_total_filtered.Rda")
+load(file= filepath)
+source(root$find_file("git/Analysis/AuxiliaryFunctions/DataFrame_subset.R"))
+d <- DataFrame_subset(df_total)
+
+### preprocessing
+d$gender <- ifelse(d$gender == "Masculino",1,0)
+
+# transforming the df to a matrix, without a few variables that don't matter
+d_mat <- d %>%
+  select(!c(Participant,
+            DomainNegativeAffect,
+            DomainDetachment,
+            DomainAntagonism,
+            DomainDisinhibition,
+            DomainPsychoticism,
+            PC,
+            ConfMean,
+            ConfSD,
+            ReacTimeMean_DiscTask,
+            ReacTimeSD_DiscTask,
+            ReacTimeMean_ConfTask,
+            ReacTimeSD_ConfTask,
+            mc)) %>%
+  data.matrix()
+
+set.seed(1010)
+cvfit <- cv.glmnet(d_mat, d$mc, type.measure = "mse", nfolds = nrow(d))
+print(cvfit)
+# ploteo los errores cuadraticos
+plot(cvfit)
+
+# elijo el que minimiza el error
+
+#cvfit$lambda.min
+
+# veo el modelo con ese lambda
+coef(cvfit, s = "lambda.min")
 ```
 
 Reg normal usando regularización con un alpha y lambda elegido por loocv
 ```{r echo=FALSE}
+alpha_selected <-  0.6510204
+lambda_selected <- 0.01326938
 
+fit <- glmnet(d_mat, d$mc, 
+              family = "gaussian",
+              alpha = alpha_selected,
+              lambda = lambda_selected)
+
+print(fit)
+
+a <- coef(fit)
+print(a)
 ```
+No hay coeficientes que sobrevivan ademas de la intercept
 
 Regresión logística mixta
 ```{r echo=FALSE}
