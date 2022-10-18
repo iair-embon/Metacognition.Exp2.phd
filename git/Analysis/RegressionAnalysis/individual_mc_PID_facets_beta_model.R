@@ -50,15 +50,13 @@ d$Submissiveness.norm <- normalized_fun(d$Submissiveness)
 d$Suspiciousness.norm <- normalized_fun(d$Suspiciousness)
 d$UnusualBeliefsAndExperiences.norm <- normalized_fun(d$UnusualBeliefsAndExperiences)
 d$Withdrawal.norm <- normalized_fun(d$Withdrawal)
-d$mc.norm <- (d$mc - 0.5) * 2 
-
 
 vec_variables_string <- colnames(d[43:67])
 vec_variables_values <-d[43:67]
 
 # corro el modelo
 for (i in 1:length(vec_variables_string)) {
-  a <- betareg(mc.norm ~ vec_variables_values[[i]] + 
+  a <- betareg(mc ~ vec_variables_values[[i]] + 
             age.norm + 
             gender +
             age.norm:vec_variables_values[[i]] +

@@ -23,7 +23,6 @@ d$DomainDetachment.norm <- (d$DomainDetachment - mean(d$DomainDetachment))/ sd(d
 d$DomainAntagonism.norm <- (d$DomainAntagonism - mean(d$DomainAntagonism))/ sd(d$DomainAntagonism)
 d$DomainDisinhibition.norm <- (d$DomainDisinhibition - mean(d$DomainDisinhibition))/ sd(d$DomainDisinhibition)
 d$DomainPsychoticism.norm <- (d$DomainPsychoticism - mean(d$DomainPsychoticism))/ sd(d$DomainPsychoticism)
-d$mc.norm <- (d$mc - 0.5) * 2 
 
 vec_variables_string <- c("DomainNegativeAffect.norm",
                           "DomainDetachment.norm",
@@ -42,7 +41,7 @@ vec_variables_values <- list(d$DomainNegativeAffect.norm,
 
 # corro el modelo
 for (i in 1:length(vec_variables_string)) {
-  a <- betareg(mc.norm ~ vec_variables_values[[i]] + 
+  a <- betareg(mc ~ vec_variables_values[[i]] + 
             age.norm + 
             gender +
             age.norm:vec_variables_values[[i]] +

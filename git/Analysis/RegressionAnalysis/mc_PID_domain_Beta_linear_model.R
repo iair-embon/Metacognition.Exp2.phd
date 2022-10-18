@@ -24,7 +24,6 @@ d$DomainDetachment.norm <- (d$DomainDetachment - mean(d$DomainDetachment))/ sd(d
 d$DomainAntagonism.norm <- (d$DomainAntagonism - mean(d$DomainAntagonism))/ sd(d$DomainAntagonism)
 d$DomainDisinhibition.norm <- (d$DomainDisinhibition - mean(d$DomainDisinhibition))/ sd(d$DomainDisinhibition)
 d$DomainPsychoticism.norm <- (d$DomainPsychoticism - mean(d$DomainPsychoticism))/ sd(d$DomainPsychoticism)
-d$mc.norm <- (d$mc - 0.5) *2
 
 # run the model
 a=betareg(mc ~ DomainNegativeAffect.norm+
