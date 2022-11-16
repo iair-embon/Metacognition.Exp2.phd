@@ -7,12 +7,11 @@ basename(getwd())
 # library
 library(jtools)
 library(tidyverse)
-library(lme4)
 
 ### reg normal
 
 # cargo datos
-filepath <- root$find_file("git/Data/Regression_Results/mc_PID_domain_linear_model.RData")
+filepath <- root$find_file("git/Data/Regression_Results/Conf_PID_domain_linear_model.RData")
 load(file= filepath)
 
 # extraigo la info
@@ -33,7 +32,7 @@ df.models <- data.frame(terms = terms,
 ## Domain Negative Affect
 
 # cargo los datos
-filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_linear_model/DomainNegativeAffect.norm_mc_PID_domain_linear_model.RData")
+filepath <- root$find_file("git/Data/Regression_Results/individual_Conf_PID_domain_linear_model/DomainNegativeAffect.norm_Conf_PID_domain_linear_model.RData")
 load(file= filepath)
 
 # extraigo info
@@ -45,7 +44,7 @@ se_NegAff <- unname(sum_a_NegAff$coefficients[2,"Std. Error"])
 ## Domain Detachment
 
 # cargo los datos
-filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_linear_model/DomainDetachment.norm_mc_PID_domain_linear_model.RData")
+filepath <- root$find_file("git/Data/Regression_Results/individual_Conf_PID_domain_linear_model/DomainDetachment.norm_Conf_PID_domain_linear_model.RData")
 load(file= filepath)
 
 # extraigo info
@@ -57,7 +56,7 @@ se_Det <- unname(sum_a_Det$coefficients[2,"Std. Error"])
 ## Domain Antagonism
 
 # cargo los datos
-filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_linear_model/DomainAntagonism.norm_mc_PID_domain_linear_model.RData")
+filepath <- root$find_file("git/Data/Regression_Results/individual_Conf_PID_domain_linear_model/DomainAntagonism.norm_Conf_PID_domain_linear_model.RData")
 load(file= filepath)
 
 # extraigo info
@@ -69,7 +68,7 @@ se_Ant <- unname(sum_a_Ant$coefficients[2,"Std. Error"])
 ## Domain Disinhibition
 
 # cargo los datos
-filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_linear_model/DomainDisinhibition.norm_mc_PID_domain_linear_model.RData")
+filepath <- root$find_file("git/Data/Regression_Results/individual_Conf_PID_domain_linear_model/DomainDisinhibition.norm_Conf_PID_domain_linear_model.RData")
 load(file= filepath)
 
 # extraigo info
@@ -81,7 +80,7 @@ se_Dis <- unname(sum_a_Dis$coefficients[2,"Std. Error"])
 ## Domain Psychoticism
 
 # cargo los datos
-filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_linear_model/DomainPsychoticism.norm_mc_PID_domain_linear_model.RData")
+filepath <- root$find_file("git/Data/Regression_Results/individual_Conf_PID_domain_linear_model/DomainPsychoticism.norm_Conf_PID_domain_linear_model.RData")
 load(file= filepath)
 
 # extraigo info
@@ -108,7 +107,7 @@ df.models <- rbind(df.models, df.normal)
 ### reg beta
 
 # cargo los datos
-filepath <- root$find_file("git/Data/Regression_Results/mc_PID_domain_Beta_linear_model_escalada.RData")
+filepath <- root$find_file("git/Data/Regression_Results/Conf_PID_domain_Beta_linear_model.RData")
 load(file= filepath)
 
 # extraigo info
@@ -131,7 +130,7 @@ df.models <- rbind(df.models, df.beta)
 ## Domain Negative Affect
 
 # cargo los datos
-filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_beta_model/DomainNegativeAffect.norm_mc_PID_domain_beta_model_escalada.RData")
+filepath <- root$find_file("git/Data/Regression_Results/individual_Conf_PID_domain_beta_model/DomainNegativeAffect.norm_Conf_PID_domain_beta_model.RData")
 load(file= filepath)
 
 # extraigo info
@@ -143,7 +142,7 @@ se_NegAff <- unname(sum_a_NegAff$coefficients$mean[2,"Std. Error"])
 ## Domain Detachment
 
 # cargo los datos
-filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_beta_model/DomainDetachment.norm_mc_PID_domain_beta_model_escalada.RData")
+filepath <- root$find_file("git/Data/Regression_Results/individual_Conf_PID_domain_beta_model/DomainDetachment.norm_Conf_PID_domain_beta_model.RData")
 load(file= filepath)
 
 # extraigo info
@@ -155,7 +154,7 @@ se_Det <- unname(sum_a_Det$coefficients$mean[2,"Std. Error"])
 ## Domain Antagonism
 
 # cargo los datos
-filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_beta_model/DomainAntagonism.norm_mc_PID_domain_beta_model_escalada.RData")
+filepath <- root$find_file("git/Data/Regression_Results/individual_Conf_PID_domain_beta_model/DomainAntagonism.norm_Conf_PID_domain_beta_model.RData")
 load(file= filepath)
 
 # extraigo info
@@ -167,7 +166,7 @@ se_Ant <- unname(sum_a_Ant$coefficients$mean[2,"Std. Error"])
 ## Domain Disinhibition
 
 # cargo los datos
-filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_beta_model/DomainDisinhibition.norm_mc_PID_domain_beta_model_escalada.RData")
+filepath <- root$find_file("git/Data/Regression_Results/individual_Conf_PID_domain_beta_model/DomainDisinhibition.norm_Conf_PID_domain_beta_model.RData")
 load(file= filepath)
 
 # extraigo info
@@ -179,7 +178,7 @@ se_Dis <- unname(sum_a_Dis$coefficients$mean[2,"Std. Error"])
 ## Domain Psychoticism
 
 # cargo los datos
-filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_beta_model/DomainPsychoticism.norm_mc_PID_domain_beta_model_escalada.RData")
+filepath <- root$find_file("git/Data/Regression_Results/individual_Conf_PID_domain_beta_model/DomainPsychoticism.norm_Conf_PID_domain_beta_model.RData")
 load(file= filepath)
 
 # extraigo info
@@ -201,34 +200,6 @@ df.beta <- data.frame(terms = terms,
 
 # uno con el df principal
 df.models <- rbind(df.models, df.beta)
-
-### reg log mixta
-
-# cargo los datos
-filepath <- root$find_file("git/Data/Regression_Results/mc_PID_domain_logistic_mixed_model.RData")
-load(file= filepath)
-
-# extraigo info
-terms <-attr(a_log@pp$X, "dimnames")[[2]]
-terms <- c("(Intercept)","confidence_key.norm"  ,"DomainNegativeAffect.norm", "DomainDetachment.norm", "DomainAntagonism.norm", "DomainDisinhibition.norm", "DomainPsychoticism.norm", "gender", "age.norm")
-coeff <- a_log@beta
-sum_a_log <- summary(a_log)
-se <- unname(sum_a_log$coefficients[,"Std. Error"])
-model <- rep("logistic mixed", length(terms))
-
-# guardo en el df
-df.log_mix <- data.frame(terms = terms,
-                      coeff = coeff,
-                      se = se,
-                      model = model)
-
-# saco el predictor aislado de confianza
-df.log_mix <-  df.log_mix %>%
-  filter(!row_number() == 2)
-
-# uno con el df principal
-df.models <- rbind(df.models, df.log_mix)
-
 
 
 # saco la intercept que no es intepretable
@@ -253,8 +224,8 @@ ggplot(df.models , aes(coeff,fct_rev(terms), color=model)) +
              position=position_dodge(width=0.8)) +
   geom_vline(xintercept= 0, linetype='dashed', color= "black")+
   scale_color_manual(name="Modelos",
-                     values=c("darkgreen","orange", "black", "red", "blue")) +
-  scale_shape_manual(name="Modelos",values=c(17,19, 18, 16, 20)) +
+                     values=c("darkgreen","orange", "red", "blue")) +
+  scale_shape_manual(name="Modelos",values=c(17,19, 16, 20)) + 
   scale_x_continuous("Regression coefficient") +
   scale_y_discrete(labels= c(#"age",
                              #"gender",
@@ -281,5 +252,5 @@ ggplot(df.models , aes(coeff,fct_rev(terms), color=model)) +
       axis.title.x = element_text(size = 30))
 
 
-ggsave("git/Figures/Figures/severalModels_Metacognicion.png", 
+ggsave("git/Figures/Figures/severalModels_Confidence.png", 
        width = 10, height = 6)
