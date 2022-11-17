@@ -79,6 +79,7 @@ print(fit)
 
 a <- coef(fit)
 
+save(a, file = "git/Data/Regression_Results/mc_PID_domain_fit_elasticNet.RData")
 
 ### now, I perform boostrap to know the CI and the proportion of times that the 
 ### predictor was exactly 0.

@@ -229,7 +229,81 @@ df.log_mix <-  df.log_mix %>%
 # uno con el df principal
 df.models <- rbind(df.models, df.log_mix)
 
+### reg univariate logistica mixta
 
+## Domain Negative Affect
+
+# cargo los datos
+filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_mixed_logistic_model/DomainNegativeAffect_mc_PID_domain_mixed_logistic_model.RData")
+load(file= filepath)
+
+# extraigo info
+sum_a_log_NegAff <- summary(a_log)
+terms_NegAff <- "DomainNegativeAffect.norm"
+coeff_NegAff <- a_log@beta[3]
+se_NegAff <- unname(sum_a_log_NegAff$coefficients[,"Std. Error"])[3]
+
+## Domain Detachment
+
+# cargo los datos
+filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_mixed_logistic_model/DomainDetachment_mc_PID_domain_mixed_logistic_model.RData")
+load(file= filepath)
+
+# extraigo info
+sum_a_log_Det <- summary(a_log)
+terms_Det <- "DomainDetachment.norm"
+coeff_Det <- a_log@beta[3]
+se_Det <- unname(sum_a_log_Det$coefficients[,"Std. Error"])[3]
+
+## Domain Antagonism
+
+# cargo los datos
+filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_mixed_logistic_model/DomainAntagonism_mc_PID_domain_mixed_logistic_model.RData")
+load(file= filepath)
+
+# extraigo info
+sum_a_log_Ant <- summary(a_log)
+terms_Ant <- "DomainAntagonism.norm"
+coeff_Ant <- a_log@beta[3]
+se_Ant <- unname(sum_a_log_Ant$coefficients[,"Std. Error"])[3]
+
+## Domain Disinhibition
+
+# cargo los datos
+filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_mixed_logistic_model/DomainDisinhibition_mc_PID_domain_mixed_logistic_model.RData")
+load(file= filepath)
+
+# extraigo info
+sum_a_Dis <- summary(a_log)
+terms_Dis <- "DomainDisinhibition.norm"
+coeff_Dis <- a_log@beta[3]
+se_Dis <- unname(sum_a_Dis$coefficients[,"Std. Error"])[3]
+
+## Domain Psychoticism
+
+# cargo los datos
+filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_domain_mixed_logistic_model/DomainPsychoticism_mc_PID_domain_mixed_logistic_model.RData")
+load(file= filepath)
+
+# extraigo info
+sum_a_log_Psy <- summary(a_log)
+terms_Psy <- "DomainPsychoticism.norm"
+coeff_Psy <- a_log@beta[3]
+se_Psy <- unname(sum_a_log_Psy$coefficients[,"Std. Error"])[3]
+
+# uno toda la info
+terms <- c(terms_NegAff, terms_Det, terms_Ant, terms_Dis, terms_Psy)
+coeff <- c(coeff_NegAff, coeff_Det, coeff_Ant, coeff_Dis, coeff_Psy)
+se <- c(se_NegAff, se_Det, se_Ant, se_Dis, se_Psy)
+model <- rep("logistic mixed univariate", length(terms))
+
+df.log_mix <- data.frame(terms = terms,
+                      coeff = coeff,
+                      se = se,
+                      model = model)
+
+# uno con el df principal
+df.models <- rbind(df.models, df.log_mix)
 
 # saco la intercept que no es intepretable
 df.models <- df.models %>%
@@ -253,8 +327,8 @@ ggplot(df.models , aes(coeff,fct_rev(terms), color=model)) +
              position=position_dodge(width=0.8)) +
   geom_vline(xintercept= 0, linetype='dashed', color= "black")+
   scale_color_manual(name="Modelos",
-                     values=c("darkgreen","orange", "black", "red", "blue")) +
-  scale_shape_manual(name="Modelos",values=c(17,19, 18, 16, 20)) +
+                     values=c("green","orange", "black", "red", "blue", "brown")) +
+  scale_shape_manual(name="Modelos",values=c(17,19, 18, 16, 20, 15)) +
   scale_x_continuous("Regression coefficient") +
   scale_y_discrete(labels= c(#"age",
                              #"gender",

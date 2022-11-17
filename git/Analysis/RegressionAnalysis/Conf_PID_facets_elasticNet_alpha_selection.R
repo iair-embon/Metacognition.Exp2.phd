@@ -79,6 +79,8 @@ print(fit)
 
 a <- coef(fit)
 
+save(a, file = "git/Data/Regression_Results/Conf_PID_domain_fit_elasticNet.RData")
+
 
 ### now, I perform boostrap to know the CI and the proportion of times that the 
 ### predictor was exactly 0.
@@ -133,7 +135,7 @@ sum(rep_boot$t[,14] == 0)/5000
 save(rep_boot, file = "git/Data/Regression_Results/Conf_PID_domain_Boot_elasticNet.RData")
 
 hist(rep_boot$t[,13])
-mean(rep_boot$t[,5])
+mean(rep_boot$t[,2])
 plot(rep_boot, index = 2)
 plot(rep_boot, index = 12)
 plot(rep_boot, index = 13)
