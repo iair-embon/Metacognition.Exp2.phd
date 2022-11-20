@@ -8,6 +8,8 @@ basename(getwd())
 # library
 library(jtools)
 library(tidyverse)
+library(glmnet)
+library(boot)
 
 ##### vamos con grandiosidad
 
@@ -22,7 +24,7 @@ sum_a <- summary(a)
 term <- "Grandiosity"
 coeff <- unname(sum_a$coefficients[11,"Estimate"])
 se <- unname(sum_a$coefficients[11,"Std. Error"])
-model <- rep("normal", length(terms))
+model <- "normal"
 
 # creo el df que va a guardar todo
 df.models <- data.frame(terms = term,
@@ -41,7 +43,7 @@ sum_a <- summary(a)
 term <- "Grandiosity"
 coeff <- unname(sum_a$coefficients[2,"Estimate"])
 se <- unname(sum_a$coefficients[2,"Std. Error"])
-model <- rep("normal univariate", length(terms))
+model <- "normal univariate"
 
 df.normal <- data.frame(terms = term,
                       coeff = coeff,
@@ -63,7 +65,7 @@ sum_a <- summary(a)
 term <- "Grandiosity"
 coeff <- unname(sum_a$coefficients$mean[11,"Estimate"])
 se <- unname(sum_a$coefficients$mean[11,"Std. Error"])
-model <- rep("beta", length(terms))
+model <- "beta"
 
 df.beta <- data.frame(terms = term,
                         coeff = coeff,
@@ -84,7 +86,7 @@ sum_a <- summary(a)
 term <- "Grandiosity"
 coeff <- unname(sum_a$coefficients$mean[2,"Estimate"])
 se <- unname(sum_a$coefficients$mean[2,"Std. Error"])
-model <- rep("beta univariate", length(terms))
+model <- "beta univariate"
 
 df.beta <- data.frame(terms = term,
                       coeff = coeff,
@@ -94,6 +96,28 @@ df.beta <- data.frame(terms = term,
 # uno con el df principal
 df.models <- rbind(df.models, df.beta)
 
+### reg normal regularizada con elastic net
+
+# cargo los datos
+filepath <- root$find_file("git/Data/Regression_Results/Conf_PID_domain_fit_elasticNet.RData")
+load(file= filepath)
+filepath <- root$find_file("git/Data/Regression_Results/Conf_PID_domain_Boot_elasticNet.RData")
+load(file= filepath)
+
+# extraigo info
+sum_a <- coef(fit)
+term <- "Grandiosity"
+coeff <- sum_a[12]
+se <- sd(rep_boot$t[,12])
+model <- "elastic-net"
+
+df.elastic <- data.frame(terms = term,
+                      coeff = coeff,
+                      se = se,
+                      model = model)
+
+# uno con el df principal
+df.models <- rbind(df.models, df.elastic)
 
 ##### Vamos con ansiedad
 
@@ -108,7 +132,7 @@ sum_a <- summary(a)
 term <- "Anxiousness"
 coeff <- unname(sum_a$coefficients[3,"Estimate"])
 se <- unname(sum_a$coefficients[3,"Std. Error"])
-model <- rep("normal", length(terms))
+model <- "normal"
 
 df.normal <- data.frame(terms = term,
                         coeff = coeff,
@@ -129,7 +153,7 @@ sum_a <- summary(a)
 term <- "Anxiousness"
 coeff <- unname(sum_a$coefficients[2,"Estimate"])
 se <- unname(sum_a$coefficients[2,"Std. Error"])
-model <- rep("normal univariate", length(terms))
+model <- "normal univariate"
 
 df.normal <- data.frame(terms = term,
                         coeff = coeff,
@@ -151,7 +175,7 @@ sum_a <- summary(a)
 term <- "Anxiousness"
 coeff <- unname(sum_a$coefficients$mean[3,"Estimate"])
 se <- unname(sum_a$coefficients$mean[3,"Std. Error"])
-model <- rep("beta", length(terms))
+model <- "beta"
 
 df.beta <- data.frame(terms = term,
                       coeff = coeff,
@@ -172,7 +196,7 @@ sum_a <- summary(a)
 term <- "Anxiousness"
 coeff <- unname(sum_a$coefficients$mean[2,"Estimate"])
 se <- unname(sum_a$coefficients$mean[2,"Std. Error"])
-model <- rep("beta univariate", length(terms))
+model <- "beta univariate"
 
 df.beta <- data.frame(terms = term,
                       coeff = coeff,
@@ -193,7 +217,7 @@ term <- "Anxiousness"
 coeff <- a_log@beta[4]
 sum_a_log <- summary(a_log)
 se <- unname(sum_a_log$coefficients[4,"Std. Error"])
-model <- "logistic mixed"
+model <- "logistic mixed univariate"
 
 # guardo en el df
 df.log_mix <- data.frame(terms = term,
@@ -205,6 +229,50 @@ df.log_mix <- data.frame(terms = term,
 # uno con el df principal
 df.models <- rbind(df.models, df.log_mix)
 
+### reg univariate log mix
+
+# cargo los datos
+filepath <- root$find_file("git/Data/Regression_Results/individual_mc_PID_facets_mixed_logistic_model/Anxiousness_mc_PID_facets_mixed_logistic_model.RData")
+load(file= filepath)
+
+# extraigo info
+term <- "Anxiousness"
+coeff <- a_log@beta[3]
+sum_a_log <- summary(a_log)
+se <- unname(sum_a_log$coefficients[3,"Std. Error"])
+model <- "logistic mixed"
+
+df.beta <- data.frame(terms = term,
+                      coeff = coeff,
+                      se = se,
+                      model = model)
+
+# uno con el df principal
+df.models <- rbind(df.models, df.beta)
+
+### reg normal regularizada con elastic net
+
+# cargo los datos
+filepath <- root$find_file("git/Data/Regression_Results/mc_PID_domain_fit_elasticNet.RData")
+load(file= filepath)
+filepath <- root$find_file("git/Data/Regression_Results/mc_PID_domain_Boot_elasticNet.RData")
+load(file= filepath)
+
+# extraigo info
+sum_a <- coef(fit)
+term <- "Anxiousness"
+coeff <- sum_a[4]
+se <- sd(rep_boot$t[,4])
+model <- "elastic-net"
+
+df.elastic <- data.frame(terms = term,
+                         coeff = coeff,
+                         se = se,
+                         model = model)
+
+# uno con el df principal
+df.models <- rbind(df.models, df.elastic)
+
 ##### se preprocesa para plotear
 
 # saco la intercept que no es intepretable
@@ -213,7 +281,9 @@ df.models <- df.models %>%
                              "normal univariate",
                              "beta",
                              "beta univariate",
-                             "logistic mixed"
+                             "logistic mixed",
+                             "logistic mixed univariate",
+                             "elastic-net"
                              ))
 
 
@@ -224,14 +294,16 @@ ggplot(df.models , aes(coeff, model, color=terms)) + # fct_rev(model)
              position=position_dodge(width=0.4)) +
   geom_vline(xintercept= 0, linetype='dashed', color= "black")+
   scale_color_manual(name="terms",
-                     values=c("darkred", "darkblue")) +
+                     values=c("red", "blue")) +
   scale_shape_manual(name="terms",values=c(17, 19)) + 
   scale_x_continuous("Regression coefficient") +
   scale_y_discrete(labels= c("normal",
                              "normal univariate",
                              "beta",
                              "beta univariate",
-                             "logistic mixed"))+
+                             "logistic mixed",
+                             "logistic mixed univariate",
+                             "elastic-net"))+
   geom_errorbar(aes(xmin= coeff - 2* se,xmax= coeff + 2* se),
                 width=0.1,
                 position=position_dodge(width=0.4), size = 1)+
@@ -248,7 +320,6 @@ ggplot(df.models , aes(coeff, model, color=terms)) + # fct_rev(model)
       axis.text.y = element_text(size = 30),
       axis.title.y = element_blank(),
       axis.title.x = element_text(size = 30))
-
 
 ggsave("git/Figures/Figures/severalModels_Grandiosity_Anxiousness.png", 
        width = 10, height = 6)
