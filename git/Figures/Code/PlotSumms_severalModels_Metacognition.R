@@ -312,9 +312,9 @@ df.models <- df.models %>%
            terms != "gender") %>%
   mutate(terms = fct_relevel(terms, "DomainNegativeAffect.norm",
                              "DomainDetachment.norm",
-                             "DomainAntagonism.norm",
+                             "DomainPsychoticism.norm",
                              "DomainDisinhibition.norm",
-                             "DomainPsychoticism.norm"#,
+                             "DomainAntagonism.norm"#,
                              #"gender",
                              #"age.norm"
                              ))
@@ -332,9 +332,9 @@ ggplot(df.models , aes(coeff,fct_rev(terms), color=model)) +
   scale_x_continuous("Regression coefficient") +
   scale_y_discrete(labels= c(#"age",
                              #"gender",
-                             "Psychoticism",
-                             "Disinhibition",
                              "Antagonism",
+                             "Disinhibition",
+                             "Psychoticism",
                              "Detachment",
                              "Negative Affect"))+
   geom_errorbar(aes(xmin= coeff - 2* se,xmax= coeff + 2* se),
@@ -349,10 +349,10 @@ ggplot(df.models , aes(coeff,fct_rev(terms), color=model)) +
       legend.text =  element_text(size = 20),
       legend.title =  element_blank(),
       panel.background = element_blank(),
-      axis.text.x = element_text(size = 30),
-      axis.text.y = element_text(size = 30),
+      axis.text.x = element_text(size = 20),
+      axis.text.y = element_text(size = 20),
       axis.title.y = element_blank(),
-      axis.title.x = element_text(size = 30))
+      axis.title.x = element_text(size = 20))
 
 
 ggsave("git/Figures/Figures/severalModels_Metacognicion.png", 

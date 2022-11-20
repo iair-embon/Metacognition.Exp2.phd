@@ -209,9 +209,9 @@ df.models <- df.models %>%
            terms != "gender") %>%
   mutate(terms = fct_relevel(terms, "DomainNegativeAffect.norm",
                              "DomainDetachment.norm",
-                             "DomainAntagonism.norm",
+                             "DomainPsychoticism.norm",
                              "DomainDisinhibition.norm",
-                             "DomainPsychoticism.norm"#,
+                             "DomainAntagonism.norm"#,
                              #"gender",
                              #"age.norm"
                              ))
@@ -224,14 +224,14 @@ ggplot(df.models , aes(coeff,fct_rev(terms), color=model)) +
              position=position_dodge(width=0.8)) +
   geom_vline(xintercept= 0, linetype='dashed', color= "black")+
   scale_color_manual(name="Modelos",
-                     values=c("darkgreen","orange", "red", "blue")) +
-  scale_shape_manual(name="Modelos",values=c(17,19, 16, 20)) + 
+                     values=c("green","orange",  "blue", "brown")) +
+  scale_shape_manual(name="Modelos",values=c(17,19, 20, 15)) + 
   scale_x_continuous("Regression coefficient") +
   scale_y_discrete(labels= c(#"age",
                              #"gender",
-                             "Psychoticism",
-                             "Disinhibition",
                              "Antagonism",
+                             "Disinhibition",
+                             "Psychoticism",
                              "Detachment",
                              "Negative Affect"))+
   geom_errorbar(aes(xmin= coeff - 2* se,xmax= coeff + 2* se),
@@ -243,13 +243,13 @@ ggplot(df.models , aes(coeff,fct_rev(terms), color=model)) +
       panel.grid.minor = element_blank(),
       panel.border = element_blank(),
       plot.margin = margin(1, 1,1, 1, "cm"),
-      legend.text =  element_text(size = 20),
+      legend.text =  element_text(size = 19),
       legend.title =  element_blank(),
       panel.background = element_blank(),
-      axis.text.x = element_text(size = 30),
-      axis.text.y = element_text(size = 30),
+      axis.text.x = element_text(size = 19),
+      axis.text.y = element_text(size = 19),
       axis.title.y = element_blank(),
-      axis.title.x = element_text(size = 30))
+      axis.title.x = element_text(size = 19))
 
 
 ggsave("git/Figures/Figures/severalModels_Confidence.png", 
