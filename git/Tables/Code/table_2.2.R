@@ -16,16 +16,16 @@ library(htmlTable)
 
 # calculate mean and sd from each facet
 means <- df_total %>%
-  select(5:29) %>%
+  select(30:34) %>%
   sapply(mean) %>%
   round(digits = 3)
 
 sds <- df_total %>%
-  select(5:29) %>%
+  select(30:34) %>%
   sapply(sd) %>%
   round(digits = 3)
 
-table_2.1 <- data.frame(facet = names(df_total)[5:29], mean = means, sd = sds)
+table_2.1 <- data.frame(facet = names(df_total)[30:34], mean = means, sd = sds)
 
 
 rownames(table_2.1) <- NULL
