@@ -1,18 +1,19 @@
+#########################################
+### Descriptive statistics  domains ##### TAB 2.2
+#########################################
+
+library(dplyr)
+library(ggplot2)
+library(gridExtra)
+library(data.table)
+library(grid)
+
 # data
 ### load mixed logistic regression model 
 root <- rprojroot::is_rstudio_project
 basename(getwd())               
 filepath <- root$find_file("git/Data/df_total_filtered.Rda")
 load(file= filepath)
-
-
-library(dplyr)
-#library(knitr)
-#library(kableExtra)
-library(htmlTable)
-#library(magick)
-#library(webshot)
-#library(htmlwidgets)
 
 # calculate mean and sd from each facet
 means <- df_total %>%
@@ -25,12 +26,23 @@ sds <- df_total %>%
   sapply(sd) %>%
   round(digits = 3)
 
-table_2.1 <- data.frame(facet = names(df_total)[30:34], mean = means, sd = sds)
+table_2.2 <- data.frame(mean = means, sd = sds)
 
+### save the table as png
 
-rownames(table_2.1) <- NULL
+# Set the file path and name
+file_path <- "~/Documents/Investigación/Metacog.Personality/Metacognition.PersonalityTraits/git/Tables/Tables/table_2.2.png"
+# Create the directory if it doesn't exist
+dir.create(dirname(file_path), showWarnings = FALSE)
 
-tabla <- htmlTable(table_2.1, align = "c", rnames = FALSE, 
-                   css.cell = "padding: 10px; font-size: 14px; border: 1px solid black;") 
+# Open the PNG device and specify the file path
+png(file_path, width = 6, height = 5, units = "in", res = 72)
 
-tabla
+# Create the table grob
+p <- tableGrob(table_2.2)
+
+# Draw the table grob
+grid.draw(p)
+
+# Close the device
+dev.off()
