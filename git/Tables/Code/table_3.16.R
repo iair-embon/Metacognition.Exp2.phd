@@ -1,6 +1,6 @@
-##############################################
-### beta Regression Analysis AUROC2 facets ### TAB 3.3
-##############################################
+##################################################
+### beta Regression Analysis confidence facets ### TAB 3.16
+##################################################
 
 require(gtsummary)
 require(dplyr)
@@ -9,7 +9,7 @@ library(webshot2)
 # data
 root <- rprojroot::is_rstudio_project
 basename(getwd())               
-filepath <- root$find_file("git/Data/Regression_Results/mc_PID_facets_Beta_linear_model_escalada.RData")
+filepath <- root$find_file("git/Data/Regression_Results/Conf_PID_facets_Beta_linear_model.RData")
 load(file= filepath)
 
 table1 <- a %>%
@@ -53,4 +53,4 @@ table1 <- a %>%
   add_q() %>%
   bold_p(t = 0.05, q = TRUE) 
 
-gt::gtsave(as_gt(table1), file = "git/Tables/Tables/table_3.3.png")
+gt::gtsave(as_gt(table1), file = "D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Tables/Tables/table_3.16.png")

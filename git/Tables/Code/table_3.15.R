@@ -1,6 +1,6 @@
-#################################################
-### normal Regression Analysis AUROC2 domains ### TAB 3.2
-#################################################
+#####################################################
+### normal Regression Analysis confidence domains ### TAB 3.15
+#####################################################
 
 require(gtsummary)
 require(dplyr)
@@ -9,7 +9,7 @@ library(webshot2)
 # data
 root <- rprojroot::is_rstudio_project
 basename(getwd())               
-filepath <- root$find_file("git/Data/Regression_Results/mc_PID_domain_linear_model.RData")
+filepath <- root$find_file("git/Data/Regression_Results/Conf_PID_domain_linear_model.RData")
 load(file= filepath)
 
 table1 <- a %>%
@@ -34,4 +34,4 @@ table1 <- a %>%
   bold_p(t = 0.05, q = TRUE) %>%
   add_glance_table(include = c(r.squared, adj.r.squared))
 
-gt::gtsave(as_gt(table1), file = "git/Tables/Tables/table_3.2.png")
+gt::gtsave(as_gt(table1), file = "D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Tables/Tables/table_3.15.png")

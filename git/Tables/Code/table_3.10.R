@@ -1,6 +1,6 @@
-##############################################################
-### univariate normal Regression Analysis AUROC2 domains ##### TAB 3.8
-##############################################################
+############################################################
+### univariate beta Regression Analysis AUROC2 domains ##### TAB 3.10
+############################################################
 
 library(ggplot2)
 library(gridExtra)
@@ -9,7 +9,7 @@ library(grid)
 
 # data
 # set the directory where your RData files are located
-setwd("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/individual_mc_PID_domain_linear_model")
+setwd("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/individual_mc_PID_domain_beta_model/escalada")
 
 # list all files in the directory with .RData extension
 files <- list.files(pattern = "\\.RData$")
@@ -25,12 +25,12 @@ for (file in files) {
   
   # run the summary() function and extract the relevant statistics
   model_summary <- summary(a)
-  beta_coef <- model_summary$coefficients[2, 1]
-  std_error <- model_summary$coefficients[2, 2]
-  p_value <- model_summary$coefficients[2, 4]
-  conf_int_lower <- model_summary$coefficients[2, 1] - (1.96 * model_summary$coefficients[2, 2])
-  conf_int_upper <- model_summary$coefficients[2, 1] + (1.96 * model_summary$coefficients[2, 2])
-  r_squared <- summary(a)$r.squared
+  beta_coef <- model_summary$coefficients$mean[2, 1]
+  std_error <- model_summary$coefficients$mean[2, 2]
+  p_value <- model_summary$coefficients$mean[2, 4]
+  conf_int_lower <- model_summary$coefficients$mean[2, 1] - (1.96 * model_summary$coefficients$mean[2, 2])
+  conf_int_upper <- model_summary$coefficients$mean[2, 1] + (1.96 * model_summary$coefficients$mean[2, 2])
+  pseudo.r.squared <- model_summary$pseudo.r.squared
   
   # create a data frame with the summary statistics
   model_summary_df <- data.frame(
@@ -39,7 +39,7 @@ for (file in files) {
     p_value = p_value,
     conf_int_lower = conf_int_lower,
     conf_int_upper = conf_int_upper,
-    r_squared = r_squared
+    pseudo.r.squared = pseudo.r.squared
   )
   
   # set the row name of the data frame to the file name, minus the .RData extension
@@ -50,7 +50,7 @@ for (file in files) {
 }
 
 # Remove the substring ".norm_mc_PID_facets_linear_model" from the row names
-rownames(summary_df) <- gsub("\\.norm_mc_PID_domain_linear_model", "", rownames(summary_df))
+rownames(summary_df) <- gsub("\\.norm_mc_PID_domain_beta_model_escalada", "", rownames(summary_df))
 
 # adjusted p values for fdr
 p_values <- summary_df$p_value
@@ -66,7 +66,7 @@ summary_df <- round(summary_df, digits = 3)
 ### save the data frame as png
 
 # Set the file path and name
-file_path <- "D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Tables/Tables/table_3.8.png"
+file_path <- "D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Tables/Tables/table_3.10.png"
 # Create the directory if it doesn't exist
 dir.create(dirname(file_path), showWarnings = FALSE)
 

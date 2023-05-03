@@ -1,6 +1,6 @@
-#########################################
-### normal Regression Analysis AUROC2 ### TAB 3.1
-#########################################
+################################################
+### normal Regression Analysis AUROC2 facets ### TAB 3.1
+################################################
 
 require(gtsummary)
 require(dplyr)
@@ -54,4 +54,4 @@ table1 <- a %>%
   bold_p(t = 0.05, q = TRUE) %>%
   add_glance_table(include = c(r.squared, adj.r.squared))
 
-gt::gtsave(as_gt(table1), file = "git/Tables/Tables/table_3.1.png")
+gt::gtsave(as_gt(table1), file = "D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Tables/Tables/table_3.1.png")
