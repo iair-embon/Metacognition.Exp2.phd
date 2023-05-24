@@ -1,16 +1,15 @@
-#################################################################
-### univariate normal Regression Analysis confidence facets ##### TAB 3.18
-#################################################################
+##################################################################
+### univariate normal Regression Analysis confidence domains ##### TAB 4.2
+##################################################################
 
 library(ggplot2)
 library(gridExtra)
 library(data.table)
 library(grid)
-library(broom)
 
 # data
 # set the directory where your RData files are located
-setwd("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/individual_Conf_PID_facet_linear_model")
+setwd("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/individual_Conf_PID_domain_linear_model")
 
 # list all files in the directory with .RData extension
 files <- list.files(pattern = "\\.RData$")
@@ -51,7 +50,7 @@ for (file in files) {
 }
 
 # Remove the substring ".norm_mc_PID_facets_linear_model" from the row names
-rownames(summary_df) <- gsub("\\.norm_Conf_PID_facets_linear_model", "", rownames(summary_df))
+rownames(summary_df) <- gsub("\\.norm_Conf_PID_domain_linear_model", "", rownames(summary_df))
 
 # adjusted p values for fdr
 p_values <- summary_df$p_value
@@ -67,12 +66,12 @@ summary_df <- round(summary_df, digits = 3)
 ### save the data frame as png
 
 # Set the file path and name
-file_path <- "D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Tables/Tables/table_3.18.png"
+file_path <- "D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Tables/Tables/table_4.2.png"
 # Create the directory if it doesn't exist
 dir.create(dirname(file_path), showWarnings = FALSE)
 
 # Open the PNG device and specify the file path
-png(file_path, width = 12, height = 8, units = "in", res = 72)
+png(file_path, width = 14, height = 5, units = "in", res = 72)
 
 # Create the table grob
 p <- tableGrob(summary_df)

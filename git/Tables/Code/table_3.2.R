@@ -1,37 +1,84 @@
-#################################################
-### normal Regression Analysis AUROC2 domains ### TAB 3.2
-#################################################
+##############################################################
+### univariate normal Regression Analysis AUROC2 domains ##### TAB 3.2
+##############################################################
 
-require(gtsummary)
-require(dplyr)
-library(webshot2)
+library(ggplot2)
+library(gridExtra)
+library(data.table)
+library(grid)
 
 # data
-root <- rprojroot::is_rstudio_project
-basename(getwd())               
-filepath <- root$find_file("git/Data/Regression_Results/mc_PID_domain_linear_model.RData")
-load(file= filepath)
+# set the directory where your RData files are located
+setwd("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/individual_mc_PID_domain_linear_model")
 
-table1 <- a %>%
-  tbl_regression(
-    intercept = T,
-    pvalue_fun = ~style_pvalue(.x, digits = 3),
-    estimate_fun =  ~style_number (.x, digits = 3),
-    label = list(
-      "(Intercept)" ~ "Intercept",
-      "DomainNegativeAffect.norm" ~ "DomainNegativeAffect.std",
-      "DomainDetachment.norm" ~ "DomainDetachment.std",
-      "DomainAntagonism.norm" ~ "DomainAntagonism.std",
-      "DomainDisinhibition.norm" ~ "DomainDisinhibition.std",
-      "DomainPsychoticism.norm" ~ "DomainPsychoticism.std",
-      "gender" ~ "Gender[m]",
-      "age.norm" ~ "Age.std")
-  ) %>%
-  modify_header(label ~ "") %>%
-  modify_column_unhide(column = std.error) %>%
-  add_global_p() %>%
-  add_q() %>%
-  bold_p(t = 0.05, q = TRUE) %>%
-  add_glance_table(include = c(r.squared, adj.r.squared))
+# list all files in the directory with .RData extension
+files <- list.files(pattern = "\\.RData$")
 
-gt::gtsave(as_gt(table1), file = "git/Tables/Tables/table_3.2.png")
+# create an empty data frame to store the summary statistics
+summary_df <- data.frame()
+
+# loop through each file and load the RData object
+for (file in files) {
+  
+  # load the RData object into memory
+  load(file)
+  
+  # run the summary() function and extract the relevant statistics
+  model_summary <- summary(a)
+  beta_coef <- model_summary$coefficients[2, 1]
+  std_error <- model_summary$coefficients[2, 2]
+  p_value <- model_summary$coefficients[2, 4]
+  conf_int_lower <- model_summary$coefficients[2, 1] - (1.96 * model_summary$coefficients[2, 2])
+  conf_int_upper <- model_summary$coefficients[2, 1] + (1.96 * model_summary$coefficients[2, 2])
+  r_squared <- summary(a)$r.squared
+  
+  # create a data frame with the summary statistics
+  model_summary_df <- data.frame(
+    beta_coef = beta_coef,
+    std_error = std_error,
+    p_value = p_value,
+    conf_int_lower = conf_int_lower,
+    conf_int_upper = conf_int_upper,
+    r_squared = r_squared
+  )
+  
+  # set the row name of the data frame to the file name, minus the .RData extension
+  row.names(model_summary_df) <- sub("\\.RData", "", file)
+  
+  # append the data frame to the summary_df data frame
+  summary_df <- rbind(summary_df, model_summary_df)
+}
+
+# Remove the substring ".norm_mc_PID_facets_linear_model" from the row names
+rownames(summary_df) <- gsub("\\.norm_mc_PID_domain_linear_model", "", rownames(summary_df))
+
+# adjusted p values for fdr
+p_values <- summary_df$p_value
+summary_df$p_adjusted_fdr <- p.adjust(p_values, method = "fdr")
+
+# Print the resulting data frame
+summary_df
+
+# round the values 
+summary_df <- round(summary_df, digits = 3)
+
+
+### save the data frame as png
+
+# Set the file path and name
+file_path <- "D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Tables/Tables/table_3.2.png"
+# Create the directory if it doesn't exist
+dir.create(dirname(file_path), showWarnings = FALSE)
+
+# Open the PNG device and specify the file path
+png(file_path, width = 14, height = 5, units = "in", res = 72)
+
+# Create the table grob
+p <- tableGrob(summary_df)
+
+# Draw the table grob
+grid.draw(p)
+
+# Close the device
+dev.off()
+

@@ -1,5 +1,5 @@
 ################################################################
-### univariate beta Regression Analysis confidence domains ##### TAB 3.21
+### univariate beta Regression Analysis confidence domains ##### TAB 4.4
 ################################################################
 
 library(ggplot2)
@@ -66,7 +66,7 @@ summary_df <- round(summary_df, digits = 3)
 ### save the data frame as png
 
 # Set the file path and name
-file_path <- "D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Tables/Tables/table_3.21.png"
+file_path <- "D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Tables/Tables/table_4.4.png"
 # Create the directory if it doesn't exist
 dir.create(dirname(file_path), showWarnings = FALSE)
 
