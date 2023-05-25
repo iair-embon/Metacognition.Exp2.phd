@@ -1,5 +1,5 @@
 #####################################################################
-### univariate Mixed Logistic Regression Analysis AUROC2 domain ##### TAB 3.11
+### univariate Mixed Logistic Regression Analysis AUROC2 facets ##### TAB 3.12
 #####################################################################
 
 require(gtsummary)
@@ -14,7 +14,7 @@ library(broom)
 
 # data
 # set the directory where your RData files are located
-setwd("~/Documents/Investigación/Metacog.Personality/Metacognition.PersonalityTraits/git/Data/Regression_Results/individual_mc_PID_domain_mixed_logistic_model")
+setwd("~/Documents/Investigación/Metacog.Personality/Metacognition.PersonalityTraits/git/Data/Regression_Results/individual_mc_PID_facets_mixed_logistic_model")
 
 # list all files in the directory with .RData extension
 files <- list.files(pattern = "\\.RData$")
@@ -55,7 +55,7 @@ for (file in files) {
 }
 
 # Remove the substring "_mc_PID_facets_mixed_logistic_model" from the row names
-rownames(summary_df) <- gsub("\\_mc_PID_domain_mixed_logistic_model", "", rownames(summary_df))
+rownames(summary_df) <- gsub("\\_mc_PID_facets_mixed_logistic_model", "", rownames(summary_df))
 
 # adjusted p values for fdr
 p_values <- summary_df$p_value

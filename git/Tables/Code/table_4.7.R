@@ -1,6 +1,6 @@
-####################################################
-### normal Regression Analysis confidence facets ### TAB 3.14
-####################################################
+##################################################
+### beta Regression Analysis confidence facets ### TAB 3.16
+##################################################
 
 require(gtsummary)
 require(dplyr)
@@ -9,7 +9,7 @@ library(webshot2)
 # data
 root <- rprojroot::is_rstudio_project
 basename(getwd())               
-filepath <- root$find_file("git/Data/Regression_Results/Conf_PID_facets_linear_model.RData")
+filepath <- root$find_file("git/Data/Regression_Results/Conf_PID_facets_Beta_linear_model.RData")
 load(file= filepath)
 
 table1 <- a %>%
@@ -50,8 +50,6 @@ table1 <- a %>%
   modify_header(label ~ "") %>%
   modify_column_unhide(column = std.error) %>%
   add_global_p() %>%
-  add_q() %>%
-  bold_p(t = 0.05, q = TRUE) %>%
-  add_glance_table(include = c(r.squared, adj.r.squared))
+  bold_p(t = 0.05) 
 
-gt::gtsave(as_gt(table1), file = "D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Tables/Tables/table_3.14.png")
+gt::gtsave(as_gt(table1), file = "git/Tables/Tables/table_3.16.png")

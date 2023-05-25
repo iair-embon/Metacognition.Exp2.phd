@@ -1,6 +1,6 @@
-##################################################
-### beta Regression Analysis confidence facets ### TAB 3.17
-##################################################
+#####################################################
+### normal Regression Analysis confidence domains ### TAB 4.1
+#####################################################
 
 require(gtsummary)
 require(dplyr)
@@ -9,7 +9,7 @@ library(webshot2)
 # data
 root <- rprojroot::is_rstudio_project
 basename(getwd())               
-filepath <- root$find_file("git/Data/Regression_Results/Conf_PID_domain_Beta_linear_model.RData")
+filepath <- root$find_file("git/Data/Regression_Results/Conf_PID_domain_linear_model.RData")
 load(file= filepath)
 
 table1 <- a %>%
@@ -30,7 +30,7 @@ table1 <- a %>%
   modify_header(label ~ "") %>%
   modify_column_unhide(column = std.error) %>%
   add_global_p() %>%
-  add_q() %>%
-  bold_p(t = 0.05, q = TRUE)
+  bold_p(t = 0.05) %>%
+  add_glance_table(include = c(r.squared, adj.r.squared))
 
-gt::gtsave(as_gt(table1), file = "git/Tables/Tables/table_3.17.png")
+gt::gtsave(as_gt(table1), file = "git/Tables/Tables/table_4.1.png")

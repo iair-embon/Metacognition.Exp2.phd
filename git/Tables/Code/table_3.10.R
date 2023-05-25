@@ -1,15 +1,16 @@
-############################################################
-### univariate beta Regression Analysis AUROC2 domains ##### TAB 3.10
-############################################################
+###########################################################
+### univariate beta Regression Analysis AUROC2 facets ##### TAB 3.10
+###########################################################
 
 library(ggplot2)
 library(gridExtra)
 library(data.table)
 library(grid)
+library(broom)
 
 # data
 # set the directory where your RData files are located
-setwd("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/individual_mc_PID_domain_beta_model/escalada")
+setwd("D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacognition.PersonalityTraits/git/Data/Regression_Results/individual_mc_PID_facets_beta_model/escalada")
 
 # list all files in the directory with .RData extension
 files <- list.files(pattern = "\\.RData$")
@@ -50,7 +51,7 @@ for (file in files) {
 }
 
 # Remove the substring ".norm_mc_PID_facets_linear_model" from the row names
-rownames(summary_df) <- gsub("\\.norm_mc_PID_domain_beta_model_escalada", "", rownames(summary_df))
+rownames(summary_df) <- gsub("\\.norm_mc_PID_facets_beta_model_escalada", "", rownames(summary_df))
 
 # adjusted p values for fdr
 p_values <- summary_df$p_value
@@ -71,7 +72,7 @@ file_path <- "D:/Windows/Descargas/Git_Metacog_Personalidad/Pubilico/Metacogniti
 dir.create(dirname(file_path), showWarnings = FALSE)
 
 # Open the PNG device and specify the file path
-png(file_path, width = 14, height = 5, units = "in", res = 72)
+png(file_path, width = 18, height = 8, units = "in", res = 72)
 
 # Create the table grob
 p <- tableGrob(summary_df)
@@ -81,4 +82,3 @@ grid.draw(p)
 
 # Close the device
 dev.off()
-
