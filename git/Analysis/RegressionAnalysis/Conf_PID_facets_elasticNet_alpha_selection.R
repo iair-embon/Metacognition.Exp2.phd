@@ -79,7 +79,7 @@ print(fit)
 
 a <- coef(fit)
 
-save(a, file = "git/Data/Regression_Results/Conf_PID_domain_fit_elasticNet.RData")
+save(a, file = "git/Data/Regression_Results/Conf_PID_facets_fit_elasticNet_alpha_lambda_loocv.RData")
 
 
 ### now, I perform boostrap to know the CI and the proportion of times that the 
@@ -132,7 +132,7 @@ sum(rep_boot$t[,12] == 0)/5000
 sum(rep_boot$t[,13] == 0)/5000
 sum(rep_boot$t[,14] == 0)/5000
 
-save(rep_boot, file = "git/Data/Regression_Results/Conf_PID_domain_Boot_elasticNet.RData")
+save(rep_boot, file = "git/Data/Regression_Results/Conf_PID_facets_fit_elasticNet_alpha_lambda_loocv.RData")
 
 hist(rep_boot$t[,13])
 mean(rep_boot$t[,2])
