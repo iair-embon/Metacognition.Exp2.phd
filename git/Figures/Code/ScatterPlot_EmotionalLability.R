@@ -1,4 +1,5 @@
 #### regression line and scatter plot
+library(tidyverse)
 
 root <- rprojroot::is_rstudio_project
 basename(getwd())               
@@ -11,15 +12,17 @@ source(root$find_file("git/Analysis/AuxiliaryFunctions/DataFrame_subset.R"))
 d <- DataFrame_subset(df_total)
 
 # figure
-ggplot(d, aes(x=Grandiosity, y=ConfMean)) + 
+
+## Retocado
+ggplot(d, aes(x=EmotionalLability, y=mc)) + 
   geom_point()+
-  geom_smooth(method = "lm",se = FALSE, color = "darkred")+
+  geom_smooth(method = "lm", se = FALSE)+
   geom_ribbon(
-    aes(ymin = predict(lm(ConfMean ~ Grandiosity, data = d), newdata = data.frame(Grandiosity = Grandiosity), interval = "confidence")[, "lwr"],
-        ymax = predict(lm(ConfMean ~ Grandiosity, data = d), newdata = data.frame(Grandiosity = Grandiosity), interval = "confidence")[, "upr"]),
-    fill = "lightpink", alpha = 0.5)+
-  ylab("Confidence") +
-  xlab("Grandiosity") +
+    aes(ymin = predict(lm(mc ~ EmotionalLability, data = d), newdata = data.frame(EmotionalLability = EmotionalLability), interval = "confidence")[, "lwr"],
+        ymax = predict(lm(mc ~ EmotionalLability, data = d), newdata = data.frame(EmotionalLability = EmotionalLability), interval = "confidence")[, "upr"]),
+    fill = "lightblue", alpha = 0.5)+ 
+  ylab("Metacognition") +
+  xlab("Emotional Lability") +
   theme(axis.line = element_line(colour = "black"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
@@ -32,11 +35,13 @@ ggplot(d, aes(x=Grandiosity, y=ConfMean)) +
         axis.title.y = element_text(size = 30))
 
 
-# ggplot(d, aes(x=Grandiosity, y=ConfMean)) + 
+# ## verdadero:
+# 
+# ggplot(d, aes(x=Anxiousness, y=mc)) + 
 #   geom_point()+
 #   geom_smooth(method = "lm")+
-#   ylab("Confidence") +
-#   xlab("Grandiosity") +
+#   ylab("Metacognition") +
+#   xlab("Anxiousness") +
 #   theme(axis.line = element_line(colour = "black"),
 #         panel.grid.major = element_blank(),
 #         panel.grid.minor = element_blank(),
@@ -48,5 +53,7 @@ ggplot(d, aes(x=Grandiosity, y=ConfMean)) +
 #         axis.text.y = element_text(size = 30),
 #         axis.title.y = element_text(size = 30))
 
-ggsave("git/Figures/Figures/scatterPlotGrandiosity.png", 
+
+ggsave("git/Figures/Figures/scatterPlotEmotionalLability.png", 
        width = 10, height = 6)
+
