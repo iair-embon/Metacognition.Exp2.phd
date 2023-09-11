@@ -106,25 +106,16 @@ df.models <- df.models %>%
                              "elastic-net"
                              ))
 
-
-# Define el orden deseado
-#order_new <- c("beta multivariate", "beta univariate", "elastic-net")
-
-# Crea una variable auxiliar para establecer el orden de las filas
-#df.models <- df.models %>%
-#  mutate(model_order = factor(model, levels = order_new))
-
-
 ## plot models
-ggplot(df.models , aes(coeff, model, color=terms)) + 
-  geom_point(aes(shape=terms),size=4, 
+ggplot(df.models , aes(coeff, terms, color=model)) + 
+  geom_point(aes(shape=model),size=4, 
              position=position_dodge(width=0.3)) +
   geom_vline(xintercept= 0, linetype='dashed', color= "black")+
-  scale_color_manual(name="terms",
-                     values=c("darkred", "darkblue")) +
-  scale_shape_manual(name="terms",values=c(17,18)) + 
+  scale_color_manual(name="model",
+                     values=c("darkred", "darkblue", "darkgreen")) +
+  scale_shape_manual(name="model",values=c(17,18,19)) + 
   scale_x_continuous("regression coefficients") +
-  scale_y_discrete(labels = c("beta multivariate", "beta univariate", "elastic-net"), expand = c(0.5, 0)) + # Ajusta el expand
+  scale_y_discrete(labels = c("Anxiousness", "Emotional Lability"), expand = c(1, 0)) + # Ajusta el expand
   geom_errorbar(aes(xmin= coeff - 2* se,xmax= coeff + 2* se),
                 width=0.1,
                 position=position_dodge(width=0.3), size = 1)+
