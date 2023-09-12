@@ -133,5 +133,5 @@ ggplot(df.models , aes(coeff, terms, color=model)) +
       axis.title.y = element_blank(),
       axis.title.x = element_text(size = 15))
 
-ggsave("git/Figures/FiguresPaper/Figure3a.png", 
+ggsave("git/Figures/FiguresPaper/Figure3.png", 
        width = 10, height = 6)
