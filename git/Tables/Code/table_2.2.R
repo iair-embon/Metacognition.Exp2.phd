@@ -3,19 +3,15 @@
 #########################################
 
 library(dplyr)
-library(ggplot2)
-library(gridExtra)
-library(data.table)
-library(grid)
+library(kableExtra)
 
 # data
-### load mixed logistic regression model 
 root <- rprojroot::is_rstudio_project
 basename(getwd())               
 filepath <- root$find_file("git/Data/df_total_filtered.Rda")
 load(file= filepath)
 
-# calculate mean and sd from each facet
+# Calculate the mean and standard deviation for each domain
 means <- df_total %>%
   select(30:34) %>%
   sapply(mean) %>%
@@ -28,21 +24,16 @@ sds <- df_total %>%
 
 table_2.2 <- data.frame(mean = means, sd = sds)
 
-### save the table as png
+# Define the domain names
+domains <- c("Negative Affect", "Detachment", "Antagonism", "Disinhibition", "Psychoticism")  
+rownames(table_2.2) <- domains
 
-# Set the file path and name
+# Create the table using kableExtra 
+table_2.2 <- table_2.2 %>%
+  kable(format = "html") %>%
+  kable_styling(full_width = FALSE, font_size = 15, position = "center") %>%
+  column_spec(1, bold = TRUE)  # Set the first column to bold
+
+# Specify the file path and name
 file_path <- "~/Documents/Investigación/Metacog.Personality/Metacognition.PersonalityTraits/git/Tables/Tables/table_2.2.png"
-# Create the directory if it doesn't exist
-dir.create(dirname(file_path), showWarnings = FALSE)
 
-# Open the PNG device and specify the file path
-png(file_path, width = 6, height = 5, units = "in", res = 72)
-
-# Create the table grob
-p <- tableGrob(table_2.2)
-
-# Draw the table grob
-grid.draw(p)
-
-# Close the device
-dev.off()

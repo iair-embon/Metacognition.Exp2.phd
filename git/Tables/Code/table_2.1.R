@@ -3,10 +3,7 @@
 ########################################
 
 library(dplyr)
-library(ggplot2)
-library(gridExtra)
-library(data.table)
-library(grid)
+library(kableExtra)
 
 # data
 root <- rprojroot::is_rstudio_project
@@ -27,21 +24,42 @@ sds <- df_total %>%
 
 table_2.1 <- data.frame(mean = means, sd = sds)
 
-### save the table as png
+# Define the domain names
+domains <- c("Anhedonia", 
+             "Anxiousness", 
+             "Attention Seeking", 
+             "Callousness",
+             "Deceitfulness",
+             "Depressivity",
+             "Distractibility",
+             "Eccentricity",
+             "Emotional Lability",
+             "Grandiosity",
+             "Hostility",
+             "Impulsivity",
+             "Intimacy Avoidance",
+             "Irresponsibility",
+             "Manipulativeness",
+             "Perceptual Dysregulation",
+             "Perseveration",
+             "Restricted Affectivity",
+             "Rigid Perfectionism",
+             "Risk Taking",
+             "Separation Insecurity",
+             "Submissiveness",
+             "Suspiciousness",
+             "Unusual Beliefs And Experiences",
+             "Withdrawal")
+
+rownames(table_2.1) <- domains
+
+# Create the table using kableExtra 
+table_2.1 <- table_2.1 %>%
+  kable(format = "html") %>%
+  kable_styling(full_width = FALSE, font_size = 15, position = "center") %>%
+  column_spec(1, bold = TRUE)  # Set the first column to bold
+
 
 # Set the file path and name
 file_path <- "~/Documents/Investigación/Metacog.Personality/Metacognition.PersonalityTraits/git/Tables/Tables/table_2.1.png"
-# Create the directory if it doesn't exist
-dir.create(dirname(file_path), showWarnings = FALSE)
 
-# Open the PNG device and specify the file path
-png(file_path, width = 6, height = 8, units = "in", res = 72)
-
-# Create the table grob
-p <- tableGrob(table_2.1)
-
-# Draw the table grob
-grid.draw(p)
-
-# Close the device
-dev.off()
