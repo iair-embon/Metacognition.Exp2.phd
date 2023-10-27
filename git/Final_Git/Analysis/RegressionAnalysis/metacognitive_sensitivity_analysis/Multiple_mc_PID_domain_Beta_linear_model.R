@@ -1,10 +1,8 @@
-##################################################################
-### Beta Linear Regression Analysis Metacognition - PID domain ### 
-##################################################################
+###########################################################################
+### Beta Linear multiple Regression Analysis Metacognition - PID domain ### 
+###########################################################################
 
 library(betareg)
-
-### linear regression model 
 
 root <- rprojroot::is_rstudio_project
 basename(getwd())               
@@ -18,7 +16,7 @@ d <- DataFrame_subset(df_total)
 
 ### preprocessing
 d$age.norm <- (d$age - mean(d$age))/ sd(d$age)
-d$gender <- ifelse(d$gender == "Masculino",1,0)
+d$gender <- ifelse(d$gender == "Male",1,0)
 d$DomainNegativeAffect.norm <- (d$DomainNegativeAffect - mean(d$DomainNegativeAffect))/ sd(d$DomainNegativeAffect)
 d$DomainDetachment.norm <- (d$DomainDetachment - mean(d$DomainDetachment))/ sd(d$DomainDetachment)
 d$DomainAntagonism.norm <- (d$DomainAntagonism - mean(d$DomainAntagonism))/ sd(d$DomainAntagonism)

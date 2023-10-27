@@ -4,7 +4,6 @@
 
 library (betareg)
 
-### linear regression model 
 root <- rprojroot::is_rstudio_project
 basename(getwd())               
 
@@ -17,7 +16,7 @@ d <- DataFrame_subset(df_total)
 
 ### preprocessing
 d$age.norm <- (d$age - mean(d$age))/ sd(d$age)
-d$gender <- ifelse(d$gender == "Masculino",1,0)
+d$gender <- ifelse(d$gender == "Male",1,0)
 d$DomainNegativeAffect.norm <- (d$DomainNegativeAffect - mean(d$DomainNegativeAffect))/ sd(d$DomainNegativeAffect)
 d$DomainDetachment.norm <- (d$DomainDetachment - mean(d$DomainDetachment))/ sd(d$DomainDetachment)
 d$DomainAntagonism.norm <- (d$DomainAntagonism - mean(d$DomainAntagonism))/ sd(d$DomainAntagonism)
@@ -40,7 +39,7 @@ vec_variables_values <- list(d$DomainNegativeAffect.norm,
 
 
 
-# corro el modelo
+# run model
 for (i in 1:length(vec_variables_string)) {
   a <- betareg(ConfMean.norm ~ vec_variables_values[[i]] + 
             age.norm + 

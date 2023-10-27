@@ -1,10 +1,8 @@
-###############################################################
-### Beta Linear Regression Analysis Confidence - PID domain ### 
-###############################################################
+########################################################################
+### Beta Multiple Linear Regression Analysis Confidence - PID domain ### 
+########################################################################
 
 library (betareg)
-
-### linear regression model 
 
 root <- rprojroot::is_rstudio_project
 basename(getwd())               
@@ -18,7 +16,7 @@ d <- DataFrame_subset(df_total)
 
 ### preprocessing
 d$age.norm <- (d$age - mean(d$age))/ sd(d$age)
-d$gender <- ifelse(d$gender == "Masculino",1,0)
+d$gender <- ifelse(d$gender == "Male",1,0)
 d$DomainNegativeAffect.norm <- (d$DomainNegativeAffect - mean(d$DomainNegativeAffect))/ sd(d$DomainNegativeAffect)
 d$DomainDetachment.norm <- (d$DomainDetachment - mean(d$DomainDetachment))/ sd(d$DomainDetachment)
 d$DomainAntagonism.norm <- (d$DomainAntagonism - mean(d$DomainAntagonism))/ sd(d$DomainAntagonism)
@@ -26,7 +24,7 @@ d$DomainDisinhibition.norm <- (d$DomainDisinhibition - mean(d$DomainDisinhibitio
 d$DomainPsychoticism.norm <- (d$DomainPsychoticism - mean(d$DomainPsychoticism))/ sd(d$DomainPsychoticism)
 d$ConfMean.norm <- (d$ConfMean - 1)/3
 
-# corro el modelo
+# run model
 a=betareg(ConfMean.norm ~ DomainNegativeAffect.norm+
        DomainDetachment.norm+
        DomainAntagonism.norm+

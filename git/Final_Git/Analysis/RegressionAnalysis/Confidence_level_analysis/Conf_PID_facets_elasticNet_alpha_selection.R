@@ -18,7 +18,7 @@ source(root$find_file("git/Analysis/AuxiliaryFunctions/DataFrame_subset.R"))
 d <- DataFrame_subset(df_total)
 
 ### preprocessing
-d$gender <- ifelse(d$gender == "Masculino",1,0)
+d$gender <- ifelse(d$gender == "Male",1,0)
 
 # transforming the df to a matrix, without a few variables that don't matter
 d_caret <- d %>%
@@ -125,7 +125,7 @@ rep_boot <- boot(
     ConfMean = d$ConfMean
   )
 
-boot.ci(rep_boot, index = 12) # se puede ir variando el index
+boot.ci(rep_boot, index = 12)
 
 # probability of 0 (page 154, Statistical learning with sparsity... Hastie)
 sum(rep_boot$t[,12] == 0)/5000

@@ -1,10 +1,8 @@
-##################################################################
-### Beta Linear Regression Analysis Metacognition - PID facets ### 
-##################################################################
+########################################################################
+### Beta Multiple Linear Regression Analysis Confidence - PID facets ### 
+########################################################################
 
 library (betareg)
-
-### linear regression model 
 
 root <- rprojroot::is_rstudio_project
 basename(getwd())               
@@ -17,7 +15,7 @@ source(root$find_file("git/Analysis/AuxiliaryFunctions/DataFrame_subset.R"))
 d <- DataFrame_subset(df_total)
 
 ### preprocessing
-d$gender <- ifelse(d$gender == "Masculino",1,0)
+d$gender <- ifelse(d$gender == "Male",1,0)
 
 normalized_fun <- function(vec){
   vec.norm <- (vec - mean(vec) )/ sd(vec)
@@ -50,11 +48,10 @@ d$Submissiveness.norm <- normalized_fun(d$Submissiveness)
 d$Suspiciousness.norm <- normalized_fun(d$Suspiciousness)
 d$UnusualBeliefsAndExperiences.norm <- normalized_fun(d$UnusualBeliefsAndExperiences)
 d$Withdrawal.norm <- normalized_fun(d$Withdrawal)
-d$mc.norm <- (d$mc - 0.5) *2
+d$ConfMean.norm <- (d$ConfMean - 1)/3
 
-
-# corro el modelo
-a=betareg(mc.norm ~ Anhedonia.norm +
+# run model
+a=betareg(ConfMean.norm ~ Anhedonia.norm +
        Anxiousness.norm +
        AttentionSeeking.norm +
        Callousness.norm +
@@ -85,4 +82,4 @@ a=betareg(mc.norm ~ Anhedonia.norm +
      data = d) 
 summary(a)
 
-save(a, file = "git/Data/Regression_Results/mc_PID_facets_Beta_linear_model_escalada.RData")
+save(a, file = "git/Data/Regression_Results/Conf_PID_facets_Beta_linear_model.RData")

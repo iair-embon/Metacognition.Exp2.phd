@@ -18,7 +18,7 @@ source(root$find_file("git/Analysis/AuxiliaryFunctions/DataFrame_subset.R"))
 d <- DataFrame_subset(df_total)
 
 ### preprocessing
-d$gender <- ifelse(d$gender == "Masculino",1,0)
+d$gender <- ifelse(d$gender == "Male",1,0)
 
 # transforming the df to a matrix, without a few variables that don't matter
 d_caret <- d %>%
