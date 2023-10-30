@@ -8,11 +8,11 @@ root <- rprojroot::is_rstudio_project
 basename(getwd())               
 
 ####### data frame with filters already applied
-filepath <- root$find_file("git/Data/df_total_filtered.Rda")
+filepath <- root$find_file("git/Final_Git/Data/df_total_filtered.Rda")
 load(file= filepath)
 
 source(root$find_file("git/Analysis/AuxiliaryFunctions/DataFrame_subset.R"))
-d <- DataFrame_subset(df_total)
+d <- DataFrame_subset(df_total_filtered)
 
 ### preprocessing
 d$gender <- ifelse(d$gender == "Male",1,0)
@@ -83,3 +83,56 @@ a=betareg(ConfMean.norm ~ Anhedonia.norm +
 summary(a)
 
 save(a, file = "git/Data/Regression_Results/Conf_PID_facets_Beta_linear_model.RData")
+
+
+### power analysis based on simulations
+
+# Define parameters for simulation
+n_simulations <- 1000  # Number of simulations
+effect_size <- 0.1  # Specify the effect size
+sample_size <- 224
+
+response_data <- function(sample_size = 224){
+  # Set the true coefficients
+  true_coefficients <- c(intercept = 0.5, Anhedonia.norm = -0.1)
+  
+  # Simulate predictor variable(s)
+  Anhedonia.norm <- rnorm(sample_size)
+  
+  # Generate a linear predictor
+  linear_predictor <- true_coefficients["intercept"] + true_coefficients["Anhedonia.norm"] * Anhedonia.norm
+  
+  # Transform the linear predictor to ensure it's within (0, 1)
+  mu_sim <- plogis(linear_predictor)
+  var_sim <- 5 ################ CAMBIAR LA VARIANZA
+  alpha <- ((1 - mu_sim) / var_sim - 1 / mu_sim) * mu_sim ^ 2
+  beta <- alpha * (1 / mu_sim - 1)
+  # Simulate response variable (the dependent variable)
+  response_variable <- rbeta(sample_size, 
+                             shape1 = alpha,
+                             shape2 = beta)
+  
+  # Create a data frame for the simulated data
+  simulated_data <- data.frame(Anhedonia.norm, response_variable)
+  
+  return(simulated_data)
+} 
+
+# Initialize a vector to store results
+power_results <- numeric(n_simulations)
+
+for (i in 1:n_simulations) {
+  # Simulate data based on the DGP with the specified effect size
+  
+  
+  # Fit the beta regression model to the simulated data
+  simulated_model <- betareg(response_variable ~ Anhedonia.norm, data = simulated_data)
+  
+  # Test for significance and store the result in the power_results vector
+  power_results[i] <- ifelse(p_value < 0.05, 1, 0)
+}
+
+# Calculate power as the proportion of significant results
+power <- mean(power_results)
+
+
